@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1275,19 +1276,18 @@ export type ContactCardWhereUniqueInput = {
 
 export type ContactPage = Node & {
   __typename?: 'ContactPage';
-  content?: Maybe<ContactPagecontentUnion>;
+  content: Array<ContactPagecontentUnion>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
   /** User that created this document */
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<ContactPage>;
-  heading: Scalars['String'];
   /** List of ContactPage versions */
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
-  person?: Maybe<ContactPagepersonUnion>;
+  person: Array<ContactCard>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -1296,6 +1296,7 @@ export type ContactPage = Node & {
   slug?: Maybe<Scalars['String']>;
   /** System stage field */
   stage: Stage;
+  title: Scalars['String'];
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
@@ -1304,8 +1305,13 @@ export type ContactPage = Node & {
 
 
 export type ContactPageContentArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1330,8 +1336,15 @@ export type ContactPageHistoryArgs = {
 
 
 export type ContactPagePersonArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<ContactCardOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ContactCardWhereInput>;
 };
 
 
@@ -1376,11 +1389,11 @@ export type ContactPageConnection = {
 };
 
 export type ContactPageCreateInput = {
-  content?: InputMaybe<ContactPagecontentUnionCreateOneInlineInput>;
+  content?: InputMaybe<ContactPagecontentUnionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  heading: Scalars['String'];
-  person?: InputMaybe<ContactPagepersonUnionCreateOneInlineInput>;
+  person?: InputMaybe<ContactCardCreateManyInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
+  title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1417,10 +1430,10 @@ export type ContactPageManyWhereInput = {
   OR?: InputMaybe<Array<ContactPageWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  /** All values in which the modular component is connected to the given models */
-  content?: InputMaybe<ContactPagecontentUnionWhereInput>;
   /** All values in which the union is empty. */
   content_empty?: InputMaybe<Scalars['Boolean']>;
+  /** Matches if the modular component contains at least one connection to the item provided to the filter */
+  content_some?: InputMaybe<ContactPagecontentUnionWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1440,25 +1453,6 @@ export type ContactPageManyWhereInput = {
   documentInStages_every?: InputMaybe<ContactPageWhereStageInput>;
   documentInStages_none?: InputMaybe<ContactPageWhereStageInput>;
   documentInStages_some?: InputMaybe<ContactPageWhereStageInput>;
-  heading?: InputMaybe<Scalars['String']>;
-  /** All values containing the given string. */
-  heading_contains?: InputMaybe<Scalars['String']>;
-  /** All values ending with the given string. */
-  heading_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are contained in given list. */
-  heading_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  heading_not?: InputMaybe<Scalars['String']>;
-  /** All values not containing the given string. */
-  heading_not_contains?: InputMaybe<Scalars['String']>;
-  /** All values not ending with the given string */
-  heading_not_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are not contained in given list. */
-  heading_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** All values not starting with the given string. */
-  heading_not_starts_with?: InputMaybe<Scalars['String']>;
-  /** All values starting with the given string. */
-  heading_starts_with?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -1478,10 +1472,9 @@ export type ContactPageManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  /** All values in which the modular component is connected to the given models */
-  person?: InputMaybe<ContactPagepersonUnionWhereInput>;
-  /** All values in which the union is empty. */
-  person_empty?: InputMaybe<Scalars['Boolean']>;
+  person_every?: InputMaybe<ContactCardWhereInput>;
+  person_none?: InputMaybe<ContactCardWhereInput>;
+  person_some?: InputMaybe<ContactCardWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1520,6 +1513,25 @@ export type ContactPageManyWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  title_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  title_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  title_starts_with?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1541,23 +1553,23 @@ export type ContactPageManyWhereInput = {
 export enum ContactPageOrderByInput {
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
-  HeadingAsc = 'heading_ASC',
-  HeadingDesc = 'heading_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
   UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type ContactPageUpdateInput = {
-  content?: InputMaybe<ContactPagecontentUnionUpdateOneInlineInput>;
-  heading?: InputMaybe<Scalars['String']>;
-  person?: InputMaybe<ContactPagepersonUnionUpdateOneInlineInput>;
+  content?: InputMaybe<ContactPagecontentUnionUpdateManyInlineInput>;
+  person?: InputMaybe<ContactCardUpdateManyInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type ContactPageUpdateManyInlineInput = {
@@ -1578,7 +1590,7 @@ export type ContactPageUpdateManyInlineInput = {
 };
 
 export type ContactPageUpdateManyInput = {
-  heading?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type ContactPageUpdateManyWithNestedWhereInput = {
@@ -1640,10 +1652,10 @@ export type ContactPageWhereInput = {
   OR?: InputMaybe<Array<ContactPageWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  /** All values in which the modular component is connected to the given models */
-  content?: InputMaybe<ContactPagecontentUnionWhereInput>;
   /** All values in which the union is empty. */
   content_empty?: InputMaybe<Scalars['Boolean']>;
+  /** Matches if the modular component contains at least one connection to the item provided to the filter */
+  content_some?: InputMaybe<ContactPagecontentUnionWhereInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1663,25 +1675,6 @@ export type ContactPageWhereInput = {
   documentInStages_every?: InputMaybe<ContactPageWhereStageInput>;
   documentInStages_none?: InputMaybe<ContactPageWhereStageInput>;
   documentInStages_some?: InputMaybe<ContactPageWhereStageInput>;
-  heading?: InputMaybe<Scalars['String']>;
-  /** All values containing the given string. */
-  heading_contains?: InputMaybe<Scalars['String']>;
-  /** All values ending with the given string. */
-  heading_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are contained in given list. */
-  heading_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  heading_not?: InputMaybe<Scalars['String']>;
-  /** All values not containing the given string. */
-  heading_not_contains?: InputMaybe<Scalars['String']>;
-  /** All values not ending with the given string */
-  heading_not_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are not contained in given list. */
-  heading_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** All values not starting with the given string. */
-  heading_not_starts_with?: InputMaybe<Scalars['String']>;
-  /** All values starting with the given string. */
-  heading_starts_with?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -1701,10 +1694,9 @@ export type ContactPageWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  /** All values in which the modular component is connected to the given models */
-  person?: InputMaybe<ContactPagepersonUnionWhereInput>;
-  /** All values in which the union is empty. */
-  person_empty?: InputMaybe<Scalars['Boolean']>;
+  person_every?: InputMaybe<ContactCardWhereInput>;
+  person_none?: InputMaybe<ContactCardWhereInput>;
+  person_some?: InputMaybe<ContactCardWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1743,6 +1735,25 @@ export type ContactPageWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  title_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  title_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  title_starts_with?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1879,84 +1890,6 @@ export type ContactPagecontentUnionWhereUniqueInput = {
   Heading?: InputMaybe<HeadingWhereUniqueInput>;
   Image?: InputMaybe<ImageWhereUniqueInput>;
   Text?: InputMaybe<TextWhereUniqueInput>;
-};
-
-export type ContactPagepersonUnion = ContactCard;
-
-export type ContactPagepersonUnionConnectInput = {
-  ContactCard?: InputMaybe<ContactCardConnectInput>;
-};
-
-export type ContactPagepersonUnionCreateInput = {
-  ContactCard?: InputMaybe<ContactCardCreateInput>;
-};
-
-export type ContactPagepersonUnionCreateManyInlineInput = {
-  /** Create and connect multiple existing ContactPagepersonUnion documents */
-  create?: InputMaybe<Array<ContactPagepersonUnionCreateInput>>;
-};
-
-export type ContactPagepersonUnionCreateOneInlineInput = {
-  /** Create and connect one ContactPagepersonUnion document */
-  create?: InputMaybe<ContactPagepersonUnionCreateInput>;
-};
-
-export type ContactPagepersonUnionCreateWithPositionInput = {
-  ContactCard?: InputMaybe<ContactCardCreateWithPositionInput>;
-};
-
-export type ContactPagepersonUnionUpdateInput = {
-  ContactCard?: InputMaybe<ContactCardUpdateInput>;
-};
-
-export type ContactPagepersonUnionUpdateManyInlineInput = {
-  /** Create and connect multiple ContactPagepersonUnion component instances */
-  create?: InputMaybe<Array<ContactPagepersonUnionCreateWithPositionInput>>;
-  /** Delete multiple ContactPagepersonUnion documents */
-  delete?: InputMaybe<Array<ContactPagepersonUnionWhereUniqueInput>>;
-  /** Update multiple ContactPagepersonUnion component instances */
-  update?: InputMaybe<Array<ContactPagepersonUnionUpdateWithNestedWhereUniqueAndPositionInput>>;
-  /** Upsert multiple ContactPagepersonUnion component instances */
-  upsert?: InputMaybe<Array<ContactPagepersonUnionUpsertWithNestedWhereUniqueAndPositionInput>>;
-};
-
-export type ContactPagepersonUnionUpdateManyWithNestedWhereInput = {
-  ContactCard?: InputMaybe<ContactCardUpdateManyWithNestedWhereInput>;
-};
-
-export type ContactPagepersonUnionUpdateOneInlineInput = {
-  /** Create and connect one ContactPagepersonUnion document */
-  create?: InputMaybe<ContactPagepersonUnionCreateInput>;
-  /** Delete currently connected ContactPagepersonUnion document */
-  delete?: InputMaybe<Scalars['Boolean']>;
-  /** Update single ContactPagepersonUnion document */
-  update?: InputMaybe<ContactPagepersonUnionUpdateWithNestedWhereUniqueInput>;
-  /** Upsert single ContactPagepersonUnion document */
-  upsert?: InputMaybe<ContactPagepersonUnionUpsertWithNestedWhereUniqueInput>;
-};
-
-export type ContactPagepersonUnionUpdateWithNestedWhereUniqueAndPositionInput = {
-  ContactCard?: InputMaybe<ContactCardUpdateWithNestedWhereUniqueAndPositionInput>;
-};
-
-export type ContactPagepersonUnionUpdateWithNestedWhereUniqueInput = {
-  ContactCard?: InputMaybe<ContactCardUpdateWithNestedWhereUniqueInput>;
-};
-
-export type ContactPagepersonUnionUpsertWithNestedWhereUniqueAndPositionInput = {
-  ContactCard?: InputMaybe<ContactCardUpsertWithNestedWhereUniqueAndPositionInput>;
-};
-
-export type ContactPagepersonUnionUpsertWithNestedWhereUniqueInput = {
-  ContactCard?: InputMaybe<ContactCardUpsertWithNestedWhereUniqueInput>;
-};
-
-export type ContactPagepersonUnionWhereInput = {
-  ContactCard?: InputMaybe<ContactCardWhereInput>;
-};
-
-export type ContactPagepersonUnionWhereUniqueInput = {
-  ContactCard?: InputMaybe<ContactCardWhereUniqueInput>;
 };
 
 export enum DocumentFileTypes {
@@ -4038,6 +3971,7 @@ export type HeadingWhereUniqueInput = {
 
 export type Image = {
   __typename?: 'Image';
+  altText: Scalars['String'];
   /** The unique identifier */
   id: Scalars['ID'];
   image?: Maybe<Asset>;
@@ -4069,6 +4003,7 @@ export type ImageConnection = {
 };
 
 export type ImageCreateInput = {
+  altText: Scalars['String'];
   image?: InputMaybe<AssetCreateOneInlineInput>;
 };
 
@@ -4119,6 +4054,25 @@ export type ImageManyWhereInput = {
   OR?: InputMaybe<Array<ImageWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  altText?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  altText_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  altText_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  altText_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  altText_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  altText_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  altText_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  altText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  altText_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  altText_starts_with?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -4142,6 +4096,8 @@ export type ImageManyWhereInput = {
 };
 
 export enum ImageOrderByInput {
+  AltTextAsc = 'altText_ASC',
+  AltTextDesc = 'altText_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC'
 }
@@ -4258,6 +4214,7 @@ export type ImageTransformationInput = {
 };
 
 export type ImageUpdateInput = {
+  altText?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<AssetUpdateOneInlineInput>;
 };
 
@@ -4273,8 +4230,7 @@ export type ImageUpdateManyInlineInput = {
 };
 
 export type ImageUpdateManyInput = {
-  /** No fields in updateMany data input */
-  _?: InputMaybe<Scalars['String']>;
+  altText?: InputMaybe<Scalars['String']>;
 };
 
 export type ImageUpdateManyWithNestedWhereInput = {
@@ -4344,6 +4300,25 @@ export type ImageWhereInput = {
   OR?: InputMaybe<Array<ImageWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  altText?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  altText_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  altText_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  altText_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  altText_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  altText_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  altText_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  altText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  altText_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  altText_starts_with?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -8854,3 +8829,11 @@ export enum _SystemDateTimeFieldVariation {
   Combined = 'combined',
   Localization = 'localization'
 }
+
+export type Get_ContactpageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Get_ContactpageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPage', slug?: string | null, title: string, content: Array<{ __typename?: 'Heading', heading?: string | null } | { __typename?: 'Image', image?: { __typename?: 'Asset', url: string } | null } | { __typename?: 'Text', text?: { __typename?: 'RichText', text: string } | null }>, person: Array<{ __typename?: 'ContactCard', location: string, name: string, phone?: string | null, stage: Stage, title: string, email: string, image?: { __typename?: 'Asset', url: string } | null }> } | null };
+
+
+export const Get_ContactpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_CONTACTPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contactPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"contacttest","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"person"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"stage"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_ContactpageQuery, Get_ContactpageQueryVariables>;
