@@ -1,7 +1,7 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { Get_ContactpageQuery } from "../../gql/graphql";
-import ContactCard from "./ContactCard";
+import { ContactCard, Get_ContactpageQuery } from "../gql/graphql";
+import ContactCardComp from "../components/ContactCard/ContactCardComp";
 
 function ContactPage() {
   // Use the `useQuery` hook to make a query to the API
@@ -13,6 +13,7 @@ query GET_CONTACTPAGE {
         image {
           url
         }
+        altText
       }
       ... on Text {
         text {
@@ -24,7 +25,7 @@ query GET_CONTACTPAGE {
       }
     }
     slug
-    person {
+    contact {
       location
       name
       phone
@@ -40,18 +41,16 @@ query GET_CONTACTPAGE {
 }
 `);
   const { data } = useQuery<Get_ContactpageQuery>(GET_CONTACTPAGE);
-
   return (
     <main>
       <article>
         <h1>{data?.contactPage?.title}</h1>
+        <section>
           {data?.contactPage?.content?.map((content) => {
             if (content?.__typename === "Image") {
-              return (
-                <img src={content?.image?.url} alt={content?.image?.url} />
-              );
+              return <img src={content?.image?.url} alt={content?.altText} />;
             }
-            if (content?.__typename === "Text") { 
+            if (content?.__typename === "Text") {
               return <p>{content?.text?.text}</p>;
             }
             if (content?.__typename === "Heading") {
@@ -59,17 +58,15 @@ query GET_CONTACTPAGE {
             }
             return null;
           })}
-        
+        </section>
         <section>
-          {data?.contactPage?.person?.map((person) => {
-            return <ContactCard person={person} />; 
-          })
-          }
+          {data?.contactPage?.contact?.map((contact) => {
+            return <ContactCardComp contact={contact as ContactCard} />;
+          })}
         </section>
       </article>
     </main>
-      
   );
 }
- 
+
 export default ContactPage;

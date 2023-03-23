@@ -1276,6 +1276,7 @@ export type ContactCardWhereUniqueInput = {
 
 export type ContactPage = Node & {
   __typename?: 'ContactPage';
+  contact: Array<ContactCard>;
   content: Array<ContactPagecontentUnion>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -1287,7 +1288,6 @@ export type ContactPage = Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
-  person: Array<ContactCard>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -1301,6 +1301,19 @@ export type ContactPage = Node & {
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
+};
+
+
+export type ContactPageContactArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<ContactCardOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ContactCardWhereInput>;
 };
 
 
@@ -1332,19 +1345,6 @@ export type ContactPageHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
-};
-
-
-export type ContactPagePersonArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
-  last?: InputMaybe<Scalars['Int']>;
-  locales?: InputMaybe<Array<Locale>>;
-  orderBy?: InputMaybe<ContactCardOrderByInput>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<ContactCardWhereInput>;
 };
 
 
@@ -1389,9 +1389,9 @@ export type ContactPageConnection = {
 };
 
 export type ContactPageCreateInput = {
+  contact?: InputMaybe<ContactCardCreateManyInlineInput>;
   content?: InputMaybe<ContactPagecontentUnionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  person?: InputMaybe<ContactCardCreateManyInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -1430,6 +1430,9 @@ export type ContactPageManyWhereInput = {
   OR?: InputMaybe<Array<ContactPageWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  contact_every?: InputMaybe<ContactCardWhereInput>;
+  contact_none?: InputMaybe<ContactCardWhereInput>;
+  contact_some?: InputMaybe<ContactCardWhereInput>;
   /** All values in which the union is empty. */
   content_empty?: InputMaybe<Scalars['Boolean']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
@@ -1472,9 +1475,6 @@ export type ContactPageManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  person_every?: InputMaybe<ContactCardWhereInput>;
-  person_none?: InputMaybe<ContactCardWhereInput>;
-  person_some?: InputMaybe<ContactCardWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1566,8 +1566,8 @@ export enum ContactPageOrderByInput {
 }
 
 export type ContactPageUpdateInput = {
+  contact?: InputMaybe<ContactCardUpdateManyInlineInput>;
   content?: InputMaybe<ContactPagecontentUnionUpdateManyInlineInput>;
-  person?: InputMaybe<ContactCardUpdateManyInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -1652,6 +1652,9 @@ export type ContactPageWhereInput = {
   OR?: InputMaybe<Array<ContactPageWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  contact_every?: InputMaybe<ContactCardWhereInput>;
+  contact_none?: InputMaybe<ContactCardWhereInput>;
+  contact_some?: InputMaybe<ContactCardWhereInput>;
   /** All values in which the union is empty. */
   content_empty?: InputMaybe<Scalars['Boolean']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
@@ -1694,9 +1697,6 @@ export type ContactPageWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  person_every?: InputMaybe<ContactCardWhereInput>;
-  person_none?: InputMaybe<ContactCardWhereInput>;
-  person_some?: InputMaybe<ContactCardWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2286,7 +2286,7 @@ export type EventLocationWhereUniqueInput = {
 
 export type EventPage = Node & {
   __typename?: 'EventPage';
-  contact?: Maybe<EventPagecontactUnion>;
+  contact: Array<ContactCard>;
   content: Array<EventPagecontentUnion>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -2317,8 +2317,15 @@ export type EventPage = Node & {
 
 
 export type EventPageContactArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<ContactCardOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ContactCardWhereInput>;
 };
 
 
@@ -2401,7 +2408,7 @@ export type EventPageConnection = {
 
 export type EventPageCreateInput = {
   clfjnomxw00we01ul0xn13otw?: InputMaybe<EventSignupCreateManyInlineInput>;
-  contact?: InputMaybe<EventPagecontactUnionCreateOneInlineInput>;
+  contact?: InputMaybe<ContactCardCreateManyInlineInput>;
   content?: InputMaybe<EventPagecontentUnionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date: Scalars['DateTime'];
@@ -2444,10 +2451,9 @@ export type EventPageManyWhereInput = {
   OR?: InputMaybe<Array<EventPageWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  /** All values in which the modular component is connected to the given models */
-  contact?: InputMaybe<EventPagecontactUnionWhereInput>;
-  /** All values in which the union is empty. */
-  contact_empty?: InputMaybe<Scalars['Boolean']>;
+  contact_every?: InputMaybe<ContactCardWhereInput>;
+  contact_none?: InputMaybe<ContactCardWhereInput>;
+  contact_some?: InputMaybe<ContactCardWhereInput>;
   /** All values in which the union is empty. */
   content_empty?: InputMaybe<Scalars['Boolean']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
@@ -2599,7 +2605,7 @@ export enum EventPageOrderByInput {
 
 export type EventPageUpdateInput = {
   clfjnomxw00we01ul0xn13otw?: InputMaybe<EventSignupUpdateManyInlineInput>;
-  contact?: InputMaybe<EventPagecontactUnionUpdateOneInlineInput>;
+  contact?: InputMaybe<ContactCardUpdateManyInlineInput>;
   content?: InputMaybe<EventPagecontentUnionUpdateManyInlineInput>;
   date?: InputMaybe<Scalars['DateTime']>;
   eventId?: InputMaybe<Scalars['Int']>;
@@ -2688,10 +2694,9 @@ export type EventPageWhereInput = {
   OR?: InputMaybe<Array<EventPageWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  /** All values in which the modular component is connected to the given models */
-  contact?: InputMaybe<EventPagecontactUnionWhereInput>;
-  /** All values in which the union is empty. */
-  contact_empty?: InputMaybe<Scalars['Boolean']>;
+  contact_every?: InputMaybe<ContactCardWhereInput>;
+  contact_none?: InputMaybe<ContactCardWhereInput>;
+  contact_some?: InputMaybe<ContactCardWhereInput>;
   /** All values in which the union is empty. */
   content_empty?: InputMaybe<Scalars['Boolean']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
@@ -2842,84 +2847,6 @@ export type EventPageWhereStageInput = {
 export type EventPageWhereUniqueInput = {
   eventId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['ID']>;
-};
-
-export type EventPagecontactUnion = ContactCard;
-
-export type EventPagecontactUnionConnectInput = {
-  ContactCard?: InputMaybe<ContactCardConnectInput>;
-};
-
-export type EventPagecontactUnionCreateInput = {
-  ContactCard?: InputMaybe<ContactCardCreateInput>;
-};
-
-export type EventPagecontactUnionCreateManyInlineInput = {
-  /** Create and connect multiple existing EventPagecontactUnion documents */
-  create?: InputMaybe<Array<EventPagecontactUnionCreateInput>>;
-};
-
-export type EventPagecontactUnionCreateOneInlineInput = {
-  /** Create and connect one EventPagecontactUnion document */
-  create?: InputMaybe<EventPagecontactUnionCreateInput>;
-};
-
-export type EventPagecontactUnionCreateWithPositionInput = {
-  ContactCard?: InputMaybe<ContactCardCreateWithPositionInput>;
-};
-
-export type EventPagecontactUnionUpdateInput = {
-  ContactCard?: InputMaybe<ContactCardUpdateInput>;
-};
-
-export type EventPagecontactUnionUpdateManyInlineInput = {
-  /** Create and connect multiple EventPagecontactUnion component instances */
-  create?: InputMaybe<Array<EventPagecontactUnionCreateWithPositionInput>>;
-  /** Delete multiple EventPagecontactUnion documents */
-  delete?: InputMaybe<Array<EventPagecontactUnionWhereUniqueInput>>;
-  /** Update multiple EventPagecontactUnion component instances */
-  update?: InputMaybe<Array<EventPagecontactUnionUpdateWithNestedWhereUniqueAndPositionInput>>;
-  /** Upsert multiple EventPagecontactUnion component instances */
-  upsert?: InputMaybe<Array<EventPagecontactUnionUpsertWithNestedWhereUniqueAndPositionInput>>;
-};
-
-export type EventPagecontactUnionUpdateManyWithNestedWhereInput = {
-  ContactCard?: InputMaybe<ContactCardUpdateManyWithNestedWhereInput>;
-};
-
-export type EventPagecontactUnionUpdateOneInlineInput = {
-  /** Create and connect one EventPagecontactUnion document */
-  create?: InputMaybe<EventPagecontactUnionCreateInput>;
-  /** Delete currently connected EventPagecontactUnion document */
-  delete?: InputMaybe<Scalars['Boolean']>;
-  /** Update single EventPagecontactUnion document */
-  update?: InputMaybe<EventPagecontactUnionUpdateWithNestedWhereUniqueInput>;
-  /** Upsert single EventPagecontactUnion document */
-  upsert?: InputMaybe<EventPagecontactUnionUpsertWithNestedWhereUniqueInput>;
-};
-
-export type EventPagecontactUnionUpdateWithNestedWhereUniqueAndPositionInput = {
-  ContactCard?: InputMaybe<ContactCardUpdateWithNestedWhereUniqueAndPositionInput>;
-};
-
-export type EventPagecontactUnionUpdateWithNestedWhereUniqueInput = {
-  ContactCard?: InputMaybe<ContactCardUpdateWithNestedWhereUniqueInput>;
-};
-
-export type EventPagecontactUnionUpsertWithNestedWhereUniqueAndPositionInput = {
-  ContactCard?: InputMaybe<ContactCardUpsertWithNestedWhereUniqueAndPositionInput>;
-};
-
-export type EventPagecontactUnionUpsertWithNestedWhereUniqueInput = {
-  ContactCard?: InputMaybe<ContactCardUpsertWithNestedWhereUniqueInput>;
-};
-
-export type EventPagecontactUnionWhereInput = {
-  ContactCard?: InputMaybe<ContactCardWhereInput>;
-};
-
-export type EventPagecontactUnionWhereUniqueInput = {
-  ContactCard?: InputMaybe<ContactCardWhereUniqueInput>;
 };
 
 export type EventPagecontentUnion = Heading | Image | Text;
@@ -8833,7 +8760,13 @@ export enum _SystemDateTimeFieldVariation {
 export type Get_ContactpageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Get_ContactpageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPage', slug?: string | null, title: string, content: Array<{ __typename?: 'Heading', heading?: string | null } | { __typename?: 'Image', image?: { __typename?: 'Asset', url: string } | null } | { __typename?: 'Text', text?: { __typename?: 'RichText', text: string } | null }>, person: Array<{ __typename?: 'ContactCard', location: string, name: string, phone?: string | null, stage: Stage, title: string, email: string, image?: { __typename?: 'Asset', url: string } | null }> } | null };
+export type Get_ContactpageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPage', slug?: string | null, title: string, content: Array<{ __typename?: 'Heading', heading?: string | null } | { __typename?: 'Image', altText: string, image?: { __typename?: 'Asset', url: string } | null } | { __typename?: 'Text', text?: { __typename?: 'RichText', text: string } | null }>, contact: Array<{ __typename?: 'ContactCard', location: string, name: string, phone?: string | null, stage: Stage, title: string, email: string, image?: { __typename?: 'Asset', url: string } | null }> } | null };
+
+export type Get_EventpageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export const Get_ContactpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_CONTACTPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contactPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"contacttest","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"person"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"stage"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_ContactpageQuery, Get_ContactpageQueryVariables>;
+export type Get_EventpageQuery = { __typename?: 'Query', eventPage?: { __typename?: 'EventPage', date: any, eventId: number, title: string, contact: Array<{ __typename?: 'ContactCard', email: string, location: string, name: string, phone?: string | null, title: string, image?: { __typename?: 'Asset', url: string } | null }>, location?: { __typename?: 'EventLocation', adress: string } | null, content: Array<{ __typename?: 'Heading', heading?: string | null } | { __typename?: 'Image', altText: string, image?: { __typename?: 'Asset', url: string } | null } | { __typename?: 'Text', text?: { __typename?: 'RichText', text: string } | null }> } | null };
+
+
+export const Get_ContactpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_CONTACTPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contactPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"contacttest","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"stage"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_ContactpageQuery, Get_ContactpageQueryVariables>;
+export const Get_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_EVENTPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eventId"},"value":{"kind":"IntValue","value":"1"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"eventId"}},{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_EventpageQuery, Get_EventpageQueryVariables>;
