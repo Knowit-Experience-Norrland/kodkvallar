@@ -16,8 +16,7 @@ const NewsletterSignupComp = () => {
     }
   }
     `);
-  const [createNewsletterSignup, { loading }] = useMutation(CREATE_NEWSLETTERSIGNUP);
-//   if (loading) return <p>Loading...</p>;
+  const [createNewsletterSignup] = useMutation(CREATE_NEWSLETTERSIGNUP);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,52 +33,6 @@ const NewsletterSignupComp = () => {
     setLastname("");
     setEmail("");
 
-    return (
-      <div>
-        {message === "SUCCESS" && (
-          <div>
-            <p>Thank you for subscribing to our newsletter!</p>
-          </div>
-        )}
-        {message === "ERROR" && (
-          <div>
-            <p>Something went wrong. Please <button onClick={() => setMessage(null)}>try again</button></p>
-          </div>
-        )}
-        {message === null && (
-           <section>
-           <div>NewsletterSignupComp</div>
-           <form onSubmit={handleSubmit} name="NewsletterSignup">
-             <input
-               name="firstname"
-               type="text"
-               placeholder="Firstname"
-               value={firstname}
-               onChange={handleFirstnameChange}
-               required
-             />
-             <input
-               name="lastname"
-               type="text"
-               placeholder="Lastname"
-               value={lastname}
-               onChange={handleLastnameChange}
-               required
-             />
-             <input
-               name="email"
-               type="email"
-               placeholder="Email"
-               value={email}
-               onChange={handleEmailChange}
-               required
-             />
-             <button type="submit">Subscribe</button>
-           </form>
-         </section>
-               ) }
-      </div>
-    );
   };
 
   //   set states to values of input fields
@@ -123,6 +76,17 @@ const NewsletterSignupComp = () => {
         />
         <button type="submit">Subscribe</button>
       </form>
+     <div>
+        {message === "SUCCESS" && (
+            <p>Thank you for subscribing to our newsletter!</p>
+        )}
+        {message === "ERROR" && (
+            <p>Something went wrong. Please try again.</p>
+        )}
+        {message === null && (
+            <p>Subscribe to our newsletter to get the latest news and updates.</p>
+        )}
+     </div>
     </section>
   );
 };
