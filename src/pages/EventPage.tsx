@@ -4,6 +4,7 @@ import { ContactCard, Get_EventpageQuery} from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
 import { useParams } from "react-router-dom";
 import { RichText } from "@graphcms/rich-text-react-renderer";
+import EventSignupComp from "../components/EventSignup/EventSignupComp";
 
 function EventPage() {
   // get id from params 
@@ -78,7 +79,7 @@ query GET_EVENTPAGE ($id: Int!) {
           return <ContactCardComp contact={contact as ContactCard} key={i}  />;
         })}
        </div>
-
+          <EventSignupComp id={id}/>
       </article>
     </main>
   );

@@ -1,29 +1,36 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 
-const NewsletterSignupComp = () => {
+interface EventSignupCompProps {
+    id: number;
+}
+
+const EventSignupComp = ({id}: EventSignupCompProps) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
 
-  const CREATE_NEWSLETTERSIGNUP = gql(`
-  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {
-    createNewsletterSignup(data: $data) {
-      email
-      lastName
-      firstName
+  const CREATE_EVENTSIGNUP = gql(`
+  mutation createEventSignup($data: EventSignupCreateInput!) {
+    createEventSignup(data: $data) {
+        email
+        firstName
+        eventPage {
+          eventId
+        }
+        lastName
+      }
     }
-  }
     `);
-  const [createNewsletterSignup] = useMutation(CREATE_NEWSLETTERSIGNUP);
+  const [createEventSignup] = useMutation(CREATE_EVENTSIGNUP);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-        const data = { "firstName":firstname, "lastName":lastname,"email":email };
-    createNewsletterSignup({ variables: { data } });
+        const data = { "firstName":firstname, "lastName":lastname,"email":email, "eventPage": { "connect": { "eventId": id } }  };
+        createEventSignup({ variables: { data } });
       setMessage("SUCCESS");
     } catch (err) {
       setMessage("ERROR");
@@ -48,8 +55,8 @@ const NewsletterSignupComp = () => {
 
   return (
     <section>
-      <div>NewsletterSignupComp</div>
-      <form onSubmit={handleSubmit} name="NewsletterSignup">
+      <div>EventSignupComp</div>
+      <form onSubmit={handleSubmit} name="EventSignup">
         <input
           name="firstname"
           type="text"
@@ -74,21 +81,21 @@ const NewsletterSignupComp = () => {
           onChange={handleEmailChange}
           required
         />
-        <button type="submit">Prenumerea</button>
+        <button type="submit">Anmäl</button>
       </form>
      <div>
         {message === "SUCCESS" && (
-            <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
+            <p>Tack för din anmälan!</p>
         )}
         {message === "ERROR" && (
             <p>Något gick fel. Vänligen försök igen.</p>
         )}
         {message === null && (
-            <p>Prenumerarea på vårt nyhetsbrev för att få de senaste nyheterna!</p>
+            <p>Anmäl dig till eventet!</p>
         )}
      </div>
     </section>
   );
 };
 
-export default NewsletterSignupComp;
+export default EventSignupComp;

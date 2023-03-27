@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  mutation Mutation($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    ": types.MutationDocument,
+    "\n  mutation createEventSignup($data: EventSignupCreateInput!) {\n    createEventSignup(data: $data) {\n        email\n        firstName\n        eventPage {\n          eventId\n        }\n        lastName\n      }\n    }\n    ": types.CreateEventSignupDocument,
+    "\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    ": types.CreateNewsletterSignupDocument,
     "\nquery GET_CONTACTPAGE {\n      contactPage(where: {slug: \"contacttest\"}) {\n    content {\n      ... on Image {\n        image {\n          url\n        }\n        altText\n      }\n      ... on Text {\n        text {\n          text\n        }\n      }\n      ... on Heading {\n        heading\n      }\n    }\n    slug\n    contact {\n      location\n      name\n      phone\n      stage\n      title\n      email\n      image {\n        url\n      }\n    }\n    title\n  }\n}\n": types.Get_ContactpageDocument,
     "\nquery GET_EVENTPAGE ($id: Int!) {\n    eventPage(where: {eventId: $id }) {\n      contact {\n        email\n        image {\n          url\n        }\n        location\n        name\n        phone\n        title\n      }\n        date\n        eventId\n        location {\n          ... on EventLocation {\n            adress\n          }\n        }\n        title\n        content {\n          ... on Heading {\n            heading\n          }\n          ... on Image {\n            altText\n            image {\n              url\n            }\n          }\n          ... on Text {\n            text {\n              raw\n            }\n          }\n        }\n      }\n    }\n    \n": types.Get_EventpageDocument,
 };
@@ -35,7 +36,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation Mutation($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    "): (typeof documents)["\n  mutation Mutation($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    "];
+export function graphql(source: "\n  mutation createEventSignup($data: EventSignupCreateInput!) {\n    createEventSignup(data: $data) {\n        email\n        firstName\n        eventPage {\n          eventId\n        }\n        lastName\n      }\n    }\n    "): (typeof documents)["\n  mutation createEventSignup($data: EventSignupCreateInput!) {\n    createEventSignup(data: $data) {\n        email\n        firstName\n        eventPage {\n          eventId\n        }\n        lastName\n      }\n    }\n    "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    "): (typeof documents)["\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
