@@ -40,7 +40,8 @@ query GET_CONTACTPAGE {
   }
 }
 `);
-  const { data } = useQuery<Get_ContactpageQuery>(GET_CONTACTPAGE);
+  const { data, error } = useQuery<Get_ContactpageQuery>(GET_CONTACTPAGE);
+  if(error) { console.log(error) }
   return (
     <main>
       <article>

@@ -9,7 +9,7 @@ function ContactPage({ contact }: CardContactProps) {
 
   return (
     <div>
-         <div>
+         <div key={contact?.id}>
                 <h2>{contact?.name}</h2>
                 <p>{contact?.title}</p>
                 <p>{contact?.location}</p>

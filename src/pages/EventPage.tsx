@@ -2,12 +2,18 @@ import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { ContactCard, Get_EventpageQuery} from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
+import { useParams } from "react-router-dom";
+import { RichText } from "@graphcms/rich-text-react-renderer";
 
 function EventPage() {
+  // get id from params 
+const params = useParams();
+let id = parseInt(params.id!)
+
   // Use the `useQuery` hook to make a query to the API
   const GET_EVENTPAGE = gql(`
-query GET_EVENTPAGE {
-    eventPage(where: {eventId: 1}) {
+query GET_EVENTPAGE ($id: Int!) {
+    eventPage(where: {eventId: $id }) {
       contact {
         email
         image {
@@ -38,7 +44,7 @@ query GET_EVENTPAGE {
           }
           ... on Text {
             text {
-              text
+              raw
             }
           }
         }
@@ -46,7 +52,8 @@ query GET_EVENTPAGE {
     }
     
 `);
-  const { data } = useQuery<Get_EventpageQuery>(GET_EVENTPAGE);
+
+  const { data } = useQuery<Get_EventpageQuery>(GET_EVENTPAGE, {variables: {id}});
 
   return (
     <main>
@@ -54,21 +61,21 @@ query GET_EVENTPAGE {
         <h1>{data?.eventPage?.title}</h1>
         <p>{data?.eventPage?.date}</p>
         <p>{data?.eventPage?.location?.adress}</p>
-        {data?.eventPage?.content?.map((content) => {
+        {data?.eventPage?.content?.map((content, i) => {
           if (content?.__typename === "Image") {
-            return <img src={content?.image?.url} alt={content?.altText} />;
+            return <img key={i} src={content?.image?.url} alt={content?.altText} />;
           }
           if (content?.__typename === "Text") {
-            return <p>{content?.text?.text}</p>;
+            return <RichText content={content.text?.raw} key={i}/>;
           }
           if (content?.__typename === "Heading") {
-            return <h2>{content?.heading}</h2>;
+            return <h2 key={i} >{content?.heading}</h2>;
           }
           return null;
         })}
        <div>
-        {data?.eventPage?.contact?.map((contact) => {
-          return <ContactCardComp contact={contact as ContactCard} />;
+        {data?.eventPage?.contact?.map((contact, i) => {
+          return <ContactCardComp contact={contact as ContactCard} key={i}  />;
         })}
        </div>
 

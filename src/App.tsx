@@ -4,7 +4,7 @@ import NewsletterSignupComp from './components/NewsletterSignup/NewsletterSignup
 import ContactPage from './pages/ContactPage';
 import EventPage from './pages/EventPage';
 
-
+// react router for routing between pages
 function App() {
   return (
  <div>
@@ -12,7 +12,7 @@ function App() {
     <Routes>
     <Route path="/" element={<NewsletterSignupComp />} />
       <Route path="/contact" element={<ContactPage />} />
-      <Route path="/event" element={<EventPage />} />
+      <Route path="/event/:id" element={<EventPage />} />
     </Routes>
   </Router>
  </div>

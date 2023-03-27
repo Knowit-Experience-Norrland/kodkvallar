@@ -9,7 +9,7 @@ import {
   ApolloProvider,
 } from "@apollo/client";
 
-// add API to Apollo Client
+// add API to Apollo Client with authorization header
 const client = new ApolloClient({
   uri: "https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clfjk303n23bz01uedlua2ovd/master",
   headers: {
@@ -25,6 +25,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    {/* add apollo client to context */}
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
