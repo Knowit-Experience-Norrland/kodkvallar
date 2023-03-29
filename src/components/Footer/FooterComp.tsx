@@ -1,7 +1,7 @@
 import React from 'react'
 import NewsletterSignupComp from '../NewsletterSignup/NewsletterSignupComp'
 
-
+// footer component
 const FooterComp = () => {
   return (
     <footer>

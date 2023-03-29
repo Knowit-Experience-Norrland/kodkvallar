@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 
+// newsletter signup component, with form and mutation to create newsletter signup
 const NewsletterSignupComp = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -48,7 +49,6 @@ const NewsletterSignupComp = () => {
 
   return (
     <section>
-      <div>NewsletterSignupComp</div>
       <form onSubmit={handleSubmit} name="NewsletterSignup">
         <input
           name="firstname"

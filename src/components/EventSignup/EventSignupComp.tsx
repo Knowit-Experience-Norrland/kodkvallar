@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 
+// recive id from EventSignupComp.tsx, send data from API and print to DOM
 interface EventSignupCompProps {
     id: number;
 }
@@ -11,6 +12,7 @@ const EventSignupComp = ({id}: EventSignupCompProps) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
 
+  // send data from API
   const CREATE_EVENTSIGNUP = gql(`
   mutation createEventSignup($data: EventSignupCreateInput!) {
     createEventSignup(data: $data) {
@@ -83,6 +85,7 @@ const EventSignupComp = ({id}: EventSignupCompProps) => {
         />
         <button type="submit">Anmäl</button>
       </form>
+      {/* print to DOM */}
      <div>
         {message === "SUCCESS" && (
             <p>Tack för din anmälan!</p>

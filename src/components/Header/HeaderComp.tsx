@@ -3,13 +3,14 @@ import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import NavigationDrawerComp from "./NavigationDrawerComp";
 
-
+// header component with navigation
 const HeaderComp = () => {
-  const [menuChange, setmenuChange] = useState("none");
+  const [menuChange, setmenuChange] = useState(false);
   const [menuBtn, setmenuBtn] = useState(false);
 
+  // set states depending on btn click. change btn icon and show/hide navigation
   const handleClick = () => {
-    setmenuChange(menuChange === "none" ? "flex" : "none");
+    setmenuChange(menuChange === false ? true : false);
     setmenuBtn(!menuBtn);
   };
   return (
@@ -18,6 +19,7 @@ const HeaderComp = () => {
         <Link to="/">
           <img src="./logo.svg" alt="Knowit Experience" className="logo" />
         </Link>
+        {/* cahnge btn */}
         {!menuBtn ? (
           <button onClick={handleClick}><IoMenuSharp className="menu-btn" /></button>
           
@@ -26,6 +28,7 @@ const HeaderComp = () => {
           
         )}
       </header>
+      {/* send state to component */}
       <NavigationDrawerComp prop={menuChange} />
     </div>
   );

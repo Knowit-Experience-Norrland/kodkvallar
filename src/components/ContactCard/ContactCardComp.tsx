@@ -1,12 +1,12 @@
 import React from "react";
 import { ContactCard } from "../../gql/graphql";
 
+// recive contact info from ContactCardComp.tsx and print to DOM
 interface CardContactProps {
   contact: ContactCard | undefined;
 }
 function ContactPage({ contact }: CardContactProps) {
-
-
+// print contact info 
   return (
     <div>
          <div key={contact?.id}>

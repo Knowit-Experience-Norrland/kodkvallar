@@ -1,18 +1,17 @@
 import React, { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
+// recive prop from HeaderComp.tsx, show/hide navigation
 interface Props {
-  prop: string;
+  prop: boolean;
 }
 const NavigationDrawerComp = ({prop}: Props) => {
 
-
   return (
     <nav
-      className="navigation-drawer"
+      className={prop ? "navigation-drawer" : "navigation-drawer is-active"}
       role="navigation"
-      aria-label="main navigation"
-      style={{ display: prop }}
+      aria-label="main navigation" 
     >
       <NavLink to="/">Start</NavLink>
       <hr />
