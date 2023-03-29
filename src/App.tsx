@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import FooterComp from "./components/Footer/FooterComp";
 import NavigationComp from "./components/Navigation/NavigationComp";
 import NewsletterSignupComp from "./components/NewsletterSignup/NewsletterSignupComp";
 import ContactPage from "./pages/ContactPage";
@@ -20,6 +21,7 @@ function App() {
             <Route path="/event/:id" element={<EventPage />} />
             <Route path="/test" element={<InfoPage />} />
         </Routes>
+        <FooterComp />
       </Router>
     </div>
   );
