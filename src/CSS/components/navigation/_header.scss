@@ -8,24 +8,36 @@
     justify-content: space-between;
     z-index: 99;
     position: relative;
+
+    a{
+        align-self: center;
+    }
 }
 
 .logo{
     height: 2rem;
     width: auto;
     padding-left: 1rem;
-    align-self: center;
 }
 
+button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
 .menu-btn{
     color: $primary-digital-black;
     font-size: 2rem;
     align-self: center;
     padding-right: 1rem;
+    cursor: pointer;
     
     
 }
 
+.menu-btn:hover{
+    color: $primary-digital-lollipop;
+}
 
 
 @media screen and (min-width: 768px){
