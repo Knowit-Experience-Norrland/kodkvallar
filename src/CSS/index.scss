@@ -3,5 +3,10 @@
 @import "utilities/text";
 @import "utilities/base";
 
+//layouts
+@import "layouts/grids";
+
 // components
-@import "components/Map/map";
+@import "components/map/map";
+@import "components/navigation/header";
+@import "components/navigation/navigation-drawer";
