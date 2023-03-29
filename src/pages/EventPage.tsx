@@ -1,68 +1,78 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { ContactCard, Get_EventpageQuery} from "../gql/graphql";
+import { ContactCard, Location, Get_EventpageQuery} from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
 import { useParams } from "react-router-dom";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import EventSignupComp from "../components/EventSignup/EventSignupComp";
+import MapComp from "../components/Map/MapComp";
 
 function EventPage() {
   // get id from params 
 const params = useParams();
-let id = parseInt(params.id!)
+let id = parseInt(params.id!);
 
   // Use the `useQuery` hook to make a query to the API
   const GET_EVENTPAGE = gql(`
 query GET_EVENTPAGE ($id: Int!) {
     eventPage(where: {eventId: $id }) {
+      eventId
+      location {
+        ... on EventLocation {
+          adress
+          map {
+            latitude
+            longitude
+          }
+        }
+      }
+      slug
+      title
+      content {
+        ... on Heading {
+          heading
+        }
+        ... on Image {
+          altText
+          image {
+            url
+          }
+        }
+        ... on Text {
+          text {
+            raw
+          }
+        }
+      }
       contact {
         email
-        image {
-          url
-        }
         location
         name
         phone
         title
-      }
-        date
-        eventId
-        location {
-          ... on EventLocation {
-            adress
-          }
-        }
-        title
-        content {
-          ... on Heading {
-            heading
-          }
-          ... on Image {
-            altText
-            image {
-              url
-            }
-          }
-          ... on Text {
-            text {
-              raw
-            }
-          }
+        image {
+          url
         }
       }
+      date
     }
+  }
     
 `);
 
   const { data } = useQuery<Get_EventpageQuery>(GET_EVENTPAGE, {variables: {id}});
-
+const {eventPage} = data || {};
+if (!eventPage) {
+  return <div>Loading...</div>;
+}
   return (
     <main>
       <article>
-        <h1>{data?.eventPage?.title}</h1>
-        <p>{data?.eventPage?.date}</p>
-        <p>{data?.eventPage?.location?.adress}</p>
-        {data?.eventPage?.content?.map((content, i) => {
+        <h1>{eventPage?.title}</h1>
+        <p>{eventPage?.date}</p>
+        <p>{eventPage?.location?.adress}</p>
+        {/* <MapComp lat={eventPage.location?.map?.latitude as number} lng={eventPage.location?.map?.longitude as number} /> */}
+        {eventPage?.content?.map((content, i) => {
           if (content?.__typename === "Image") {
             return <img key={i} src={content?.image?.url} alt={content?.altText} />;
           }
@@ -75,7 +85,7 @@ query GET_EVENTPAGE ($id: Int!) {
           return null;
         })}
        <div>
-        {data?.eventPage?.contact?.map((contact, i) => {
+        {eventPage?.contact?.map((contact, i) => {
           return <ContactCardComp contact={contact as ContactCard} key={i}  />;
         })}
        </div>
