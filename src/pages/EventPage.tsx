@@ -18,13 +18,15 @@ query GET_EVENTPAGE ($id: Int!) {
     eventPage(where: {eventId: $id }) {
       eventId
       location {
-        ... on EventLocation {
-          adress
-          map {
-            latitude
-            longitude
-          }
+      ... on EventLocation {
+        map {
+          latitude
+          longitude
         }
+        adress {
+          raw
+        }
+      }
       }
       slug
       title
@@ -70,7 +72,7 @@ if (!eventPage) {
       <article>
         <h1>{eventPage?.title}</h1>
         <p>{eventPage?.date}</p>
-        <p>{eventPage?.location?.adress}</p>
+        <RichText content={eventPage?.location?.adress?.raw} />
         {/* <MapComp lat={eventPage.location?.map?.latitude as number} lng={eventPage.location?.map?.longitude as number} /> */}
         {eventPage?.content?.map((content, i) => {
           if (content?.__typename === "Image") {
