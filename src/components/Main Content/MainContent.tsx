@@ -1,28 +1,17 @@
 import React from "react";
 import { RichText } from "@graphcms/rich-text-react-renderer";
-import { RichTextContent } from "@graphcms/rich-text-types";
+import { MaincontentType } from "../../pages/StartPage";
 
 type Props = {
-  content: ({
-    __typename: string;
-
-    id: string;
-    heading: string;
-    image: {
-      url: string;
-    };
-    altText: string;
-    imageText: string;
-    text: {
-      raw: RichTextContent;
-    };
-  })[];
+  content: MaincontentType
 };
 
-const MainContent = (content: Props) => {
+const MainContent: React.FC<Props> = ({content}) => {
+  if(content === undefined) return (<div>loading...</div>);
+    
   return (
     <article className="main-content">
-        {content.content.map((content) => {
+        {content.map((content) => {
         if (content?.__typename === "Image") {
           return (
             <div>

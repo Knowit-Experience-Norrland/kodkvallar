@@ -1,8 +1,10 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { Get_StartpageQuery } from "../gql/graphql";
+import { Get_StartpageQuery, Heading, Image, Text } from "../gql/graphql";
 import HeroComp from "../components/Hero/HeroComp";
 import MainContent from "../components/Main Content/MainContent";
+
+export type MaincontentType = (Partial<Heading> | Partial<Image> | Partial<Text>)[] | undefined;
 
 const StartPage = () => {
   // Use the `useQuery` hook to make a query to the API
@@ -43,7 +45,10 @@ const StartPage = () => {
   if (error) {
     console.log(error);
   }
+
   const { startPage } = data || {};
+  let startpageContent = startPage?.content || undefined;
+
   return (
     <main>
       <HeroComp
@@ -51,7 +56,7 @@ const StartPage = () => {
         altText={startPage?.hero.altText || ""}
         title={startPage?.title || ""}
       />
-      <MainContent content={startPage?.content} />
+      <MainContent content={startpageContent as MaincontentType} />
       <section className="startpage-cards">
         <div>
           <img src="" alt="" />
