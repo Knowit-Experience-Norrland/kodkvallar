@@ -7,48 +7,48 @@ import { RichText } from "@graphcms/rich-text-react-renderer";
 
 function InfoPage() {
   // Use the `useQuery` hook to make a query to the API
-//   const GET_INFOPAGE = gql(`
-// query GET_INFOPAGE {
-//     infoPage(where: {slug: "test"}) {
-//         content {
-//           ... on Text {
-//             text {
-//               raw
-//             }
-//           }
-//           ... on Image {
-//             altText
-//             image {
-//               url
-//             }
-//           }
-//           ... on Heading {
-//             heading
-//           }
-//         }
-//         title
-//         slug
-//         heroImage {
-//           url
-//         }
-//         contact {
-//           title
-//           phone
-//           name
-//           location
-//           email
-//           image {
-//             url
-//           }
-//         }
-//       }
-//     }
-// `);
-//   const { data, error } = useQuery<Get_InfopageQuery>(GET_INFOPAGE);
-//   if(error) { console.log(error) }
+  const GET_INFOPAGE = gql(`
+query GET_INFOPAGE {
+    infoPage(where: {slug: "test"}) {
+        content {
+          ... on Text {
+            text {
+              raw
+            }
+          }
+          ... on Image {
+            altText
+            image {
+              url
+            }
+          }
+          ... on Heading {
+            heading
+          }
+        }
+        title
+        slug
+        heroImage {
+          url
+        }
+        contact {
+          title
+          phone
+          name
+          location
+          email
+          image {
+            url
+          }
+        }
+      }
+    }
+`);
+  const { data, error } = useQuery<Get_InfopageQuery>(GET_INFOPAGE);
+  if(error) { console.log(error) }
   return (
     <main>
-      {/* <article>
+      <article>
         <h1>{data?.infoPage?.title}</h1>
         <img src={data?.infoPage?.heroImage?.url} alt="hero" />
         <section>
@@ -70,7 +70,7 @@ function InfoPage() {
             return <ContactCardComp contact={contact as ContactCard} key={i} />;
           })}
         </section>
-      </article> */}
+      </article>
     </main>
   );
 }
