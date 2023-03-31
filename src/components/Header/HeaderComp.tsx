@@ -26,18 +26,18 @@ const callback = (temp: boolean) => {
     <div>
       <header className="header">
         <Link to="/">
-          <img src="/logo.svg" alt="Knowit Experience" className="logo" />
+          <img src="images/logo.svg" alt="Knowit Experience" className="logo" />
         </Link>
         {/* cahnge btn */}
         {!menuBtn ? (
           <div className="menu-btn-container">
-          <button className="nav-btn"  onClick={handleClick}><IoMenuSharp className="menu-btn" /></button>
+          <button className="nav-btn" onClick={handleClick} title="Öppna Meny"><IoMenuSharp className="menu-btn" /></button>
           <p className="menu-btn-text">Meny</p>
           </div>
           
         ) : (
           <div className="menu-btn-container">
-          <button className="nav-btn" onClick={handleClick}><IoCloseSharp className="menu-btn" /></button>
+          <button className="nav-btn" onClick={handleClick} title="Stäng Meny"><IoCloseSharp className="menu-btn" /></button>
           <p className="menu-btn-text">Stäng</p>
           </div>
         )}

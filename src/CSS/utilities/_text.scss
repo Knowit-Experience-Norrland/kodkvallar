@@ -15,12 +15,15 @@
  }
 
  //alt text
- .alt-text{
+ .img-text{
     font-family: $font-family;
     font-weight: 400;
-    font-size: .813rem;
+    font-size: .8rem;
+    font-style: italic;
     color: $primary-digital-black;
-    line-height: 1.056rem;
+    line-height: 1rem;
+    margin: .2rem 0;
+    text-align: center;
 
  }
 
@@ -48,4 +51,8 @@
     font-size: 1.125rem;
     color: $primary-digital-black;
     line-height: 1.5rem;
+ }
+
+ .h2-forest{
+      color: $primary-forest;
  }

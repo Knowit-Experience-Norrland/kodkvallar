@@ -25,15 +25,15 @@
         height: 100%;
         width: 100%;
         display: flex;
-        align-items: end;
-        justify-content: start;
+        align-items: flex-end;
+        justify-content: center;
     }
 
     .hero-title{
         font-weight: 400;
         font-size: 3rem;
         line-height: 5rem;
-        background-color: $primary-digital-white;
+        background-color: rgba($primary-digital-white, 0.85);
         padding-left: 1rem;
         padding-right: 1rem;
         margin: 0 1rem;
@@ -42,6 +42,15 @@
 
     @media screen and (min-width: 768px){
         height: 400px;
+
+
+        .hero-overlay{
+            justify-content: start;
+        }
+
+        .hero-title{
+            margin: 0;
+        }
     }
         
     }
