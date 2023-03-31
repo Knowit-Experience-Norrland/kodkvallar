@@ -15,6 +15,13 @@ const HeaderComp = () => {
     setGreyout(menuBtn === true ? "none" : "block");
     setmenuBtn(!menuBtn);
   };
+const callback = (temp: boolean) => {
+ if (temp === true) {
+    setmenuChange("none");
+    setGreyout("none");
+    setmenuBtn(false);
+ }
+}
   return (
     <div>
       <header className="header">
@@ -24,13 +31,13 @@ const HeaderComp = () => {
         {/* cahnge btn */}
         {!menuBtn ? (
           <div className="menu-btn-container">
-          <button onClick={handleClick}><IoMenuSharp className="menu-btn" /></button>
+          <button className="nav-btn"  onClick={handleClick}><IoMenuSharp className="menu-btn" /></button>
           <p className="menu-btn-text">Meny</p>
           </div>
           
         ) : (
           <div className="menu-btn-container">
-          <button onClick={handleClick}><IoCloseSharp className="menu-btn" /></button>
+          <button className="nav-btn" onClick={handleClick}><IoCloseSharp className="menu-btn" /></button>
           <p className="menu-btn-text">Stäng</p>
           </div>
         )}
@@ -38,7 +45,7 @@ const HeaderComp = () => {
       {menuBtn ? <div className="greyout" onClick={handleClick}></div> : null}
 
       {/* send state to component */}
-      <NavigationDrawerComp prop={menuChange} />
+      <NavigationDrawerComp onClick={callback} prop={menuChange} />
     </div>
   );
 };

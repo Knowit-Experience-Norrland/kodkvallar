@@ -4,24 +4,35 @@ import { NavLink } from "react-router-dom";
 // recive prop from HeaderComp.tsx, show/hide navigation
 interface Props {
   prop: string;
+  onClick: (temp: boolean) => void;
 }
-const NavigationDrawerComp = ({prop}: Props) => {
 
+const NavigationDrawerComp = ({ prop, onClick }: Props) => {
+  const close = () => {
+    onClick(true);
+  };
   return (
     <nav
       className="navigation-drawer"
       style={{ display: prop }}
       role="navigation"
-      aria-label="main navigation" 
-      tabIndex={!prop ? 0 : -1}
+      aria-label="main navigation"
     >
-      <NavLink to="/">Start</NavLink>
+      <NavLink to="/" onClick={close}>
+        Start
+      </NavLink>
       <hr />
-      <NavLink to="/upcoming">Kommande Event</NavLink>
+      <NavLink to="/upcoming" onClick={close}>
+        Kommande Event
+      </NavLink>
       <hr />
-      <NavLink to="/events">Tidigare Event</NavLink>
+      <NavLink to="/events" onClick={close}>
+        Tidigare Event
+      </NavLink>
       <hr />
-      <NavLink to="/about">Om oss</NavLink>
+      <NavLink to="/about" onClick={close}>
+        Om oss
+      </NavLink>
       <hr />
     </nav>
   );
