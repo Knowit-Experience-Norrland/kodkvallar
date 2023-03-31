@@ -4,6 +4,8 @@ import { Get_StartpageQuery, Heading, Image, Text } from "../gql/graphql";
 import HeroComp from "../components/Hero/HeroComp";
 import MainContent from "../components/Main Content/MainContent";
 
+import imgasd from "../media/logo192.png";
+
 export type MaincontentType = (Partial<Heading> | Partial<Image> | Partial<Text>)[] | undefined;
 
 const StartPage = () => {
@@ -51,6 +53,8 @@ const StartPage = () => {
 
   return (
     <main>
+
+      <img src={imgasd}></img>
       <HeroComp
         url={startPage?.hero.image.url || ""}
         altText={startPage?.hero.altText || ""}
