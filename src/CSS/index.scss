@@ -5,11 +5,12 @@
 
 //layouts
 @import "layouts/grids";
-@import "layouts/main-content";
 
 // components
+@import "components/maincontent/main-content";
 @import "components/map/map";
 @import "components/navigation/header";
 @import "components/navigation/navigation-drawer";
 @import "components/hero/hero";
 @import "components/startpagecards/startpage-cards";
+@import "components/upcomingeventspotlight/upcoming-event-spotlight";

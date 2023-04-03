@@ -1,0 +1,56 @@
+.upcoming-events-container{
+    background-color: $primary-mint;
+    padding: 3rem 2rem;
+}
+.upcoming-event-spotlight-main{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+
+    img{
+        width: 100%;
+        height: auto;
+    }
+
+    a{
+        text-decoration: none;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        color: $primary-digital-lollipop;
+        cursor: pointer;
+        
+    }
+
+    a:visited{
+        color: $primary-digital-lollipop;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }
+
+    .arrow-btn{
+        color: $primary-digital-lollipop;
+    font-size: 2rem;
+    align-self: center;
+    cursor: pointer;
+    }
+}
+
+@media screen and (min-width: 768px) {
+ .upcoming-event-spotlight-h2{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+    padding-top: 2rem;
+ }
+
+ .upcoming-event-spotlight-main{
+    h3{
+        font-size: 1.5rem;
+    }
+ }
+
+}
+    

@@ -1,35 +1,23 @@
 import React from "react";
 import { RichText } from "@graphcms/rich-text-react-renderer";
-import { RichTextContent } from "@graphcms/rich-text-types";
+import { StartpageContentFragment } from "../../gql/graphql";
 
 type Props = {
-  content: ({
-    __typename: string;
-
-    id: string;
-    heading: string;
-    image: {
-      url: string;
-    };
-    altText: string;
-    imageText: string;
-    text: {
-      raw: RichTextContent;
-    };
-  })[];
+  content: StartpageContentFragment["content"] //Only the content part of the fragment
 };
 
-const MainContent = (content: Props) => {
+const MainContent: React.FC<Props> = ({content}) => {
+  if(content === undefined) return (<div>No content...</div>);
+    
   return (
     <article className="main-content">
-        {content.content.map((content) => {
+        {content.map((content) => {
         if (content?.__typename === "Image") {
           return (
-            <div>
+            <div key={content.id}>
               <img
                 src={content?.image?.url}
                 alt={content?.altText}
-                key={content.id}
               />
               <p className="img-text">{content.imageText}</p>
             </div>
