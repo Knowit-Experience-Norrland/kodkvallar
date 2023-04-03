@@ -2,7 +2,11 @@ import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Get_StartpageQuery } from "../gql/graphql";
 import HeroComp from "../components/Hero/HeroComp";
-import MainContent from "../components/Main Content/MainContent";
+import MainContent from "../components/MainContent/MainContent";
+import StartPageCards from "../components/StartpageCards/StartpageCards";
+import Rocket from "../media/Rocket.png";
+import Lightbulb from "../media/Lightbulb.png";
+import Computer from "../media/Computer.png";
 
 const StartPage = () => {
   // Use the `useQuery` hook to make a query to the API
@@ -51,14 +55,11 @@ const StartPage = () => {
         altText={startPage?.hero.altText || ""}
         title={startPage?.title || ""}
       />
-      <MainContent content={startPage?.content} />
-      <section className="startpage-cards">
-        <div>
-          <img src="" alt="" />
-          <h2>Card 1</h2>
-          <p> text  </p>
-          ikon med piiiiil 
-        </div>
+      {/* <MainContent content={startPage?.content} /> */}
+      <section className="startpage-cards-container">
+        <StartPageCards img={Rocket} title={"Om oss"} text={"Läs mer om Knowit Experience!"} />
+        <StartPageCards img={Computer} title={"Kommande kodkvällar"} text={"Se information om kommande kodkvällar!"}/>
+        <StartPageCards img={Lightbulb} title={"Idéer?"} text={"Har du en bra idé du vill prata om?"}/>
       </section>
     </main>
   );

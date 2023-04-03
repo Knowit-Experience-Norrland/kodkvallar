@@ -76,11 +76,11 @@
         background-color: rgba($primary-digital-black, 0.5);
         position: fixed;
         display: block;
-        animation: open 1s linear 0s normal none;
+        animation: greyout 1s ease 0s 1 normal forwards;;
         cursor: pointer;
         z-index: 1;
     }
-    @keyframes open {
+    @keyframes greyout {
         0% {
             opacity: 0;
 
