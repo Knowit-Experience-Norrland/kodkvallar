@@ -1,9 +1,9 @@
 import React from "react";
 import { RichText } from "@graphcms/rich-text-react-renderer";
-import { MaincontentType } from "../../pages/StartPage";
+import { StartpageContentFragment } from "../../gql/graphql";
 
 type Props = {
-  content: MaincontentType
+  content: StartpageContentFragment["content"] //Only the content part of the fragment
 };
 
 const MainContent: React.FC<Props> = ({content}) => {
