@@ -10,33 +10,36 @@ import Computer from "../media/Computer.png";
 import { graphql, useFragment } from "../gql";
 import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
 
-const StartPage = () => {
   // Define a fragment that will be used by the query
   // Fragment is a subset of the query, and is used to define the data that we want to use.
-  const contentFragment = graphql(`
-    fragment StartpageContent on StartPage {
-      content {
-        ... on Heading {
-          heading
-          id
-        }
-        ... on Image {
-          id
-          altText
-          imageText
-          image {
-            url
-          }
-        }
-        ... on Text {
-          id
-          text {
-            raw
-          }
-        }
+export const contentFragment = graphql(`
+fragment StartpageContent on StartPage {
+  content {
+    ... on Heading {
+      heading
+      id
+    }
+    ... on Image {
+      id
+      altText
+      imageText
+      image {
+        url
       }
     }
-  `);
+    ... on Text {
+      id
+      text {
+        raw
+      }
+    }
+  }
+}
+`);
+
+const StartPage = () => {
+
+
 
   // Use the `useQuery` hook to make a query to the API
   // Spread the fragment into the query

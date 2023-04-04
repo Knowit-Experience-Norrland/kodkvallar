@@ -26,7 +26,7 @@ const callback = (temp: boolean) => {
     <div>
       <header className="header">
         <Link to="/">
-          <img src="images/logo.svg" alt="Knowit Experience" className="logo" />
+          <img src="../images/logo.svg" alt="Knowit Experience" className="logo" />
         </Link>
         {/* cahnge btn */}
         {!menuBtn ? (
