@@ -23,8 +23,8 @@ const NewsletterSignupComp = () => {
     e.preventDefault();
 
     try {
-        const data = { "firstName":firstname, "lastName":lastname,"email":email };
-    createNewsletterSignup({ variables: { data } });
+      const data = { firstName: firstname, lastName: lastname, email: email };
+      createNewsletterSignup({ variables: { data } });
       setMessage("SUCCESS");
     } catch (err) {
       setMessage("ERROR");
@@ -33,7 +33,6 @@ const NewsletterSignupComp = () => {
     setFirstname("");
     setLastname("");
     setEmail("");
-
   };
 
   //   set states to values of input fields
@@ -48,45 +47,67 @@ const NewsletterSignupComp = () => {
   };
 
   return (
-    <section>
+    <section className="newsletter-signup">
+       <div>
+        {message === "SUCCESS" && (
+          <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
+        )}
+        {message === "ERROR" && <p>Något gick fel. Vänligen försök igen.</p>}
+        {message === null && (
+          <p>
+            Prenumerera på vårt nyhetsbrev för att få de senaste nyheterna!
+          </p>
+        )}
+      </div>
       <form onSubmit={handleSubmit} name="NewsletterSignup">
-        <input
-          name="firstname"
-          type="text"
-          placeholder="Förnamn"
-          value={firstname}
-          onChange={handleFirstnameChange}
-          required
-        />
-        <input
-          name="lastname"
-          type="text"
-          placeholder="Efternamn"
-          value={lastname}
-          onChange={handleLastnameChange}
-          required
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
+        <div className="form-child">
+          <label htmlFor="firstname" className="visuallyhidden">
+            Förnamn:
+          </label>
+          <input
+            id="firstname"
+            name="firstname"
+            type="text"
+            placeholder="Förnamn"
+            aria-label="Förnamn"
+            value={firstname}
+            onChange={handleFirstnameChange}
+            required
+          />
+        </div>
+        <div className="form-child">
+          <label htmlFor="lastname" className="visuallyhidden">
+            Efternamn:
+          </label>
+          <input
+            id="lastname"
+            name="lastname"
+            type="text"
+            placeholder="Efternamn"
+            aria-label="Efternamn"
+            value={lastname}
+            onChange={handleLastnameChange}
+            required
+          />
+        </div>
+        <div className="form-child">
+          <label htmlFor="email" className="visuallyhidden">
+            Email:
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            aria-label="Email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
+        </div>
         <button type="submit">Prenumerea</button>
       </form>
-     <div>
-        {message === "SUCCESS" && (
-            <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
-        )}
-        {message === "ERROR" && (
-            <p>Något gick fel. Vänligen försök igen.</p>
-        )}
-        {message === null && (
-            <p>Prenumerarea på vårt nyhetsbrev för att få de senaste nyheterna!</p>
-        )}
-     </div>
+     
     </section>
   );
 };

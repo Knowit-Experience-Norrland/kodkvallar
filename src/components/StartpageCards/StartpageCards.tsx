@@ -11,7 +11,7 @@ type Props = {
 const startpageCards = ({img, title, text}: Props) => {
   return (
     <div className='startpage-card'>
-      <img src={img} alt="Rocket" />
+      <img src={img} alt={title} />
       <h2>{title}</h2>
       <p>{text}</p>
       <Link to="/" className='startpage-card-link'><IoMdArrowForward title="Knapp"/></Link>
