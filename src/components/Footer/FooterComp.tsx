@@ -1,14 +1,23 @@
-import React from 'react'
-import NewsletterSignupComp from '../NewsletterSignup/NewsletterSignupComp'
+import React from "react";
+import NewsletterSignupComp from "../NewsletterSignup/NewsletterSignupComp";
+import { Link } from "react-router-dom";
 
 // footer component
 const FooterComp = () => {
   return (
     <footer>
-    <h1>FooterComp</h1>
-    <NewsletterSignupComp   />
+      <NewsletterSignupComp />
+      <div className="footer-links">
+        <Link to="/">
+          <img
+            src="images/logo-white.svg"
+            alt="Knowit Experience"
+            className="footer-logo"
+          />
+        </Link>
+      </div>
     </footer>
-  )
-}
+  );
+};
 
-export default FooterComp
+export default FooterComp;
