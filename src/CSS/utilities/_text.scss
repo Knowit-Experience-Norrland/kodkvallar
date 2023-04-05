@@ -1,0 +1,60 @@
+ //font family
+ $font-family: 'Arial', sans-serif;
+
+ //font size
+ $base-font-size: 16px;
+
+ //paragraphs
+
+ p{
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: 1rem;
+    color: $primary-digital-black;
+    line-height: 150%;
+ }
+
+ //alt text
+ .img-text{
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: .8rem;
+    font-style: italic;
+    color: $primary-digital-black;
+    line-height: 130%;
+    margin: .2rem 0;
+    text-align: center;
+
+ }
+
+ .gdpr-text{
+   font-size: 0.5rem;
+ }
+
+ //headings 
+
+ h1 {
+    font-family: $font-family;
+    font-weight: normal;
+    font-size: 3.125rem;
+    color: $primary-digital-black;
+ }
+
+ h2{
+    font-family: $font-family;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: $primary-digital-black;
+ }
+
+ h3{
+    font-family: $font-family;
+    font-weight: 700;
+    font-size: 1rem;
+    color: $primary-digital-black;
+    line-height: 150%;
+ }
+
+ .h2-forest{
+      color: $primary-forest;
+ }

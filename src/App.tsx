@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import FooterComp from "./components/Footer/FooterComp";
+import HeaderComp from "./components/Header/HeaderComp";
+import SingleEventPage from "./pages/SingleEventPage";
+import StartPage from "./pages/StartPage";
 
+// react router for routing between pages
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Router>
+            <HeaderComp />
+        <Routes>
+            <Route path="/" element={<StartPage />} />
+            {/* upcoming events - single event and feed page */}
+            <Route path="/event" element={<StartPage />} />
+            <Route path="/event/:slug" element={<SingleEventPage />} />
+             {/* old events - single event and feed page */}
+             <Route path="/blog" element={<StartPage />} />
+            <Route path="/blog/:slug" element={<SingleEventPage />} />
+            {/* about */}
+            <Route path="/about" element={<SingleEventPage />} />
+
+        </Routes>
+        <FooterComp />
+      </Router>
     </div>
   );
 }

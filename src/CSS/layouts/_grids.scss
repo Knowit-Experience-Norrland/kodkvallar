@@ -1,0 +1,15 @@
+//main container - keep footer at bottom 
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100vh;
+    position: relative;
+
+}
+
+main {
+    flex-grow: 1;
+    position: relative;
+}
+
