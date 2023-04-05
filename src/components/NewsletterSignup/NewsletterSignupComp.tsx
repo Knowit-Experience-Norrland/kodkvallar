@@ -109,6 +109,7 @@ const NewsletterSignupComp = () => {
         </div>
         <button type="submit">Prenumerera</button>
       </form>
+        <p className="gdpr-text">Genom att prenumerera godkänner du att vi lagrar ovan information.</p>
       </div> 
     </section>
   );
