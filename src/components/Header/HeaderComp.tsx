@@ -58,7 +58,7 @@ const HeaderComp = () => {
           </div>
         )}
       </header>
-      {menuBtn ? <div className="greyout" onClick={handleClick}></div> : null}
+      {greyout !== "none" && <div className="greyout" onClick={handleClick}></div> }
 
       {/* send state to component */}
       <NavigationDrawerComp onClick={callback} prop={menuChange} />

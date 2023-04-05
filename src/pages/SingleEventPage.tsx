@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { ContactCard, Get_EventpageQuery } from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
 import { useParams } from "react-router-dom";
-import EventSignupComp from "../components/EventSignup/EventSignupComp";
+// import EventSignupComp from "../components/EventSignup/EventSignupComp";
 import MapComp from "../components/Map/MapComp";
 import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
