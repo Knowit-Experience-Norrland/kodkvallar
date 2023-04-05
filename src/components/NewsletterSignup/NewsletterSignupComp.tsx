@@ -51,6 +51,7 @@ const NewsletterSignupComp = () => {
 
   return (
     <section className="newsletter-signup">
+      <div className="form-container">
       <div>
         {message === "SUCCESS" && (
           <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
@@ -108,6 +109,7 @@ const NewsletterSignupComp = () => {
         </div>
         <button type="submit">Prenumerera</button>
       </form>
+      </div> 
     </section>
   );
 };

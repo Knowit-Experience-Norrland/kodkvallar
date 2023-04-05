@@ -15,7 +15,7 @@
   a {
     text-decoration: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     color: $primary-digital-lollipop;
     cursor: pointer;
@@ -34,6 +34,7 @@
     font-size: 2rem;
     align-self: center;
     cursor: pointer;
+    padding-left: 2rem;
   }
 }
 
