@@ -2,9 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FooterComp from "./components/Footer/FooterComp";
 import HeaderComp from "./components/Header/HeaderComp";
-import ContactPage from "./pages/ContactPage";
-import EventPage from "./pages/EventPage";
-import InfoPage from "./pages/InfoPage";
+import SingleEventPage from "./pages/SingleEventPage";
 import StartPage from "./pages/StartPage";
 
 // react router for routing between pages
@@ -15,9 +13,15 @@ function App() {
             <HeaderComp />
         <Routes>
             <Route path="/" element={<StartPage />} />
-            <Route path="/about" element={<ContactPage />} />
-            <Route path="/event/:id" element={<EventPage />} />
-            <Route path="/test" element={<InfoPage />} />
+            {/* upcoming events - single event and feed page */}
+            <Route path="/event" element={<StartPage />} />
+            <Route path="/event/:slug" element={<SingleEventPage />} />
+             {/* old events - single event and feed page */}
+             <Route path="/blog" element={<StartPage />} />
+            <Route path="/blog/:slug" element={<SingleEventPage />} />
+            {/* about */}
+            <Route path="/about" element={<SingleEventPage />} />
+
         </Routes>
         <FooterComp />
       </Router>

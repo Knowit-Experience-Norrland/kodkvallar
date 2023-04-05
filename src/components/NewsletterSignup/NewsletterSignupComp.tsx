@@ -8,6 +8,7 @@ const NewsletterSignupComp = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
 
+  //create query
   const CREATE_NEWSLETTERSIGNUP = gql(`
   mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {
     createNewsletterSignup(data: $data) {
@@ -17,8 +18,10 @@ const NewsletterSignupComp = () => {
     }
   }
     `);
+
   const [createNewsletterSignup] = useMutation(CREATE_NEWSLETTERSIGNUP);
 
+  //   handle submit
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -48,15 +51,13 @@ const NewsletterSignupComp = () => {
 
   return (
     <section className="newsletter-signup">
-       <div>
+      <div>
         {message === "SUCCESS" && (
           <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
         )}
         {message === "ERROR" && <p>Något gick fel. Vänligen försök igen.</p>}
         {message === null && (
-          <p>
-            Prenumerera på vårt nyhetsbrev för att få de senaste nyheterna!
-          </p>
+          <p>Prenumerera på vårt nyhetsbrev för att få de senaste nyheterna!</p>
         )}
       </div>
       <form onSubmit={handleSubmit} name="NewsletterSignup">
@@ -105,9 +106,8 @@ const NewsletterSignupComp = () => {
             required
           />
         </div>
-        <button type="submit">Prenumerea</button>
+        <button type="submit">Prenumerera</button>
       </form>
-     
     </section>
   );
 };

@@ -10,11 +10,12 @@ const UpcomingEventSpotlightComp = () => {
   var utc = new Date();
   const today = utc.toISOString().split(".")[0] + "Z";
 
+  //create query with variable for taodys date and time 
   const GET_UPCOMING_EVENTS = graphql(`
     query GET_UPCOMING_EVENTS($today: DateTime!) {
       eventPages(where: { date_gte: $today }, orderBy: date_ASC, first: 2) {
-        eventId
         title
+        slug
         hero {
           image {
             url
@@ -30,7 +31,7 @@ const UpcomingEventSpotlightComp = () => {
     { variables: { today } }
   );
   if (error) {
-    console.log(error);
+    return <div><p>Något gick fel..</p></div>;
   }
 
   return (
@@ -39,11 +40,11 @@ const UpcomingEventSpotlightComp = () => {
       {data?.eventPages.map((event) => {
         return (
           <article
-            key={event.eventId}
+            key={event.slug}
             className="upcoming-event-spotlight-main"
           >
             <img src={event.hero?.image?.url} alt={event.hero?.altText} />
-            <Link to={`/event/${event.eventId}`}>
+            <Link to={`/event/${event.slug}`}>
               <h3>{event.title}</h3>
               <IoMdArrowForward className="arrow-btn" />
             </Link>

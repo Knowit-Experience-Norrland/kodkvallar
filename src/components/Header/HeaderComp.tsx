@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import NavigationDrawerComp from "./NavigationDrawerComp";
@@ -15,30 +15,46 @@ const HeaderComp = () => {
     setGreyout(menuBtn === true ? "none" : "block");
     setmenuBtn(!menuBtn);
   };
-const callback = (temp: boolean) => {
- if (temp === true) {
-    setmenuChange("none");
-    setGreyout("none");
-    setmenuBtn(false);
- }
-}
+  // recive change in state from child component, to show/hide greyout and menu
+  const callback = (temp: boolean) => {
+    if (temp === true) {
+      setmenuChange("none");
+      setGreyout("none");
+      setmenuBtn(false);
+    }
+  };
   return (
     <div>
       <header className="header">
         <Link to="/">
-          <img src="../images/logo.svg" alt="Knowit Experience" className="logo" />
+          <img
+            src="../images/logo.svg"
+            alt="Knowit Experience"
+            className="logo"
+          />
         </Link>
-        {/* cahnge btn */}
+        {/* cahnge menu btn */}
         {!menuBtn ? (
           <div className="menu-btn-container">
-          <button className="nav-btn" onClick={handleClick} title="Öppna Meny"><IoMenuSharp className="menu-btn" /></button>
-          <p className="menu-btn-text">Meny</p>
+            <button
+              className="nav-btn"
+              onClick={handleClick}
+              title="Öppna Meny"
+            >
+              <IoMenuSharp className="menu-btn" />
+            </button>
+            <p className="menu-btn-text">Meny</p>
           </div>
-          
         ) : (
           <div className="menu-btn-container">
-          <button className="nav-btn" onClick={handleClick} title="Stäng Meny"><IoCloseSharp className="menu-btn" /></button>
-          <p className="menu-btn-text">Stäng</p>
+            <button
+              className="nav-btn"
+              onClick={handleClick}
+              title="Stäng Meny"
+            >
+              <IoCloseSharp className="menu-btn" />
+            </button>
+            <p className="menu-btn-text">Stäng</p>
           </div>
         )}
       </header>

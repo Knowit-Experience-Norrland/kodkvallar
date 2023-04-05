@@ -1,24 +1,28 @@
 import React from "react";
 import { RichText } from "@graphcms/rich-text-react-renderer";
-import { StartpageContentFragment, EventContentFramgmentFragment } from "../../gql/graphql";
+import {
+  StartpageContentFragment,
+  EventContentFragmentFragment,
+} from "../../gql/graphql";
 
+//This component is used to render the content of a page
+//props for the fragments that use this component
 type Props = {
-  content: StartpageContentFragment["content"] | EventContentFramgmentFragment["content"] //Only the content part of the fragment
+  content:
+    | StartpageContentFragment["content"]
+    | EventContentFragmentFragment["content"]; //Only the content part of the fragment
 };
 
-const MainContent: React.FC<Props> = ({content}) => {
-  if(content === undefined) return (<div>No content...</div>);
-    
+const MainContent: React.FC<Props> = ({ content }) => {
+  if (content === undefined) return <div>Inget innehåll...</div>;
+
   return (
     <article className="main-content">
-        {content.map((content) => {
+      {content.map((content) => {
         if (content?.__typename === "Image") {
           return (
             <div key={content.id}>
-              <img
-                src={content?.image?.url}
-                alt={content?.altText}
-              />
+              <img src={content?.image?.url} alt={content?.altText} />
               <p className="img-text">{content.imageText}</p>
             </div>
           );

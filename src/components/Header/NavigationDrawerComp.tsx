@@ -12,6 +12,7 @@ const NavigationDrawerComp = ({ prop, onClick }: Props) => {
     onClick(true);
   };
   return (
+    //show/hide nav with prop and onClick send to parent to close nav
     <nav
       className="navigation-drawer"
       style={{ display: prop }}

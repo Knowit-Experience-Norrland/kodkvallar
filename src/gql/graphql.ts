@@ -1960,10 +1960,10 @@ export type DocumentVersion = {
 
 export type EventLocation = {
   __typename?: 'EventLocation';
-  adress: RichText;
+  adress: Scalars['String'];
   /** The unique identifier */
   id: Scalars['ID'];
-  map?: Maybe<Location>;
+  map: Location;
   /** System stage field */
   stage: Stage;
 };
@@ -1986,8 +1986,8 @@ export type EventLocationConnection = {
 };
 
 export type EventLocationCreateInput = {
-  adress: Scalars['RichTextAST'];
-  map?: InputMaybe<LocationInput>;
+  adress: Scalars['String'];
+  map: LocationInput;
 };
 
 export type EventLocationCreateManyInlineInput = {
@@ -2026,6 +2026,25 @@ export type EventLocationManyWhereInput = {
   OR?: InputMaybe<Array<EventLocationWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  adress?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  adress_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  adress_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  adress_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  adress_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  adress_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  adress_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  adress_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  adress_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  adress_starts_with?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -2048,6 +2067,8 @@ export type EventLocationManyWhereInput = {
 };
 
 export enum EventLocationOrderByInput {
+  AdressAsc = 'adress_ASC',
+  AdressDesc = 'adress_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC'
 }
@@ -2133,7 +2154,7 @@ export type EventLocationParentWhereUniqueInput = {
 };
 
 export type EventLocationUpdateInput = {
-  adress?: InputMaybe<Scalars['RichTextAST']>;
+  adress?: InputMaybe<Scalars['String']>;
   map?: InputMaybe<LocationInput>;
 };
 
@@ -2149,7 +2170,7 @@ export type EventLocationUpdateManyInlineInput = {
 };
 
 export type EventLocationUpdateManyInput = {
-  adress?: InputMaybe<Scalars['RichTextAST']>;
+  adress?: InputMaybe<Scalars['String']>;
   map?: InputMaybe<LocationInput>;
 };
 
@@ -2220,6 +2241,25 @@ export type EventLocationWhereInput = {
   OR?: InputMaybe<Array<EventLocationWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  adress?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  adress_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  adress_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  adress_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  adress_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  adress_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  adress_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  adress_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  adress_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  adress_starts_with?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -2257,13 +2297,12 @@ export type EventPage = Node & {
   date: Scalars['DateTime'];
   /** Get the document in other stages */
   documentInStages: Array<EventPage>;
-  eventId: Scalars['Int'];
   hero?: Maybe<Hero>;
   /** List of EventPage versions */
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
-  location?: Maybe<EventPagelocationUnion>;
+  location?: Maybe<EventLocation>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -2382,9 +2421,8 @@ export type EventPageCreateInput = {
   content?: InputMaybe<EventPagecontentUnionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date: Scalars['DateTime'];
-  eventId: Scalars['Int'];
   hero?: InputMaybe<HeroCreateOneInlineInput>;
-  location?: InputMaybe<EventPagelocationUnionCreateOneInlineInput>;
+  location?: InputMaybe<EventLocationCreateOneInlineInput>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -2464,21 +2502,6 @@ export type EventPageManyWhereInput = {
   documentInStages_every?: InputMaybe<EventPageWhereStageInput>;
   documentInStages_none?: InputMaybe<EventPageWhereStageInput>;
   documentInStages_some?: InputMaybe<EventPageWhereStageInput>;
-  eventId?: InputMaybe<Scalars['Int']>;
-  /** All values greater than the given value. */
-  eventId_gt?: InputMaybe<Scalars['Int']>;
-  /** All values greater than or equal the given value. */
-  eventId_gte?: InputMaybe<Scalars['Int']>;
-  /** All values that are contained in given list. */
-  eventId_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
-  /** All values less than the given value. */
-  eventId_lt?: InputMaybe<Scalars['Int']>;
-  /** All values less than or equal the given value. */
-  eventId_lte?: InputMaybe<Scalars['Int']>;
-  /** Any other value that exists and is not equal to the given value. */
-  eventId_not?: InputMaybe<Scalars['Int']>;
-  /** All values that are not contained in given list. */
-  eventId_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   hero?: InputMaybe<HeroWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
@@ -2499,10 +2522,7 @@ export type EventPageManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  /** All values in which the modular component is connected to the given models */
-  location?: InputMaybe<EventPagelocationUnionWhereInput>;
-  /** All values in which the union is empty. */
-  location_empty?: InputMaybe<Scalars['Boolean']>;
+  location?: InputMaybe<EventLocationWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2583,8 +2603,6 @@ export enum EventPageOrderByInput {
   CreatedAtDesc = 'createdAt_DESC',
   DateAsc = 'date_ASC',
   DateDesc = 'date_DESC',
-  EventIdAsc = 'eventId_ASC',
-  EventIdDesc = 'eventId_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
@@ -2602,9 +2620,8 @@ export type EventPageUpdateInput = {
   contact?: InputMaybe<ContactCardUpdateManyInlineInput>;
   content?: InputMaybe<EventPagecontentUnionUpdateManyInlineInput>;
   date?: InputMaybe<Scalars['DateTime']>;
-  eventId?: InputMaybe<Scalars['Int']>;
   hero?: InputMaybe<HeroUpdateOneInlineInput>;
-  location?: InputMaybe<EventPagelocationUnionUpdateOneInlineInput>;
+  location?: InputMaybe<EventLocationUpdateOneInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -2731,21 +2748,6 @@ export type EventPageWhereInput = {
   documentInStages_every?: InputMaybe<EventPageWhereStageInput>;
   documentInStages_none?: InputMaybe<EventPageWhereStageInput>;
   documentInStages_some?: InputMaybe<EventPageWhereStageInput>;
-  eventId?: InputMaybe<Scalars['Int']>;
-  /** All values greater than the given value. */
-  eventId_gt?: InputMaybe<Scalars['Int']>;
-  /** All values greater than or equal the given value. */
-  eventId_gte?: InputMaybe<Scalars['Int']>;
-  /** All values that are contained in given list. */
-  eventId_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
-  /** All values less than the given value. */
-  eventId_lt?: InputMaybe<Scalars['Int']>;
-  /** All values less than or equal the given value. */
-  eventId_lte?: InputMaybe<Scalars['Int']>;
-  /** Any other value that exists and is not equal to the given value. */
-  eventId_not?: InputMaybe<Scalars['Int']>;
-  /** All values that are not contained in given list. */
-  eventId_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   hero?: InputMaybe<HeroWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
@@ -2766,10 +2768,7 @@ export type EventPageWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
-  /** All values in which the modular component is connected to the given models */
-  location?: InputMaybe<EventPagelocationUnionWhereInput>;
-  /** All values in which the union is empty. */
-  location_empty?: InputMaybe<Scalars['Boolean']>;
+  location?: InputMaybe<EventLocationWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2861,7 +2860,6 @@ export type EventPageWhereStageInput = {
 
 /** References EventPage record uniquely */
 export type EventPageWhereUniqueInput = {
-  eventId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
 };
@@ -2964,84 +2962,6 @@ export type EventPagecontentUnionWhereUniqueInput = {
   Heading?: InputMaybe<HeadingWhereUniqueInput>;
   Image?: InputMaybe<ImageWhereUniqueInput>;
   Text?: InputMaybe<TextWhereUniqueInput>;
-};
-
-export type EventPagelocationUnion = EventLocation;
-
-export type EventPagelocationUnionConnectInput = {
-  EventLocation?: InputMaybe<EventLocationConnectInput>;
-};
-
-export type EventPagelocationUnionCreateInput = {
-  EventLocation?: InputMaybe<EventLocationCreateInput>;
-};
-
-export type EventPagelocationUnionCreateManyInlineInput = {
-  /** Create and connect multiple existing EventPagelocationUnion documents */
-  create?: InputMaybe<Array<EventPagelocationUnionCreateInput>>;
-};
-
-export type EventPagelocationUnionCreateOneInlineInput = {
-  /** Create and connect one EventPagelocationUnion document */
-  create?: InputMaybe<EventPagelocationUnionCreateInput>;
-};
-
-export type EventPagelocationUnionCreateWithPositionInput = {
-  EventLocation?: InputMaybe<EventLocationCreateWithPositionInput>;
-};
-
-export type EventPagelocationUnionUpdateInput = {
-  EventLocation?: InputMaybe<EventLocationUpdateInput>;
-};
-
-export type EventPagelocationUnionUpdateManyInlineInput = {
-  /** Create and connect multiple EventPagelocationUnion component instances */
-  create?: InputMaybe<Array<EventPagelocationUnionCreateWithPositionInput>>;
-  /** Delete multiple EventPagelocationUnion documents */
-  delete?: InputMaybe<Array<EventPagelocationUnionWhereUniqueInput>>;
-  /** Update multiple EventPagelocationUnion component instances */
-  update?: InputMaybe<Array<EventPagelocationUnionUpdateWithNestedWhereUniqueAndPositionInput>>;
-  /** Upsert multiple EventPagelocationUnion component instances */
-  upsert?: InputMaybe<Array<EventPagelocationUnionUpsertWithNestedWhereUniqueAndPositionInput>>;
-};
-
-export type EventPagelocationUnionUpdateManyWithNestedWhereInput = {
-  EventLocation?: InputMaybe<EventLocationUpdateManyWithNestedWhereInput>;
-};
-
-export type EventPagelocationUnionUpdateOneInlineInput = {
-  /** Create and connect one EventPagelocationUnion document */
-  create?: InputMaybe<EventPagelocationUnionCreateInput>;
-  /** Delete currently connected EventPagelocationUnion document */
-  delete?: InputMaybe<Scalars['Boolean']>;
-  /** Update single EventPagelocationUnion document */
-  update?: InputMaybe<EventPagelocationUnionUpdateWithNestedWhereUniqueInput>;
-  /** Upsert single EventPagelocationUnion document */
-  upsert?: InputMaybe<EventPagelocationUnionUpsertWithNestedWhereUniqueInput>;
-};
-
-export type EventPagelocationUnionUpdateWithNestedWhereUniqueAndPositionInput = {
-  EventLocation?: InputMaybe<EventLocationUpdateWithNestedWhereUniqueAndPositionInput>;
-};
-
-export type EventPagelocationUnionUpdateWithNestedWhereUniqueInput = {
-  EventLocation?: InputMaybe<EventLocationUpdateWithNestedWhereUniqueInput>;
-};
-
-export type EventPagelocationUnionUpsertWithNestedWhereUniqueAndPositionInput = {
-  EventLocation?: InputMaybe<EventLocationUpsertWithNestedWhereUniqueAndPositionInput>;
-};
-
-export type EventPagelocationUnionUpsertWithNestedWhereUniqueInput = {
-  EventLocation?: InputMaybe<EventLocationUpsertWithNestedWhereUniqueInput>;
-};
-
-export type EventPagelocationUnionWhereInput = {
-  EventLocation?: InputMaybe<EventLocationWhereInput>;
-};
-
-export type EventPagelocationUnionWhereUniqueInput = {
-  EventLocation?: InputMaybe<EventLocationWhereUniqueInput>;
 };
 
 export type EventSignup = Node & {
@@ -10018,7 +9938,7 @@ export type CreateEventSignupMutationVariables = Exact<{
 }>;
 
 
-export type CreateEventSignupMutation = { __typename?: 'Mutation', createEventSignup?: { __typename?: 'EventSignup', email: string, firstName: string, lastName: string, eventPage?: { __typename?: 'EventPage', eventId: number } | null } | null };
+export type CreateEventSignupMutation = { __typename?: 'Mutation', createEventSignup?: { __typename?: 'EventSignup', email: string, firstName: string, lastName: string, eventPage?: { __typename?: 'EventPage', slug: string } | null } | null };
 
 export type CreateNewsletterSignupMutationVariables = Exact<{
   data: NewsletterSignupCreateInput;
@@ -10032,31 +9952,21 @@ export type Get_Upcoming_EventsQueryVariables = Exact<{
 }>;
 
 
-export type Get_Upcoming_EventsQuery = { __typename?: 'Query', eventPages: Array<{ __typename?: 'EventPage', eventId: number, title: string, hero?: { __typename?: 'Hero', altText: string, image: { __typename?: 'Asset', url: string } } | null }> };
+export type Get_Upcoming_EventsQuery = { __typename?: 'Query', eventPages: Array<{ __typename?: 'EventPage', title: string, slug: string, hero?: { __typename?: 'Hero', altText: string, image: { __typename?: 'Asset', url: string } } | null }> };
 
-export type Get_ContactpageQueryVariables = Exact<{ [key: string]: never; }>;
+export type LocationFragmentFragment = { __typename?: 'EventPage', location?: { __typename?: 'EventLocation', adress: string, id: string, map: { __typename?: 'Location', latitude: number, longitude: number } } | null } & { ' $fragmentName'?: 'LocationFragmentFragment' };
 
-
-export type Get_ContactpageQuery = { __typename?: 'Query', contactPage?: { __typename?: 'ContactPage', slug: string, title: string, content: Array<{ __typename?: 'Heading', heading: string } | { __typename?: 'Image', altText: string, image: { __typename?: 'Asset', url: string } } | { __typename?: 'Text', text: { __typename?: 'RichText', text: string } }>, contact: Array<{ __typename?: 'ContactCard', location: string, name: string, phone?: string | null, stage: Stage, title: string, email: string, image?: { __typename?: 'Asset', url: string } | null }> } | null };
-
-export type LocationFragmentFragment = { __typename?: 'EventPage', location?: { __typename?: 'EventLocation', adress: { __typename?: 'RichText', raw: any }, map?: { __typename?: 'Location', latitude: number, longitude: number } | null } | null } & { ' $fragmentName'?: 'LocationFragmentFragment' };
-
-export type EventContentFramgmentFragment = { __typename?: 'EventPage', content: Array<{ __typename?: 'Heading', heading: string, id: string } | { __typename?: 'Image', altText: string, imageText?: string | null, id: string, image: { __typename?: 'Asset', url: string } } | { __typename?: 'Text', id: string, text: { __typename?: 'RichText', raw: any } }> } & { ' $fragmentName'?: 'EventContentFramgmentFragment' };
+export type EventContentFragmentFragment = { __typename?: 'EventPage', content: Array<{ __typename?: 'Heading', heading: string, id: string } | { __typename?: 'Image', altText: string, imageText?: string | null, id: string, image: { __typename?: 'Asset', url: string } } | { __typename?: 'Text', id: string, text: { __typename?: 'RichText', raw: any } }> } & { ' $fragmentName'?: 'EventContentFragmentFragment' };
 
 export type Get_EventpageQueryVariables = Exact<{
-  id: Scalars['Int'];
+  slug: Scalars['String'];
 }>;
 
 
 export type Get_EventpageQuery = { __typename?: 'Query', eventPage?: (
-    { __typename?: 'EventPage', date: any, eventId: number, slug: string, title: string, contact: Array<{ __typename?: 'ContactCard', email: string, location: string, name: string, phone?: string | null, title: string, image?: { __typename?: 'Asset', url: string } | null }> }
-    & { ' $fragmentRefs'?: { 'EventContentFramgmentFragment': EventContentFramgmentFragment;'LocationFragmentFragment': LocationFragmentFragment } }
+    { __typename?: 'EventPage', date: any, slug: string, title: string, contact: Array<{ __typename?: 'ContactCard', email: string, location: string, name: string, phone?: string | null, title: string, image?: { __typename?: 'Asset', url: string } | null }> }
+    & { ' $fragmentRefs'?: { 'EventContentFragmentFragment': EventContentFragmentFragment;'LocationFragmentFragment': LocationFragmentFragment } }
   ) | null };
-
-export type Get_InfopageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Get_InfopageQuery = { __typename?: 'Query', infoPage?: { __typename?: 'InfoPage', title: string, slug: string, content: Array<{ __typename?: 'Heading', heading: string } | { __typename?: 'Image', altText: string, image: { __typename?: 'Asset', url: string } } | { __typename?: 'Text', text: { __typename?: 'RichText', raw: any } }>, heroImage?: { __typename?: 'Asset', url: string } | null, contact: Array<{ __typename?: 'ContactCard', title: string, phone?: string | null, name: string, location: string, email: string, image?: { __typename?: 'Asset', url: string } | null }> } | null };
 
 export type StartpageContentFragment = { __typename?: 'StartPage', content: Array<{ __typename?: 'Heading', heading: string, id: string } | { __typename?: 'Image', id: string, altText: string, imageText?: string | null, image: { __typename?: 'Asset', url: string } } | { __typename?: 'Text', id: string, text: { __typename?: 'RichText', raw: any } }> } & { ' $fragmentName'?: 'StartpageContentFragment' };
 
@@ -10068,13 +9978,11 @@ export type Get_StartpageQuery = { __typename?: 'Query', startPage?: (
     & { ' $fragmentRefs'?: { 'StartpageContentFragment': StartpageContentFragment } }
   ) | null };
 
-export const LocationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<LocationFragmentFragment, unknown>;
-export const EventContentFramgmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFramgment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventContentFramgmentFragment, unknown>;
+export const LocationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<LocationFragmentFragment, unknown>;
+export const EventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventContentFragmentFragment, unknown>;
 export const StartpageContentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartpageContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<StartpageContentFragment, unknown>;
-export const CreateEventSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createEventSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEventSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}}]}}]}}]} as unknown as DocumentNode<CreateEventSignupMutation, CreateEventSignupMutationVariables>;
+export const CreateEventSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createEventSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEventSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}}]}}]}}]} as unknown as DocumentNode<CreateEventSignupMutation, CreateEventSignupMutationVariables>;
 export const CreateNewsletterSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createNewsletterSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NewsletterSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createNewsletterSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<CreateNewsletterSignupMutation, CreateNewsletterSignupMutationVariables>;
-export const Get_Upcoming_EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_UPCOMING_EVENTS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"date_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"date_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"2"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Upcoming_EventsQuery, Get_Upcoming_EventsQueryVariables>;
-export const Get_ContactpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_CONTACTPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contactPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"contacttest","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"stage"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_ContactpageQuery, Get_ContactpageQueryVariables>;
-export const Get_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eventId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"EventContentFramgment"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"eventId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"locationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFramgment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_EventpageQuery, Get_EventpageQueryVariables>;
-export const Get_InfopageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_INFOPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"infoPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"test","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"heroImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_InfopageQuery, Get_InfopageQueryVariables>;
+export const Get_Upcoming_EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_UPCOMING_EVENTS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"date_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"date_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"2"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Upcoming_EventsQuery, Get_Upcoming_EventsQueryVariables>;
+export const Get_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"EventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"locationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_EventpageQuery, Get_EventpageQueryVariables>;
 export const Get_StartpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_STARTPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"start","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StartpageContent"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartpageContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_StartpageQuery, Get_StartpageQueryVariables>;

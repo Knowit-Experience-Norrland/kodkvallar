@@ -3,10 +3,10 @@ import React, { useState } from "react";
 
 // recive id from EventSignupComp.tsx, send data from API and print to DOM
 interface EventSignupCompProps {
-    id: number;
+  slug: string;
 }
 
-const EventSignupComp = ({id}: EventSignupCompProps) => {
+const EventSignupComp = ({ slug }: EventSignupCompProps) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ const EventSignupComp = ({id}: EventSignupCompProps) => {
         email
         firstName
         eventPage {
-          eventId
+          slug
         }
         lastName
       }
@@ -27,12 +27,18 @@ const EventSignupComp = ({id}: EventSignupCompProps) => {
     `);
   const [createEventSignup] = useMutation(CREATE_EVENTSIGNUP);
 
+  // handle submit
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-        const data = { "firstName":firstname, "lastName":lastname,"email":email, "eventPage": { "connect": { "eventId": id } }  };
-        createEventSignup({ variables: { data } });
+      const data = {
+        firstName: firstname,
+        lastName: lastname,
+        email: email,
+        eventPage: { connect: { slug: slug } },
+      };
+      createEventSignup({ variables: { data } });
       setMessage("SUCCESS");
     } catch (err) {
       setMessage("ERROR");
@@ -41,7 +47,6 @@ const EventSignupComp = ({id}: EventSignupCompProps) => {
     setFirstname("");
     setLastname("");
     setEmail("");
-
   };
 
   //   set states to values of input fields
@@ -57,7 +62,7 @@ const EventSignupComp = ({id}: EventSignupCompProps) => {
 
   return (
     <section>
-      <div>EventSignupComp</div>
+      <p>Dina uppgifter:</p>
       <form onSubmit={handleSubmit} name="EventSignup">
         <input
           name="firstname"
@@ -86,17 +91,11 @@ const EventSignupComp = ({id}: EventSignupCompProps) => {
         <button type="submit">Anmäl</button>
       </form>
       {/* print to DOM */}
-     <div>
-        {message === "SUCCESS" && (
-            <p>Tack för din anmälan!</p>
-        )}
-        {message === "ERROR" && (
-            <p>Något gick fel. Vänligen försök igen.</p>
-        )}
-        {message === null && (
-            <p>Anmäl dig till eventet!</p>
-        )}
-     </div>
+      <div>
+        {message === "SUCCESS" && <p>Tack för din anmälan!</p>}
+        {message === "ERROR" && <p>Något gick fel. Vänligen försök igen.</p>}
+        {message === null && <p>Anmäl dig till eventet!</p>}
+      </div>
     </section>
   );
 };

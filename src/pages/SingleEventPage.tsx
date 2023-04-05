@@ -3,25 +3,23 @@ import { useQuery } from "@apollo/client";
 import { ContactCard, Get_EventpageQuery } from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
 import { useParams } from "react-router-dom";
-import { RichText } from "@graphcms/rich-text-react-renderer";
 import EventSignupComp from "../components/EventSignup/EventSignupComp";
 import MapComp from "../components/Map/MapComp";
 import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 
 function EventPage() {
-  // get id from params
+  // get slug from params
   const params = useParams();
-  let id = parseInt(params.id!);
+  let slug = params.slug;
 
-  //create fragments of query
+  //create fragment of query
   const locationFragment = graphql(`
     fragment locationFragment on EventPage {
       location {
         ... on EventLocation {
-          adress {
-            raw
-          }
+          adress
+          id
           map {
             latitude
             longitude
@@ -30,9 +28,9 @@ function EventPage() {
       }
     }
   `);
-
-  const EventContentFramgment = graphql(`
-    fragment EventContentFramgment on EventPage {
+  //create fragment of query
+  const EventContentFragment = graphql(`
+    fragment EventContentFragment on EventPage {
       content {
         ... on Heading {
           heading
@@ -55,10 +53,10 @@ function EventPage() {
       }
     }
   `);
-
+//create query with fragments and slug for variable 
   const GET_EVENTPAGE = graphql(`
-    query GET_EVENTPAGE($id: Int!) {
-      eventPage(where: { eventId: $id }) {
+    query GET_EVENTPAGE($slug: String!) {
+      eventPage(where: { slug: $slug }) {
         contact {
           email
           image {
@@ -69,9 +67,8 @@ function EventPage() {
           phone
           title
         }
-        ...EventContentFramgment
+        ...EventContentFragment
         date
-        eventId
         slug
         title
         ...locationFragment
@@ -80,23 +77,24 @@ function EventPage() {
   `);
 
   const { data, error } = useQuery<Get_EventpageQuery>(GET_EVENTPAGE, {
-    variables: { id },
+    variables: { slug },
   });
-  if (error) {
-    console.log(error);
-  }
   const { eventPage } = data || {};
   let location = useFragment(locationFragment, eventPage);
   let map = location?.location?.map;
-  let mainContent = useFragment(EventContentFramgment, eventPage);
+  let mainContent = useFragment(EventContentFragment, eventPage);
   let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
-
+ 
+  if (error) {
+  return <div><p>Något gick fel..</p></div>;
+  }
+  
   return (
     <main>
       <article>
         <h1>{eventPage?.title}</h1>
         <p>{eventPage?.date}</p>
-        {location && <RichText content={location?.location?.adress.raw} />}
+        <p>{location?.location?.adress}</p>
         {position.lat !== 0 && <MapComp position={position} />}
         {mainContent && <MainContent content={mainContent.content} />}
         <div>
@@ -104,7 +102,7 @@ function EventPage() {
             return <ContactCardComp contact={contact as ContactCard} key={i} />;
           })}
         </div>
-        <EventSignupComp id={id} />
+        {/* <EventSignupComp slug={slug} /> */}
       </article>
     </main>
   );
