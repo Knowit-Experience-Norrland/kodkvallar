@@ -62,7 +62,6 @@ const StartPage = () => {
   if (error) {
     return <div><p>Något gick fel..</p></div>;
   }
-
   return (
     <main>
       <HeroComp

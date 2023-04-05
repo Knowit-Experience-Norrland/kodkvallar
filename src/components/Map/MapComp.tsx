@@ -16,11 +16,11 @@ const render = (status: Status): ReactElement => {
 };
 
 // api key for google maps
-const googleMapsApiKey = "AIzaSyBMSulbefyIZbyU2njvyxT_hDvbdZE3jto";
+const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "";
 //send position to MyMap component
 export const GoogleMaps: React.FC<Coordinates> = ({ position }) => {
   return (
-    <Wrapper apiKey={googleMapsApiKey} render={render}>
+    <Wrapper apiKey={googleMapsApiKey} render={render} >
       <MyMap center={position} zoom={15} />
     </Wrapper>
   );
