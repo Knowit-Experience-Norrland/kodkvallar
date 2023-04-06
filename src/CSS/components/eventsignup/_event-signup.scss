@@ -1,0 +1,92 @@
+.event-signup {
+    width: 100%;
+    margin: 0 auto;
+    background-color: $primary-forest;
+    padding: 2rem 0;
+    .form-container {
+        max-width: 1000px;
+        margin: 0 1rem;
+        padding: 1rem 0;
+        background-color: $primary-digital-white;
+      }
+      p {
+        color: $primary-digital-black;
+        text-align: center;
+      }
+    
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    
+        .form-child {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          margin-bottom: 1rem;
+        }
+        label {
+          color: $primary-digital-black;
+        }
+    
+        input {
+          border: 1px solid $primary-digital-black;
+          padding: 0.8rem;
+          margin: 0 1rem;
+        }
+    
+        ::placeholder {
+          color: rgba($primary-digital-black, 0.5);
+          font-size: 1rem;
+        }
+    
+        button {
+          background-color: $primary-melon;
+          color: $primary-digital-black;
+          padding: 0.6rem;
+          border: none;
+          font-size: 1rem;
+          cursor: pointer;
+          margin: 0 1rem;
+          display: block;
+          width: 50%;
+          align-self: center;
+          box-shadow: 0 2px 4px rgba($primary-digital-black, 0.5);
+          border: 1px $primary-flamingo solid;
+        }
+        button:hover {
+          background-color: $primary-flamingo;
+        }
+      }
+      .gdpr-text{
+        font-size: .6rem;
+        font-style: italic;
+        padding-top: 1rem;
+      }
+    }
+    @media screen and (min-width: 768px) {
+      .event-signup {
+        padding: 4rem 0;
+    
+        .form-container {
+          margin: 0 auto;
+          padding: 2rem 0;
+        }
+        p {
+          font-size: 1.2rem;
+        }
+        form {
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+    
+          .form-child {
+            margin: 0;
+          }
+          button {
+            width: 20%;
+          }
+        }
+      }
+    }
+    
