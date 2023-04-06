@@ -1,8 +1,14 @@
 .contact-card {
   text-align: center;
+  
   a {
     color: $primary-forest;
-    font-weight: 700;
+  }
+  a:visited{
+    color: $primary-forest;
+  }
+  a:hover{
+    color: $primary-digital-black;
   }
   p {
     margin: 0;
@@ -25,11 +31,12 @@
 }
 
 .contact-img {
+
   max-width: 150px;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  border: 0.5rem solid $primary-forest;
   border-radius: 100%;
   box-shadow: 0 4px 4px rgba($primary-digital-black, 0.4);
+  margin: 0 auto;
 }

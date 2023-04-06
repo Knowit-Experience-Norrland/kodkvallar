@@ -113,13 +113,13 @@ function EventPage() {
         <div className="event-sidebar">
           <div className="space">
           <h2>När</h2>
-          <p><span className="bold">Datum:</span> {date}</p>
-          <p><span className="bold">Klockan:</span> {time}</p>
+          <p><span className="green">Datum:</span> {date}</p>
+          <p><span className="green">Klockan:</span> {time}</p>
           </div>
           <div className="space">
           <h2>Plats</h2>
-          <p>{location?.location?.adress}</p>
           {position.lat !== 0 && <MapComp position={position} />}
+          <p>{location?.location?.adress}</p>
           </div>
           <div className="space">
           <h2>Kontakt</h2>

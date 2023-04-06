@@ -25,7 +25,7 @@ function ContactPage({ contact }: CardContactProps) {
             />
           ) : null
         }
-        <p className="bold">{contact?.name}</p>
+        <p className="green bold">{contact?.name}</p>
         <p>{contact?.title}</p>
         <a href={"mailto:" + contact?.email}>{contact?.email}</a>
         <p>{contact?.phone}</p>
