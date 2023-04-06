@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 // recive id from EventSignupComp.tsx, send data from API and print to DOM
 interface EventSignupCompProps {
-  slug: string;
+  slug: string | undefined;
 }
 
 const EventSignupComp = ({ slug }: EventSignupCompProps) => {

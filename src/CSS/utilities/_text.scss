@@ -1,60 +1,76 @@
- //font family
- $font-family: 'Arial', sans-serif;
+//font family
+$font-family: "Arial", sans-serif;
 
- //font size
- $base-font-size: 16px;
+//font size
+$base-font-size: 16px;
 
- //paragraphs
+//paragraphs
 
- p{
-    font-family: $font-family;
-    font-weight: 400;
-    font-size: 1rem;
-    color: $primary-digital-black;
-    line-height: 150%;
- }
+p {
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: 1rem;
+  color: $primary-digital-black;
+  line-height: 150%;
+}
 
- //alt text
- .img-text{
-    font-family: $font-family;
-    font-weight: 400;
-    font-size: .8rem;
-    font-style: italic;
-    color: $primary-digital-black;
-    line-height: 130%;
-    margin: .2rem 0;
-    text-align: center;
+.bold {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $primary-forest;
+}
 
- }
+//alt text
+.img-text {
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: $primary-digital-black;
+  line-height: 130%;
+  margin: 0.2rem 0;
+  text-align: center;
+}
 
- .gdpr-text{
-   font-size: 0.5rem;
- }
+.gdpr-text {
+  font-size: 0.5rem;
+}
 
- //headings 
+//headings
 
- h1 {
-    font-family: $font-family;
-    font-weight: normal;
-    font-size: 3.125rem;
-    color: $primary-digital-black;
- }
+h1 {
+  font-family: $font-family;
+  font-weight: normal;
+  font-size: 3.125rem;
+  color: $primary-digital-black;
+}
 
- h2{
-    font-family: $font-family;
-    font-weight: 700;
-    font-size: 1.6rem;
-    color: $primary-digital-black;
- }
+h2 {
+  font-family: $font-family;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: $primary-digital-black;
+}
 
- h3{
-    font-family: $font-family;
-    font-weight: 700;
-    font-size: 1rem;
-    color: $primary-digital-black;
-    line-height: 150%;
- }
+h3 {
+  font-family: $font-family;
+  font-weight: 700;
+  font-size: 1rem;
+  color: $primary-digital-black;
+  line-height: 150%;
+}
 
- .h2-forest{
-      color: $primary-forest;
- }
+.h2-forest {
+  color: $primary-forest;
+}
+
+
+//links
+
+a{
+  font-family: $font-family;
+  font-weight: 700;
+  font-size: 1rem;
+  color: $primary-forest;
+  line-height: 150%;
+}

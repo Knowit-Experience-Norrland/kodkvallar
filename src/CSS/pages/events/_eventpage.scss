@@ -1,0 +1,29 @@
+.event-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.event-sidebar {
+  max-width: 300px;
+  box-sizing: border-box;
+  background-color: $primary-sand;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+  box-shadow: 1px 2px 4px rgba($primary-digital-black, 0.4);
+}
+
+.space{
+    padding-bottom: 4rem;
+}
+
+@media screen and (min-width: 768px) {
+  .event-wrapper {
+    grid-template-columns: 1fr 300px;
+  }
+  .event-sidebar {
+    margin: 4rem 0;
+  }
+}

@@ -1,0 +1,35 @@
+.contact-card {
+  text-align: center;
+  a {
+    color: $primary-forest;
+    font-weight: 700;
+  }
+  p {
+    margin: 0;
+    padding: 0.2rem 0;
+  }
+
+  .event-sidebar-socials {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 4rem 0 2rem 0;
+    a {
+      padding: 0 0.5rem;
+      font-size: 2rem;
+      color: $primary-forest;
+    }
+  }
+}
+
+.contact-img {
+  max-width: 150px;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border: 0.5rem solid $primary-forest;
+  border-radius: 100%;
+  box-shadow: 0 4px 4px rgba($primary-digital-black, 0.4);
+}

@@ -3,10 +3,11 @@ import { useQuery } from "@apollo/client";
 import { ContactCard, Get_EventpageQuery } from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
 import { useParams } from "react-router-dom";
-// import EventSignupComp from "../components/EventSignup/EventSignupComp";
+import EventSignupComp from "../components/EventSignup/EventSignupComp";
 import MapComp from "../components/Map/MapComp";
 import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
+import HeroComp from "../components/Hero/HeroComp";
 
 function EventPage() {
   // get slug from params
@@ -53,7 +54,7 @@ function EventPage() {
       }
     }
   `);
-//create query with fragments and slug for variable 
+  //create query with fragments and slug for variable
   const GET_EVENTPAGE = graphql(`
     query GET_EVENTPAGE($slug: String!) {
       eventPage(where: { slug: $slug }) {
@@ -62,10 +63,16 @@ function EventPage() {
           image {
             url
           }
-          location
           name
           phone
           title
+        }
+        hero {
+          altText
+          id
+          image {
+            url
+          }
         }
         ...EventContentFragment
         date
@@ -84,26 +91,46 @@ function EventPage() {
   let map = location?.location?.map;
   let mainContent = useFragment(EventContentFragment, eventPage);
   let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
- 
+  let date = eventPage?.date?.substring(0, 10);
+  let time = eventPage?.date?.substring(11, 16);
   if (error) {
-  return <div><p>Något gick fel..</p></div>;
+    return (
+      <div>
+        <p>Något gick fel..</p>
+      </div>
+    );
   }
-  
+
   return (
     <main>
-      <article>
-        <h1>{eventPage?.title}</h1>
-        <p>{eventPage?.date}</p>
-        <p>{location?.location?.adress}</p>
-        {position.lat !== 0 && <MapComp position={position} />}
+      <HeroComp
+        url={eventPage?.hero?.image.url || ""}
+        altText={eventPage?.hero?.altText || ""}
+        title={eventPage?.title || ""}
+      />
+      <div className="event-wrapper">
         {mainContent && <MainContent content={mainContent.content} />}
-        <div>
+        <div className="event-sidebar">
+          <div className="space">
+          <h2>När</h2>
+          <p><span className="bold">Datum:</span> {date}</p>
+          <p><span className="bold">Klockan:</span> {time}</p>
+          </div>
+          <div className="space">
+          <h2>Plats</h2>
+          <p>{location?.location?.adress}</p>
+          {position.lat !== 0 && <MapComp position={position} />}
+          </div>
+          <div className="space">
+          <h2>Kontakt</h2>
           {eventPage?.contact?.map((contact, i) => {
             return <ContactCardComp contact={contact as ContactCard} key={i} />;
           })}
+          </div>
         </div>
-        {/* <EventSignupComp slug={slug} /> */}
-      </article>
+      </div>
+
+      <EventSignupComp slug={slug} />
     </main>
   );
 }
