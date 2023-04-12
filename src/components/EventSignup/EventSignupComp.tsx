@@ -82,7 +82,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
 
           <form onSubmit={handleSubmit} name="NewsletterSignup">
             <div className="form-child">
-              <label htmlFor="event-firstname">Förnamn:</label>
+              <label htmlFor="event-firstname">Förnamn: <span className="required">*</span></label>
               <input
                 id="event-firstname"
                 name="event-firstname"
@@ -94,7 +94,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
               />
             </div>
             <div className="form-child">
-              <label htmlFor="event-lastname">Efternamn:</label>
+              <label htmlFor="event-lastname">Efternamn: <span className="required">*</span></label>
               <input
                 id="event-lastname"
                 name="event-lastname"
@@ -106,7 +106,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
               />
             </div>
             <div className="form-child">
-              <label htmlFor="event-email">Email:</label>
+              <label htmlFor="event-email">Email: <span className="required">*</span></label>
               <input
                 id="event-email"
                 name="event-email"

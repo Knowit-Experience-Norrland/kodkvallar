@@ -7,10 +7,10 @@
   justify-content: center;
   position: relative;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 2em 0;
   max-width: 1000px;
   width: 100%;
-  gap: 1rem;
+  gap: 1em;
 }
 
 .startpage-card {
@@ -22,34 +22,36 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 1em 0;
 
 
   img {
     height: 70px;
     width: auto;
-    padding-bottom: 2rem;
   }
 
   h2,
   p {
     font-size: 14px;
-    margin: 0.2rem;
-    padding: 0 0.5rem;
+    margin: 0.2em;
+    padding: 0 0.5em;
   }
 
   .startpage-card-link {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: $primary-digital-lollipop;
-    font-size: 2rem;
+    color: $primary-forest;
+    font-size: 2em;
     text-decoration: none;
-    margin: 0 .5rem;
+    padding: 0 .5em;
 
     .arrow {
       align-self: flex-end;
+      margin: 0.2em;
+      padding: 0 0.5em;
     }
   }
 

@@ -19,8 +19,8 @@
 
     .hero-overlay{
         position: absolute;
-        margin: 0 auto 5rem auto;
-        padding: 0 2rem;
+        margin: 0 auto 5em auto;
+        padding: 0 2em;
         max-width: 1000px;
         height: 100%;
         width: 100%;
@@ -31,12 +31,10 @@
 
     .hero-title{
         font-weight: 400;
-        font-size: 3rem;
-        line-height: 5rem;
+        font-size: 3em;
         background-color: rgba($primary-digital-white, 0.85);
-        padding-left: 1rem;
-        padding-right: 1rem;
-        margin: 0 1rem;
+        padding: .2em .5em;
+        margin: 0 1em;
         }
 
     @media screen and (min-width: 768px){

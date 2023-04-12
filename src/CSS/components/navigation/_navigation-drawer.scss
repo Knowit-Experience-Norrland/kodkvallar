@@ -3,7 +3,7 @@
 .navigation-drawer{
     background-color: $primary-sand;
     position: fixed;
-    top: 0;
+    top: 2em;
     width: 100%;
     height: 100%;
     z-index: 2;
@@ -15,11 +15,10 @@
 
     a{
         color: $primary-digital-black;
-        font-size: 1.25rem;
-        line-height: 1.4rem;
+        font-size: 1em;
         text-decoration: none;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-top: .5em;
+        padding-bottom: .5em;
     }
     a:hover{
         color: $primary-digital-lollipop;
@@ -27,7 +26,7 @@
 
     hr{
         background-color: $primary-digital-lollipop;
-        width: 3rem;
+        width: 3em;
         height: .15em;
         border: none;
         margin-top: 2em;
@@ -49,11 +48,11 @@
 
 @media screen and (min-width: 768px){
     .navigation-drawer{
-      width: 30rem;
+      width: 30em;
       height: fit-content;
       right: 0;
       top:0;
-      padding-top: 6rem;
+      padding-top: 6em;
     }
 
 }

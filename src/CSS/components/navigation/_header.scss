@@ -4,7 +4,7 @@
     display: flex;
     box-shadow: 0 2px 4px rgba($primary-digital-black,0.2);
     background-color: $primary-sand;
-    height: 4rem;
+    height: 4em;
     justify-content: space-between;
     z-index: 99;
     position: relative;
@@ -15,9 +15,9 @@
 }
 
 .logo{
-    height: 2rem;
+    height: 2em;
     width: auto;
-    padding-left: 1rem;
+    padding-left: 1em;
 }
 
 .nav-btn{
@@ -31,11 +31,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-right: 1rem;
+    padding-right: 1em;
 }
 .menu-btn{
     color: $primary-digital-black;
-    font-size: 2rem;
+    font-size: 2em;
     align-self: center;
     cursor: pointer;
     
@@ -52,22 +52,22 @@
 
 @media screen and (min-width: 768px){
     .header{
-        height: 5rem;
+        height: 5em;
     }
 
     .logo{
-        height: 3rem;
+        height: 3em;
         width: auto;
-        padding-left: 3rem;
+        padding-left: 3em;
     }
 
     .menu-btn-container{
-        padding-right: 3rem;
+        padding-right: 3em;
     }
     .menu-btn-text{
         display: block;
         margin: 0;
-        font-size: .8rem;
+        font-size: .8em;
     }
 
     .greyout{

@@ -32,7 +32,7 @@ const MainContent: React.FC<Props> = ({ content }) => {
         }
         if (content?.__typename === "Heading") {
           return (
-            <h2 key={content.id} className="h2-forest">
+            <h2 key={content.id}>
               {content?.heading}
             </h2>
           );

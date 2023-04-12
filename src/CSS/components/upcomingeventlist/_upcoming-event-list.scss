@@ -2,13 +2,12 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  background-color: $primary-digital-white;
 
-  padding: 2rem 1rem;
+  padding: 2em 1em;
   .upcoming-event-main {
     max-width: 300px;
     margin: 0 auto;
-    padding: 2rem 0;
+    padding: 2em 0;
     .upcoming-event-info {
         display: flex;
         flex-direction: column;
@@ -34,15 +33,15 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      color: $primary-digital-lollipop;
+      color: $primary-forest;
       cursor: pointer;
     }
     p {
-      margin: 0.5rem 0;
+      margin: 0.5em 0;
     }
 
     a:visited {
-      color: $primary-digital-lollipop;
+      color: $primary-forest;
     }
 
     a:hover {
@@ -50,12 +49,12 @@
     }
 
     .arrow-btn {
-      color: $primary-digital-lollipop;
-      font-size: 2rem;
+      color: $primary-forest;
+      font-size: 2em;
       align-self: flex-end;
       cursor: pointer;
-      padding-left: 2rem;
-      margin-top: 1rem;
+      padding-left: 2em;
+      margin-top: 1em;
     }
   }
 }
@@ -66,15 +65,15 @@
     flex-direction: column;
     flex-wrap: wrap;
     
-    padding: 2rem 0;
+    padding: 2em 0;
     .upcoming-event-main {
       width: 100%;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 2rem 0;
+      padding: 2em 0;
 
       .upcoming-event-info {
-        margin-left: 2rem;
+        margin-left: 2em;
         width: 100%;
       }
       img{
@@ -82,11 +81,8 @@
       }
       a {
         width: 100%;
-        text-decoration: none;
         display: flex;
         flex-direction: row;
-        color: $primary-digital-lollipop;
-        cursor: pointer;
       }
     }
   }

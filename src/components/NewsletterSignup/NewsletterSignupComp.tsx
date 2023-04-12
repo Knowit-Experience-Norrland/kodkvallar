@@ -52,25 +52,23 @@ const NewsletterSignupComp = () => {
   return (
     <section className="newsletter-signup">
       <div className="form-container">
+      <p className="bold">Prenumerera på vårt nyhetsbrev för att få de senaste nyheterna!</p>
+
       <div>
         {message === "SUCCESS" && (
           <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
         )}
         {message === "ERROR" && <p>Något gick fel. Vänligen försök igen.</p>}
-        {message === null && (
-          <p>Prenumerera på vårt nyhetsbrev för att få de senaste nyheterna!</p>
-        )}
       </div>
       <form onSubmit={handleSubmit} name="NewsletterSignup">
         <div className="form-child">
-          <label htmlFor="firstname" className="visuallyhidden">
-            Förnamn:
+          <label htmlFor="firstname">
+            Förnamn: <span className="required">*</span>
           </label>
           <input
             id="firstname"
             name="firstname"
             type="text"
-            placeholder="Förnamn"
             aria-label="Förnamn"
             value={firstname}
             onChange={handleFirstnameChange}
@@ -78,14 +76,13 @@ const NewsletterSignupComp = () => {
           />
         </div>
         <div className="form-child">
-          <label htmlFor="lastname" className="visuallyhidden">
-            Efternamn:
+          <label htmlFor="lastname">
+            Efternamn: <span className="required">*</span>
           </label>
           <input
             id="lastname"
             name="lastname"
             type="text"
-            placeholder="Efternamn"
             aria-label="Efternamn"
             value={lastname}
             onChange={handleLastnameChange}
@@ -93,14 +90,13 @@ const NewsletterSignupComp = () => {
           />
         </div>
         <div className="form-child">
-          <label htmlFor="email" className="visuallyhidden">
-            Email:
+          <label htmlFor="email" >
+            Email: <span className="required">*</span>
           </label>
           <input
             id="email"
             name="email"
             type="email"
-            placeholder="Email"
             aria-label="Email"
             value={email}
             onChange={handleEmailChange}

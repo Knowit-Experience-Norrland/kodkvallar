@@ -10,13 +10,13 @@
   box-sizing: border-box;
   background-color: $primary-sand;
   margin: 0 auto;
-  margin-bottom: 2rem;
-  padding: 0 1rem;
+  margin-bottom: 2em;
+  padding: 0 1em;
   box-shadow: 1px 2px 4px rgba($primary-digital-black, 0.4);
 }
 
 .space{
-    padding-bottom: .5rem;
+    padding-bottom: .5em;
 }
 
 @media screen and (min-width: 768px) {
@@ -24,6 +24,6 @@
     grid-template-columns: 1fr 300px;
   }
   .event-sidebar {
-    margin: 4rem 0;
+    margin: 4em 0;
   }
 }

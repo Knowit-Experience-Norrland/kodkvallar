@@ -12,19 +12,18 @@
   }
   p {
     margin: 0;
-    padding: 0.2rem 0;
+    padding: 0.2em 0;
   }
 
   .event-sidebar-socials {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     margin: 0 auto;
-    padding: 4rem 0 2rem 0;
+    padding: 2em 0;
     a {
-      padding: 0 0.5rem;
-      font-size: 4rem;
+      font-size: 3em;
       color: $primary-forest;
     }
   }
