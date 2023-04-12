@@ -8,6 +8,7 @@ import MapComp from "../components/Map/MapComp";
 import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
+import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
 
 function EventPage() {
   // get slug from params
@@ -129,8 +130,8 @@ function EventPage() {
           </div>
         </div>
       </div>
-
       <EventSignupComp slug={slug} />
+      <UpcomingEventSpotlightComp />
     </main>
   );
 }

@@ -1,13 +1,22 @@
 .event-signup {
     width: 100%;
     margin: 0 auto;
-    background-color: $primary-forest;
+    background-color: $primary-clay;
     padding: 2rem 0;
+    .event-signup-container{
+      max-width: 1000px;
+      margin: 0 auto;
+    }
     .form-container {
-        max-width: 1000px;
-        margin: 0 1rem;
-        padding: 1rem 0;
-        background-color: $primary-digital-white;
+      max-width: 650px;
+      margin: 0 1rem;
+      padding: 1rem 0;
+      background-color: $primary-digital-white;
+      box-shadow: 0 4px 4px rgba($primary-digital-black,0.2);
+      }
+      h2{
+        
+        margin: 2rem 1rem;
       }
       p {
         color: $primary-digital-black;
@@ -27,17 +36,28 @@
         }
         label {
           color: $primary-digital-black;
-        }
-    
-        input {
-          border: 1px solid $primary-digital-black;
-          padding: 0.8rem;
+          padding-bottom: 0.8rem;
           margin: 0 1rem;
         }
     
-        ::placeholder {
-          color: rgba($primary-digital-black, 0.5);
-          font-size: 1rem;
+        input, textarea {
+          border: 1px solid $primary-forest;
+          padding: 0.8rem;
+          margin: 0 1rem 1rem 1rem;
+        }
+
+        .checkbox {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: flex-start;
+          margin: 0 1rem;
+          padding-bottom: 1.5rem;
+          input {
+            margin: 0 0.5rem;
+            width: 1.2rem;
+            height: 1.2rem;
+          }
         }
     
         button {
@@ -64,29 +84,13 @@
         padding-top: 1rem;
       }
     }
+    
     @media screen and (min-width: 768px) {
-      .event-signup {
-        padding: 4rem 0;
-    
-        .form-container {
-          margin: 0 auto;
-          padding: 2rem 0;
-        }
-        p {
-          font-size: 1.2rem;
-        }
-        form {
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-    
-          .form-child {
-            margin: 0;
-          }
-          button {
-            width: 20%;
-          }
-        }
+      .form-container {
+        padding: 2rem 0;
+        max-width: 650px;
       }
+    
+      
     }
     

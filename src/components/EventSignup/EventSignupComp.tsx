@@ -70,100 +70,92 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
   const handlePhotoConsentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhotoConsent(e.target.checked);
   };
-  const handleAllergiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAllergiesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAllergies(e.target.value);
   };
 
   return (
     <section className="event-signup">
-      <div className="form-container">
-        <div>
-          {message === "SUCCESS" && (
-            <p>Tack för din anmälan!</p>
-          )}
-          {message === "ERROR" && <p>Något gick fel. Vänligen försök igen.</p>}
-          {message === null && (
-            <p>
-              Anmäl dig till kodkvällen!
+      <div className="event-signup-container">
+        <div className="form-container">
+          <h2>Anmäl dig till eventet!</h2>
+
+          <form onSubmit={handleSubmit} name="NewsletterSignup">
+            <div className="form-child">
+              <label htmlFor="firstname">Förnamn:</label>
+              <input
+                id="firstname"
+                name="firstname"
+                type="text"
+                aria-label="Förnamn"
+                value={firstname}
+                onChange={handleFirstnameChange}
+                required
+              />
+            </div>
+            <div className="form-child">
+              <label htmlFor="lastname">Efternamn:</label>
+              <input
+                id="lastname"
+                name="lastname"
+                type="text"
+                aria-label="Efternamn"
+                value={lastname}
+                onChange={handleLastnameChange}
+                required
+              />
+            </div>
+            <div className="form-child">
+              <label htmlFor="email">Email:</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                aria-label="Email"
+                value={email}
+                onChange={handleEmailChange}
+                required
+              />
+            </div>
+            <div className="form-child">
+              <label htmlFor="allergies">
+                Allergier eller annan viktig information:
+              </label>
+              <textarea
+                id="allergies"
+                name="allergies"
+                aria-label="Allergier eller annan viktig information"
+                rows={5}
+                cols={33}
+                value={allergies}
+                onChange={handleAllergiesChange}
+              />
+            </div>
+            <div className="form-child checkbox">
+              <input
+                type="checkbox"
+                id="photo-consent"
+                name="photo-consent"
+                checked={photoConsent}
+                aria-label="Godkänn att vara med på bild genom att bocka i rutan"
+                onChange={handlePhotoConsentChange}
+              />
+              <label htmlFor="photo-consent">
+                Klicka i om du godkänner att vara med på bild från eventet.
+              </label>
+            </div>
+            <div>
+              {message === "SUCCESS" && <p>Tack för din anmälan!</p>}
+              {message === "ERROR" && (
+                <p>Något gick fel. Vänligen försök igen.</p>
+              )}
+            </div>
+            <button type="submit">Anmäl</button>
+            <p className="gdpr-text">
+              Genom att anmäla dig godkänner du att vi lagrar ovan information.
             </p>
-          )}
+          </form>
         </div>
-        <form onSubmit={handleSubmit} name="NewsletterSignup">
-          <div className="form-child">
-            <label htmlFor="firstname" className="visuallyhidden">
-              Förnamn:
-            </label>
-            <input
-              id="firstname"
-              name="firstname"
-              type="text"
-              placeholder="Förnamn"
-              aria-label="Förnamn"
-              value={firstname}
-              onChange={handleFirstnameChange}
-              required
-            />
-          </div>
-          <div className="form-child">
-            <label htmlFor="lastname" className="visuallyhidden">
-              Efternamn:
-            </label>
-            <input
-              id="lastname"
-              name="lastname"
-              type="text"
-              placeholder="Efternamn"
-              aria-label="Efternamn"
-              value={lastname}
-              onChange={handleLastnameChange}
-              required
-            />
-          </div>
-          <div className="form-child">
-            <label htmlFor="email" className="visuallyhidden">
-              Email:
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Email"
-              aria-label="Email"
-              value={email}
-              onChange={handleEmailChange}
-              required
-            />
-          </div>
-          <div className="form-child">
-            <label htmlFor="allergies" className="visuallyhidden">
-              Allergier eller annan viktig information:
-            </label>
-            <input
-              id="allergies"
-              name="allergies"
-              type="allergies"
-              placeholder="Allergier"
-              aria-label="Allergier eller annan viktig information"
-              value={allergies}
-              onChange={handleAllergiesChange}
-              required
-            />
-          </div>
-          <div className="form-child">
-            <label htmlFor="photo-consent" className="visuallyhidden">
-              Klicka i om du godkänner att vara med på bild från eventet:
-            </label>
-            <input type="checkbox"
-              id="photo-consent"
-              name="photo-consent"
-              aria-label="Godkänn att vara med på bild genom att bocka i rutan"
-              onChange={handlePhotoConsentChange}
-              required
-            />
-          </div>
-          <p className="gdpr-text">Genom att anmäla dig godkänner du att vi lagrar ovan information.</p>
-          <button type="submit">Anmäl</button>
-        </form>
       </div>
     </section>
   );
