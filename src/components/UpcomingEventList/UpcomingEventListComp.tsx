@@ -1,9 +1,6 @@
 import React from "react";
 import { graphql } from "../../gql";
-import {
-  Get_Upcoming_EventsQuery,
-  Get_Upcoming_Events_ListQuery,
-} from "../../gql/graphql";
+import { Get_Upcoming_Events_ListQuery } from "../../gql/graphql";
 import { useQuery } from "@apollo/client";
 import { IoMdArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -63,7 +60,7 @@ const UpcomingEventListComp = () => {
                   <span className="bold">Klockan:</span> {time}
                 </p>
                 <p>{event.ingress}</p>
-              <IoMdArrowForward className="arrow-btn" />
+                <IoMdArrowForward className="arrow-btn" />
               </div>
             </Link>
             <hr className="divider" />
