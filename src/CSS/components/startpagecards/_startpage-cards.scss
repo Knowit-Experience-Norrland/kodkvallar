@@ -1,53 +1,65 @@
 //startpage Cards
 
 .startpage-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: 0 auto;
-    padding: 2rem 0;
-    max-width: 1000px;
-    width: 100%;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto;
+  padding: 2rem 0;
+  max-width: 1000px;
+  width: 100%;
+  gap: 1rem;
 }
 
-.startpage-card{
-    background-color: $primary-mint;
-    box-shadow: 0 2px 4px rgba($primary-digital-black,0.2);
-    width: 300px;
-    height: 250px;
+.startpage-card {
+  background-color: $primary-mint;
+  box-shadow: 0 2px 4px rgba($primary-digital-black, 0.2);
+  width: 300px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+
+
+  img {
+    height: 70px;
+    width: auto;
+    padding-bottom: 2rem;
+  }
+
+  h2,
+  p {
+    font-size: 14px;
+    margin: 0.2rem;
+    padding: 0 0.5rem;
+  }
+
+  .startpage-card-link {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: $primary-digital-lollipop;
+    font-size: 2rem;
+    text-decoration: none;
+    margin: 0 .5rem;
 
-    img{
-        height: 70px;
-        width: auto;
-        padding-bottom: 2rem;
+    .arrow {
+      align-self: flex-end;
     }
+  }
 
-    h2, p{
-        font-size: 14px;
-        margin: .2rem;
-        padding: 0 .5rem;
-    }
-
-    .startpage-card-link{
-        color: $primary-digital-lollipop;
-        font-size: 2rem;
-        align-self: flex-end;
-        padding-right: 2rem;
-        padding-top: 1rem;
-        
-    }
+  a:hover{
+    text-decoration: underline;
+  }
 }
 
 @media screen and (min-width: 1000px) {
-    .startpage-cards-container {
-        justify-content: space-between;
-    }
+  .startpage-cards-container {
+    justify-content: space-between;
+  }
 }
-    
