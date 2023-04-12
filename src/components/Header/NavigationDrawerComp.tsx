@@ -23,11 +23,11 @@ const NavigationDrawerComp = ({ prop, onClick }: Props) => {
         Start
       </NavLink>
       <hr />
-      <NavLink to="/upcoming" onClick={close}>
+      <NavLink to="/event" onClick={close}>
         Kommande Event
       </NavLink>
       <hr />
-      <NavLink to="/events" onClick={close}>
+      <NavLink to="/blog" onClick={close}>
         Tidigare Event
       </NavLink>
       <hr />

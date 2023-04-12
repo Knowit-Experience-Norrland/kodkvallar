@@ -15,12 +15,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  mutation createEventSignup($data: EventSignupCreateInput!) {\n    createEventSignup(data: $data) {\n    allergies\n    email\n    firstName\n    lastName\n    photoConsent\n    eventPageSlug {\n      slug\n    }\n  }\n}\n    ": types.CreateEventSignupDocument,
     "\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    ": types.CreateNewsletterSignupDocument,
+    "\n    query GET_UPCOMING_EVENTS_LIST($today: DateTime!) {\n      eventPages(where: { date_gte: $today }, orderBy: date_ASC) {\n        title\n        slug\n        date\n        ingress\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Upcoming_Events_ListDocument,
     "\n    query GET_UPCOMING_EVENTS($today: DateTime!) {\n      eventPages(where: { date_gte: $today }, orderBy: date_ASC, first: 2) {\n        title\n        slug\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Upcoming_EventsDocument,
     "\n    fragment locationFragment on EventPage {\n      location {\n        ... on EventLocation {\n          adress\n          id\n          map {\n            latitude\n            longitude\n          }\n        }\n      }\n    }\n  ": types.LocationFragmentFragmentDoc,
     "\n    fragment EventContentFragment on EventPage {\n      content {\n        ... on Heading {\n          heading\n          id\n        }\n        ... on Image {\n          altText\n          imageText\n          id\n          image {\n            url\n          }\n        }\n        ... on Text {\n          id\n          text {\n            raw\n          }\n        }\n      }\n    }\n  ": types.EventContentFragmentFragmentDoc,
     "\n    query GET_EVENTPAGE($slug: String!) {\n      eventPage(where: { slug: $slug }) {\n        contact {\n          email\n          image {\n            url\n          }\n          name\n          phone\n          title\n        }\n        hero {\n          altText\n          id\n          image {\n            url\n          }\n        }\n        ...EventContentFragment\n        date\n        slug\n        title\n        ...locationFragment\n      }\n    }\n  ": types.Get_EventpageDocument,
     "\n    fragment StartpageContent on StartPage {\n      content {\n        ... on Heading {\n          heading\n          id\n        }\n        ... on Image {\n          id\n          altText\n          imageText\n          image {\n            url\n          }\n        }\n        ... on Text {\n          id\n          text {\n            raw\n          }\n        }\n      }\n    }\n  ": types.StartpageContentFragmentDoc,
     "\n    query GET_STARTPAGE {\n      startPage(where: { slug: \"start\" }) {\n        ...StartpageContent\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n        title\n      }\n    }\n  ": types.Get_StartpageDocument,
+    "\n    query GET_LANDINGPAGE {\n      eventLandingpage(where: { slug: \"kommande-event\" }) {\n        hero {\n          altText\n          image {\n            url\n          }\n        }\n        title\n      }\n    }\n  ": types.Get_LandingpageDocument,
 };
 
 /**
@@ -48,6 +50,10 @@ export function graphql(source: "\n  mutation createNewsletterSignup($data: News
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n    query GET_UPCOMING_EVENTS_LIST($today: DateTime!) {\n      eventPages(where: { date_gte: $today }, orderBy: date_ASC) {\n        title\n        slug\n        date\n        ingress\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  "): (typeof documents)["\n    query GET_UPCOMING_EVENTS_LIST($today: DateTime!) {\n      eventPages(where: { date_gte: $today }, orderBy: date_ASC) {\n        title\n        slug\n        date\n        ingress\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n    query GET_UPCOMING_EVENTS($today: DateTime!) {\n      eventPages(where: { date_gte: $today }, orderBy: date_ASC, first: 2) {\n        title\n        slug\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  "): (typeof documents)["\n    query GET_UPCOMING_EVENTS($today: DateTime!) {\n      eventPages(where: { date_gte: $today }, orderBy: date_ASC, first: 2) {\n        title\n        slug\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -69,6 +75,10 @@ export function graphql(source: "\n    fragment StartpageContent on StartPage {\
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    query GET_STARTPAGE {\n      startPage(where: { slug: \"start\" }) {\n        ...StartpageContent\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n        title\n      }\n    }\n  "): (typeof documents)["\n    query GET_STARTPAGE {\n      startPage(where: { slug: \"start\" }) {\n        ...StartpageContent\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n        title\n      }\n    }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query GET_LANDINGPAGE {\n      eventLandingpage(where: { slug: \"kommande-event\" }) {\n        hero {\n          altText\n          image {\n            url\n          }\n        }\n        title\n      }\n    }\n  "): (typeof documents)["\n    query GET_LANDINGPAGE {\n      eventLandingpage(where: { slug: \"kommande-event\" }) {\n        hero {\n          altText\n          image {\n            url\n          }\n        }\n        title\n      }\n    }\n  "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

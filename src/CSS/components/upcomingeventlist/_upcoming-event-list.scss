@@ -1,0 +1,93 @@
+.upcoming-event-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: $primary-digital-white;
+
+  padding: 2rem 1rem;
+  .upcoming-event-main {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    .upcoming-event-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+    .divider {
+      background-color: $primary-clay;
+      width: 100%;
+      height: 0.15em;
+      border: none;
+      margin-top: 2em;
+    }
+    img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      object-position: center;
+      margin: 0 auto;
+    }
+
+    a {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      color: $primary-digital-lollipop;
+      cursor: pointer;
+    }
+    p {
+      margin: 0.5rem 0;
+    }
+
+    a:visited {
+      color: $primary-digital-lollipop;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .arrow-btn {
+      color: $primary-digital-lollipop;
+      font-size: 2rem;
+      align-self: flex-end;
+      cursor: pointer;
+      padding-left: 2rem;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .upcoming-event-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+    padding: 2rem 0;
+    .upcoming-event-main {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 0;
+
+      .upcoming-event-info {
+        margin-left: 2rem;
+        width: 100%;
+      }
+      img{
+        margin: 0;
+      }
+      a {
+        width: 100%;
+        text-decoration: none;
+        display: flex;
+        flex-direction: row;
+        color: $primary-digital-lollipop;
+        cursor: pointer;
+      }
+    }
+  }
+}

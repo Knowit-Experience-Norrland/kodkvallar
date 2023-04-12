@@ -4,6 +4,7 @@ import FooterComp from "./components/Footer/FooterComp";
 import HeaderComp from "./components/Header/HeaderComp";
 import SingleEventPage from "./pages/SingleEventPage";
 import StartPage from "./pages/StartPage";
+import UpcomingEventsPage from "./pages/UpcomingEventsPage";
 
 // react router for routing between pages
 function App() {
@@ -14,7 +15,7 @@ function App() {
         <Routes>
             <Route path="/" element={<StartPage />} />
             {/* upcoming events - single event and feed page */}
-            <Route path="/event" element={<StartPage />} />
+            <Route path="/event" element={<UpcomingEventsPage />} />
             <Route path="/event/:slug" element={<SingleEventPage />} />
              {/* old events - single event and feed page */}
              <Route path="/blog" element={<StartPage />} />

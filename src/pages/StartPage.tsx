@@ -86,7 +86,7 @@ const StartPage = () => {
         <StartPageCards
           img={Lightbulb}
           title={"Tidigare kodkvällar"}
-          text={"Se vad vi gjort på tidigare kodkvällar"}
+          text={"Se vad vi gjort på tidigare kodkvällar!"}
           link={"/blog"}
         />
       </section>
