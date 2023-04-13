@@ -43,15 +43,15 @@ const UpcomingEventListComp = () => {
   }
 
   return (
-    <section className="upcoming-event-container">
+    <section className="event-container">
       {eventPages?.map((event) => {
         let date = event?.date?.substring(0, 10);
         let time = event?.date?.substring(11, 16);
         return (
-          <article key={event.slug} className="upcoming-event-main">
+          <article key={event.slug} className="event-main">
             <Link to={`/event/${event.slug}`}>
               <img src={event.hero?.image?.url} alt={event.hero?.altText} />
-              <div className="upcoming-event-info">
+              <div className="event-info">
                 <h2>{event.title}</h2>
                 <p>
                   <span className="bold">Datum:</span> {date}

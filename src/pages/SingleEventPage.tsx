@@ -8,7 +8,7 @@ import MapComp from "../components/Map/MapComp";
 import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
-import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
+import PastEventSpotlightComp from "../components/PastEventSpotlight/PastEventSpotlightComp";
 
 function EventPage() {
   // get slug from params
@@ -113,25 +113,33 @@ function EventPage() {
         {mainContent && <MainContent content={mainContent.content} />}
         <div className="event-sidebar">
           <div className="space">
-          <h2>När</h2>
-          <p><span className="green">Datum:</span> {date}</p>
-          <p><span className="green">Klockan:</span> {time}</p>
+            <h2>När</h2>
+            <p>
+              <span className="green">Datum:</span> {date}
+            </p>
+            <p>
+              <span className="green">Klockan:</span> {time}
+            </p>
           </div>
           <div className="space">
-          <h2>Plats</h2>
-          {position.lat !== 0 && <MapComp position={position} />}
-          <p>{location?.location?.adress}</p>
+            <h2>Plats</h2>
+            {position.lat !== 0 && <MapComp position={position} />}
+            <p>{location?.location?.adress}</p>
           </div>
           <div className="space">
-          <h2>Kontakt</h2>
-          {eventPage?.contact?.map((contact, i) => {
-            return <ContactCardComp contact={contact as ContactCard} key={i} />;
-          })}
+            <h2>Kontakt</h2>
+            {eventPage?.contact?.map((contact, i) => {
+              return (
+                <ContactCardComp contact={contact as ContactCard} key={i} />
+              );
+            })}
           </div>
         </div>
       </div>
       <EventSignupComp slug={slug} />
-      <UpcomingEventSpotlightComp />
+      <div className="events-spotlight-container">
+        <PastEventSpotlightComp />
+      </div>
     </main>
   );
 }

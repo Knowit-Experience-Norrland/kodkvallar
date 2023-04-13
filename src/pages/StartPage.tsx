@@ -90,7 +90,7 @@ const StartPage = () => {
           link={"/blog"}
         />
       </section>
-      <section className="upcoming-events-container">
+      <section className="events-spotlight-container">
         <UpcomingEventSpotlightComp />
       </section>
     </main>

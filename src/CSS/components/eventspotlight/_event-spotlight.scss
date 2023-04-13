@@ -1,11 +1,11 @@
-.upcoming-events-container {
+.events-spotlight-container {
   background-color: $primary-sand;
 }
-.upcoming-event-spotlight-h2 {
+.event-spotlight-h2 {
   text-align: center;
   padding-top: 2em;
 }
-.upcoming-event-spotlight-main {
+.event-spotlight-main {
   max-width: 1000px;
   margin: 0 auto;
   padding: 2em 0;
@@ -44,14 +44,14 @@
 }
 
 @media screen and (min-width: 768px) {
-  .upcoming-event-spotlight-h2 {
+  .event-spotlight-h2 {
     max-width: 1000px;
     margin: 0 auto;
     padding-bottom: 2em;
     padding-top: 2em;
   }
 
-  .upcoming-event-spotlight-main {
+  .event-spotlight-main {
     h3 {
       font-size: 1.5em;
     }

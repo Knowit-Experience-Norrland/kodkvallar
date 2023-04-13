@@ -1,14 +1,14 @@
-.upcoming-event-container {
+.event-container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 
   padding: 2em 1em;
-  .upcoming-event-main {
+  .event-main {
     max-width: 300px;
     margin: 0 auto;
     padding: 2em 0;
-    .upcoming-event-info {
+    .event-info {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -60,19 +60,19 @@
 }
 
 @media screen and (min-width: 768px) {
-  .upcoming-event-container {
+  .event-container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     
     padding: 2em 0;
-    .upcoming-event-main {
+    .event-main {
       width: 100%;
       max-width: 1000px;
       margin: 0 auto;
       padding: 2em 0;
 
-      .upcoming-event-info {
+      .event-info {
         margin-left: 2em;
         width: 100%;
       }

@@ -3,13 +3,17 @@ import { useQuery } from "@apollo/client";
 import { graphql } from "../gql";
 import HeroComp from "../components/Hero/HeroComp";
 import UpcomingEventListComp from "../components/UpcomingEventList/UpcomingEventListComp";
-import { Get_LandingpageQuery } from "../gql/graphql";
 import PastEventSpotlightComp from "../components/PastEventSpotlight/PastEventSpotlightComp";
+import { Get_Landingpage_Past_EventQuery } from "../gql/graphql";
+import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
+import PastEventListComp from "../components/PastEventList/PastEventListComp";
 
-const UpcomingEventsPage = () => {
-  const GET_LANDINGPAGE = graphql(`
-    query GET_LANDINGPAGE {
-      eventLandingpage(where: { slug: "kommande-event" }) {
+
+
+const PastEventsPage = () => {
+    const GET_LANDINGPAGE_PAST_EVENT = graphql(`
+    query GET_LANDINGPAGE_PAST_EVENT {
+      eventLandingpage(where: { slug: "tidigare-event" }) {
         hero {
           altText
           image {
@@ -21,7 +25,7 @@ const UpcomingEventsPage = () => {
     }
   `);
 
-  const { data, error } = useQuery<Get_LandingpageQuery>(GET_LANDINGPAGE);
+  const { data, error } = useQuery<Get_Landingpage_Past_EventQuery>(GET_LANDINGPAGE_PAST_EVENT);
   const { eventLandingpage } = data || {};
   if (error) {
     return (
@@ -37,12 +41,12 @@ const UpcomingEventsPage = () => {
         altText={eventLandingpage?.hero?.altText || ""}
         title={eventLandingpage?.title || ""}
       />
-      <UpcomingEventListComp />
+      <PastEventListComp />
       <section className="events-spotlight-container">
-        <PastEventSpotlightComp />
+        <UpcomingEventSpotlightComp />
       </section>
     </main>
   );
 };
 
-export default UpcomingEventsPage;
+export default PastEventsPage

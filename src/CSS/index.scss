@@ -12,13 +12,15 @@
 @import "components/navigation/navigation-drawer";
 @import "components/hero/hero";
 @import "components/startpagecards/startpage-cards";
-@import "components/upcomingeventspotlight/upcoming-event-spotlight";
+@import "components/eventspotlight/event-spotlight";
 @import "components/newslettersignup/newsletter-signup";
 @import "components/footer/footer";
 @import "components/maps/map"; 
 @import "components/contactcard/contact-card";
 @import "components/eventsignup/event-signup";
-@import "components/upcomingeventlist/upcoming-event-list";
+@import "components/eventlist/event-list";
+
+
 
 // pages
 @import "pages/events/eventpage";
