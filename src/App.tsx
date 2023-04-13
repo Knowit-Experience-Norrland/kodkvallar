@@ -27,7 +27,7 @@ function App() {
             {/* about */}
             <Route path="/about" element={<AboutPage />} />
             {/* 404 */}
-            <Route path="/error" element={<Error404 />} />
+            <Route path="*" element={<Error404 />} />
         </Routes>
         <FooterComp />
       </Router>
