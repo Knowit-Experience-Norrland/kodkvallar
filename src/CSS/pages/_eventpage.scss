@@ -1,8 +1,11 @@
 .event-wrapper {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 1em;
   display: grid;
   grid-template-columns: 1fr;
+  gap: 50px;
+
 }
 
 .event-sidebar {

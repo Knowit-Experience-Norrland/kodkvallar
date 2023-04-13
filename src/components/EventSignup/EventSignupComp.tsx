@@ -13,19 +13,21 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
   const [photoConsent, setPhotoConsent] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [allergies, setAllergies] = useState("");
+  const [occupation, setOccupation] = useState("");
 
   // send data from API
   const CREATE_EVENTSIGNUP = gql(`
-  mutation createEventSignup($data: EventSignupCreateInput!) {
-    createEventSignup(data: $data) {
-    allergies
-    email
-    firstName
-    lastName
+ mutation createEventSignup($data: EventSignupCreateInput!) {
+  createEventSignup(data: $data) {
     photoConsent
+    occupation
+    lastName
+    firstName
     eventPageSlug {
       slug
     }
+    email
+    allergies
   }
 }
     `);
@@ -43,6 +45,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
         eventPageSlug: { connect: { slug: slug } },
         photoConsent: photoConsent,
         allergies: allergies,
+        occupation: occupation,
       };
       createEventSignup({ variables: { data } });
       setMessage("SUCCESS");
@@ -55,6 +58,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
     setEmail("");
     setPhotoConsent(false);
     setAllergies("");
+    setOccupation("");
   };
 
   //   set states to values of input fields
@@ -73,6 +77,9 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
   const handleAllergiesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAllergies(e.target.value);
   };
+  const handleOccupationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOccupation(e.target.value);
+  };
 
   return (
     <section className="event-signup">
@@ -82,7 +89,9 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
 
           <form onSubmit={handleSubmit} name="NewsletterSignup">
             <div className="form-child">
-              <label htmlFor="event-firstname">Förnamn: <span className="required">*</span></label>
+              <label htmlFor="event-firstname">
+                Förnamn: <span className="required">*</span>
+              </label>
               <input
                 id="event-firstname"
                 name="event-firstname"
@@ -94,7 +103,9 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
               />
             </div>
             <div className="form-child">
-              <label htmlFor="event-lastname">Efternamn: <span className="required">*</span></label>
+              <label htmlFor="event-lastname">
+                Efternamn: <span className="required">*</span>
+              </label>
               <input
                 id="event-lastname"
                 name="event-lastname"
@@ -106,7 +117,9 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
               />
             </div>
             <div className="form-child">
-              <label htmlFor="event-email">Email: <span className="required">*</span></label>
+              <label htmlFor="event-email">
+                Email: <span className="required">*</span>
+              </label>
               <input
                 id="event-email"
                 name="event-email"
@@ -114,6 +127,21 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
                 aria-label="Email"
                 value={email}
                 onChange={handleEmailChange}
+                required
+              />
+            </div>
+            <div className="form-child">
+              <label htmlFor="occupation">
+                Utbildning eller sysselsättning:{" "}
+                <span className="required">*</span>
+              </label>
+              <input
+                id="occupation"
+                name="occupation"
+                type="text"
+                aria-label="Utbildning eller sysselsättning"
+                value={occupation}
+                onChange={handleOccupationChange}
                 required
               />
             </div>

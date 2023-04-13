@@ -18,3 +18,10 @@
     max-width: 650px;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .main-content {
+    padding: 2em 0;
+  }
+  
+}

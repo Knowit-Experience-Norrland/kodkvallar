@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  mutation createEventSignup($data: EventSignupCreateInput!) {\n    createEventSignup(data: $data) {\n    allergies\n    email\n    firstName\n    lastName\n    photoConsent\n    eventPageSlug {\n      slug\n    }\n  }\n}\n    ": types.CreateEventSignupDocument,
+    "\n mutation createEventSignup($data: EventSignupCreateInput!) {\n  createEventSignup(data: $data) {\n    photoConsent\n    occupation\n    lastName\n    firstName\n    eventPageSlug {\n      slug\n    }\n    email\n    allergies\n  }\n}\n    ": types.CreateEventSignupDocument,
     "\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    ": types.CreateNewsletterSignupDocument,
     "\n     query GET_PAST_EVENTS_LIST{\n       pastEvents(orderBy: publishedAt_ASC) {\n         title\n         slug\n         ingress\n         hero {\n           image {\n             url\n           }\n           altText\n         }\n       }\n     }\n   ": types.Get_Past_Events_ListDocument,
     "\n    query GET_PAST_EVENTS {\n        pastEvents (first: 2) {\n        title\n        slug\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Past_EventsDocument,
@@ -50,7 +50,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation createEventSignup($data: EventSignupCreateInput!) {\n    createEventSignup(data: $data) {\n    allergies\n    email\n    firstName\n    lastName\n    photoConsent\n    eventPageSlug {\n      slug\n    }\n  }\n}\n    "): (typeof documents)["\n  mutation createEventSignup($data: EventSignupCreateInput!) {\n    createEventSignup(data: $data) {\n    allergies\n    email\n    firstName\n    lastName\n    photoConsent\n    eventPageSlug {\n      slug\n    }\n  }\n}\n    "];
+export function graphql(source: "\n mutation createEventSignup($data: EventSignupCreateInput!) {\n  createEventSignup(data: $data) {\n    photoConsent\n    occupation\n    lastName\n    firstName\n    eventPageSlug {\n      slug\n    }\n    email\n    allergies\n  }\n}\n    "): (typeof documents)["\n mutation createEventSignup($data: EventSignupCreateInput!) {\n  createEventSignup(data: $data) {\n    photoConsent\n    occupation\n    lastName\n    firstName\n    eventPageSlug {\n      slug\n    }\n    email\n    allergies\n  }\n}\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
