@@ -2,8 +2,6 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { graphql } from "../gql";
 import HeroComp from "../components/Hero/HeroComp";
-import UpcomingEventListComp from "../components/UpcomingEventList/UpcomingEventListComp";
-import PastEventSpotlightComp from "../components/PastEventSpotlight/PastEventSpotlightComp";
 import { Get_Landingpage_Past_EventQuery } from "../gql/graphql";
 import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
 import PastEventListComp from "../components/PastEventList/PastEventListComp";

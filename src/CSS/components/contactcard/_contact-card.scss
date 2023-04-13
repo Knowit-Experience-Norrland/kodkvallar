@@ -13,23 +13,10 @@
     margin: 0;
     padding: 0.2em 0;
   }
-
-  .event-sidebar-socials {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-    padding: 2em 0;
-    a {
-      font-size: 3em;
-      color: $primary-forest;
-    }
-  }
 }
 
 .contact-img {
-  height: auto;
+  height: 150px;
   width: 150px;
   object-fit: cover;
   object-position: center;

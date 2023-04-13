@@ -7,6 +7,7 @@ import StartPage from "./pages/StartPage";
 import UpcomingEventsPage from "./pages/UpcomingEventsPage";
 import PastEventsPage from "./pages/PastEventsPage";
 import SinglePastEventPage from "./pages/SinglePastEventPage";
+import AboutPage from "./pages/AboutPage";
 
 // react router for routing between pages
 function App() {
@@ -23,8 +24,7 @@ function App() {
              <Route path="/blog" element={<PastEventsPage />} />
             <Route path="/blog/:slug" element={<SinglePastEventPage />} />
             {/* about */}
-            <Route path="/about" element={<SingleEventPage />} />
-
+            <Route path="/about" element={<AboutPage />} />
         </Routes>
         <FooterComp />
       </Router>

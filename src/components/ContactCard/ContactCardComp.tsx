@@ -1,10 +1,5 @@
 import React from "react";
 import { ContactCard } from "../../gql/graphql";
-import {
-  RiLinkedinBoxLine,
-  RiFacebookBoxLine,
-  RiInstagramLine,
-} from "react-icons/ri";
 
 // recive contact info from ContactCardComp.tsx and print to DOM
 interface CardContactProps {
@@ -29,18 +24,6 @@ function ContactPage({ contact }: CardContactProps) {
         <p>{contact?.title}</p>
         <a href={"mailto:" + contact?.email}>{contact?.email}</a>
         <p>{contact?.phone}</p>
-
-        <div className="event-sidebar-socials">
-          <a href="/" target="_blank" rel="noreferrer" title={"LinkedIn"}>
-            <RiLinkedinBoxLine />
-          </a>
-          <a href="/" target="_blank" rel="noreferrer" title={"Instagram"}>
-            <RiInstagramLine />
-          </a>
-          <a href="/" target="_blank" rel="noreferrer" title={"Facebook"}>
-            <RiFacebookBoxLine />
-          </a>
-        </div>
       </div>
     </div>
   );

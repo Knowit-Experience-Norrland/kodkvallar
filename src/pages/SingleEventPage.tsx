@@ -9,6 +9,11 @@ import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
 import PastEventSpotlightComp from "../components/PastEventSpotlight/PastEventSpotlightComp";
+import {
+  RiLinkedinBoxLine,
+  RiFacebookBoxLine,
+  RiInstagramLine,
+} from "react-icons/ri";
 
 function EventPage() {
   // get slug from params
@@ -133,6 +138,17 @@ function EventPage() {
                 <ContactCardComp contact={contact as ContactCard} key={i} />
               );
             })}
+          </div>
+          <div className="event-sidebar-socials">
+            <a href="/" target="_blank" rel="noreferrer" title={"LinkedIn"}>
+              <RiLinkedinBoxLine />
+            </a>
+            <a href="/" target="_blank" rel="noreferrer" title={"Instagram"}>
+              <RiInstagramLine />
+            </a>
+            <a href="/" target="_blank" rel="noreferrer" title={"Facebook"}>
+              <RiFacebookBoxLine />
+            </a>
           </div>
         </div>
       </div>
