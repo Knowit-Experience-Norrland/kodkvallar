@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import NavigationDrawerComp from "./NavigationDrawerComp";
+import Logo from "../../media/logo.svg";
+
 
 // header component with navigation
 const HeaderComp = () => {
@@ -28,7 +30,7 @@ const HeaderComp = () => {
       <header className="header">
         <Link to="/">
           <img
-            src="../images/logo.svg"
+            src={Logo}
             alt="Knowit Experience"
             className="logo"
           />

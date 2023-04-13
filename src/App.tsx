@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import FooterComp from "./components/Footer/FooterComp";
 import HeaderComp from "./components/Header/HeaderComp";
 import SingleEventPage from "./pages/SingleEventPage";
@@ -27,7 +27,8 @@ function App() {
             {/* about */}
             <Route path="/about" element={<AboutPage />} />
             {/* 404 */}
-            <Route path="*" element={<Error404 />} />
+            <Route path="/404" element={<Error404 />} />
+          	<Route path="*" element={<Navigate to="/404" />} />
         </Routes>
         <FooterComp />
       </Router>

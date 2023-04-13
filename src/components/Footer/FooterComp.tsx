@@ -2,6 +2,7 @@ import React from "react";
 import NewsletterSignupComp from "../NewsletterSignup/NewsletterSignupComp";
 import { Link } from "react-router-dom";
 import {RiLinkedinBoxLine, RiFacebookBoxLine, RiInstagramLine} from "react-icons/ri";
+import LogoWhite from "../../media/logo-white.svg";
 
 // footer component
 const FooterComp = () => {
@@ -28,7 +29,7 @@ const FooterComp = () => {
           </div>
           <Link to="/">
             <img
-              src="../images/logo-white.svg"
+              src={LogoWhite}
               alt="Knowit Experience"
               className="footer-logo"
             />
