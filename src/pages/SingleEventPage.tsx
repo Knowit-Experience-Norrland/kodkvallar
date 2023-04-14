@@ -99,10 +99,16 @@ function EventPage() {
   let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
 
   //format date and time
-let newDate =new Date(eventPage?.date);
-let date = newDate.toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" });
-let time = newDate.toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" });
-
+  let newDate = new Date(eventPage?.date);
+  let date = newDate.toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  let time = newDate.toLocaleTimeString("sv-SE", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   if (error) {
     return (

@@ -45,8 +45,17 @@ const UpcomingEventListComp = () => {
   return (
     <section className="event-container">
       {eventPages?.map((event) => {
-        let date = event?.date?.substring(0, 10);
-        let time = event?.date?.substring(11, 16);
+        //format date and time
+        let newDate = new Date(event.date);
+        let date = newDate.toLocaleDateString("sv-SE", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        let time = newDate.toLocaleTimeString("sv-SE", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
         return (
           <article key={event.slug} className="event-main">
             <Link to={`/event/${event.slug}`}>
