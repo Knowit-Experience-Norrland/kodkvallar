@@ -97,8 +97,13 @@ function EventPage() {
   let map = location?.location?.map;
   let mainContent = useFragment(EventContentFragment, eventPage);
   let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
-  let date = eventPage?.date?.substring(0, 10);
-  let time = eventPage?.date?.substring(11, 16);
+
+  //format date and time
+let newDate =new Date(eventPage?.date);
+let date = newDate.toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" });
+let time = newDate.toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" });
+
+
   if (error) {
     return (
       <div>
