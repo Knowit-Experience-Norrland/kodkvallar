@@ -11,6 +11,7 @@ import {
   RiFacebookBoxLine,
   RiInstagramLine,
 } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const AboutPage = () => {
   //create fragment of query
@@ -85,13 +86,11 @@ const AboutPage = () => {
   let map = location?.adress?.map;
   let mainContent = useFragment(ContentFragment, aboutPage);
   let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
-  if (error) {
-    return (
-      <div>
-        <p>Något gick fel..</p>
-      </div>
-    );
-  }
+  let navigate = useNavigate();
+
+  //redirect to 404 if error or if no data
+  if (error || !aboutPage) {
+    navigate("/404");}
   return (
     <main>
       <HeroComp

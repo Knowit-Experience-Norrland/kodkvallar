@@ -10,7 +10,8 @@ type Props = {
 const HeroComp: React.FC<Props> = ({ url, altText, title }) => {
   return (
     <div className="hero">
-      <img src={url} alt={altText} />
+      {url && 
+      <img src={url} alt={altText} /> }
       <div className="hero-overlay">
         <h1 className="hero-title">{title}</h1>
       </div>
