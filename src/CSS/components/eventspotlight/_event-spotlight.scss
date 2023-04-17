@@ -1,5 +1,6 @@
 .events-spotlight-container {
   background-color: $primary-sand;
+  padding-bottom: 2em;
 }
 .event-spotlight-h2 {
   text-align: center;
@@ -8,7 +9,7 @@
 .event-spotlight-main {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2em 0;
+  padding: 1em 0;
 
   img {
     width: 100%;
@@ -47,7 +48,7 @@
   .event-spotlight-h2 {
     max-width: 1000px;
     margin: 0 auto;
-    padding-bottom: 2em;
+    padding-bottom: 1em;
     padding-top: 2em;
   }
 
