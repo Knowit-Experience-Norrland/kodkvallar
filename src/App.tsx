@@ -9,12 +9,14 @@ import PastEventsPage from "./pages/PastEventsPage";
 import SinglePastEventPage from "./pages/SinglePastEventPage";
 import AboutPage from "./pages/AboutPage";
 import Error404 from "./pages/Error404";
+import ScrollToTop from "./components/ScrollToTopComp";
 
 // react router for routing between pages
 function App() {
   return (
     <div className="container">
       <Router>
+        <ScrollToTop />
             <HeaderComp />
         <Routes>
             <Route path="/" element={<StartPage />} />

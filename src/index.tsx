@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-
 // add API to Apollo Client with authorization header
 const client = new ApolloClient({
   uri: process.env.REACT_APP_HG_API_URL,
