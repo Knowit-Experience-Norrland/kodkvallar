@@ -129,7 +129,7 @@ function EventPage() {
         {mainContent && <MainContent content={mainContent.content} />}
         <div className="event-sidebar">
           <div className="space">
-            <h2>När</h2>
+            <h2 className="h2-light">När</h2>
             <p>
               <span className="green">Datum:</span> {date}
             </p>
@@ -138,12 +138,12 @@ function EventPage() {
             </p>
           </div>
           <div className="space">
-            <h2>Plats</h2>
+            <h2 className="h2-light">Plats</h2>
             {position.lat !== 0 && <MapComp position={position} />}
             <p>{location?.location?.adress}</p>
           </div>
           <div className="space">
-            <h2>Kontakt</h2>
+            <h2 className="h2-light">Kontakt</h2>
             {eventPage?.contact?.map((contact, i) => {
               return (
                 <ContactCardComp contact={contact as ContactCard} key={i} />
