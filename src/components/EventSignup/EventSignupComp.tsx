@@ -23,9 +23,8 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
   const [allergiesError, setAllergiesError] = useState<string | null>(null);
 
   // Regular expressions for input validation
-  const nameRegex = /^[A-Za-z0-9\s,.-]+$/; // Accepts only letters and whitespace
+  const nameRegex = /^[A-Öa-ö0-9\s,.-]+$/; // Accepts only letters and whitespace
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
-
 
   // send data from API
   const CREATE_EVENTSIGNUP = gql(`

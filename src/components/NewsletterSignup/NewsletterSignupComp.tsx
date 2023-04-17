@@ -13,7 +13,7 @@ const NewsletterSignupComp = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
 
    // Regular expressions for input validation
-   const nameRegex = /^[A-Za-z\s]+$/; // Accepts only letters and whitespace
+   const nameRegex = /^[A-Öa-ö\s]+$/; // Accepts only letters and whitespace
    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
 
   //create query
