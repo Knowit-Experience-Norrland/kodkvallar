@@ -1,58 +1,59 @@
 //navigation drawer
 
-.navigation-drawer{
-    background-color: $primary-sand;
-    position: fixed;
-    top: 2em;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    animation: open 1s ease-in 0s normal none;
+.navigation-drawer {
+  background-color: $primary-sand;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: open 1s ease-in 0s normal none;
+  padding-top: 3em;
 
-    a{
-        color: $primary-digital-black;
-        font-size: 1em;
-        text-decoration: none;
-        padding-top: .5em;
-        padding-bottom: .5em;
-    }
-    a:hover{
-        color: $primary-digital-lollipop;
-    }
+  a {
+    color: $primary-digital-black;
+    font-size: 1em;
+    text-decoration: none;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+  a:hover {
+    color: $primary-digital-lollipop;
+  }
 
-    hr{
-        background-color: $primary-digital-lollipop;
-        width: 3em;
-        height: .15em;
-        border: none;
-        margin-top: 2em;
-        margin-bottom: 2em;
-    }
+  hr {
+    background-color: $primary-digital-lollipop;
+    width: 3em;
+    height: 0.15em;
+    border: none;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
 }
 @keyframes open {
-	0% {
-		opacity: 0;
-		transform: translateY(-250px);
-	}
+  0% {
+    opacity: 0;
+    transform: translateY(-250px);
+  }
 
-	100% {
-		opacity: 1;
-		transform: translateY(0);
-	}
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-
-@media screen and (min-width: 768px){
-    .navigation-drawer{
-      width: 30em;
-      height: fit-content;
-      right: 0;
-      top:0;
-      padding-top: 6em;
-    }
-
+@media screen and (min-width: 768px) {
+  .navigation-drawer {
+    position: absolute;
+    width: 30em;
+    height: auto;
+    right: 0;
+    top: 0;
+    padding-top: 9em;
+    padding-bottom: 2em;
+  }
 }
