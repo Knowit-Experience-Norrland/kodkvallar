@@ -44,9 +44,14 @@
     }
 
     input {
-      border: 1px solid $primary-digital-black;
+      border: 1px solid $primary-forest;
       padding: 0.8em;
       margin: 0 1em;
+      background-color: $primary-digital-white;
+
+      &:focus {
+        outline: 2px solid $primary-leather
+      }
     }
 
     ::placeholder {

@@ -2,7 +2,7 @@
   width: 100%;
   margin: 0 auto;
   background-color: $primary-clay;
-  padding: 2em 0;
+  padding: 3em 0;
   .event-signup-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -10,12 +10,12 @@
   .form-container {
     max-width: 650px;
     margin: 0 1em;
-    padding: 1em 0;
+    padding: 2em 0 3em 0;
     background-color: $primary-digital-white;
     box-shadow: 0 4px 4px rgba($primary-digital-black, 0.2);
   }
   h2 {
-    margin: 2em 1em;
+    margin: 1em .5em;
   }
   p {
     color: $primary-digital-black;
@@ -36,6 +36,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin: 0 auto;
 
     .form-child {
       display: flex;
@@ -47,13 +48,21 @@
     label {
       color: $primary-digital-black;
       padding-bottom: 0.8em;
-      margin: 0 .5em;
     }
 
     input,
     textarea {
       border: 1px solid $primary-forest;
-      padding: 0.8em;
+      padding: 1em;
+      background-color: $primary-digital-white;
+
+      &:focus {
+        outline: 2px solid $primary-leather
+      }
+    }
+
+    .smaller-input{
+      width: 50%;
     }
 
     .checkbox {
@@ -93,9 +102,11 @@
 @media screen and (min-width: 768px) {
   .event-signup {
     .form-container {
-      padding: 2em 0;
       max-width: 650px;
 
+      form{
+        width: 80%;
+      }
       .checkbox {
         display: flex;
         flex-direction: row;

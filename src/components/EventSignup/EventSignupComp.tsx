@@ -154,9 +154,9 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
     <section className="event-signup">
       <div className="event-signup-container">
         <div className="form-container">
-          <h2>Anmäl dig till eventet!</h2>
 
           <form onSubmit={handleSubmit} name="NewsletterSignup">
+          <h2>Anmäl dig till eventet!</h2>
             <div className="form-child">
               <label htmlFor="event-firstname">
                 Förnamn: <span className="required">*</span>
@@ -166,6 +166,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
                 name="event-firstname"
                 type="text"
                 aria-label="Förnamn"
+                className="smaller-input"
                 value={firstname}
                 onChange={handleFirstnameChange}
               />
@@ -180,6 +181,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
                 name="event-lastname"
                 type="text"
                 aria-label="Efternamn"
+                className="smaller-input"
                 value={lastname}
                 onChange={handleLastnameChange}
               />
