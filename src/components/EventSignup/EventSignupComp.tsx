@@ -15,6 +15,18 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
   const [allergies, setAllergies] = useState("");
   const [occupation, setOccupation] = useState("");
 
+  //error messages
+  const [firstnameError, setFirstnameError] = useState<string | null>(null);
+  const [lastnameError, setLastnameError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [occupationError, setOccupationError] = useState<string | null>(null);
+  const [allergiesError, setAllergiesError] = useState<string | null>(null);
+
+  // Regular expressions for input validation
+  const nameRegex = /^[A-Za-z0-9\s,.-]+$/; // Accepts only letters and whitespace
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
+
+
   // send data from API
   const CREATE_EVENTSIGNUP = gql(`
  mutation createEventSignup($data: EventSignupCreateInput!) {
@@ -37,28 +49,86 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const data = {
-        firstName: firstname,
-        lastName: lastname,
-        email: email,
-        eventPageSlug: { connect: { slug: slug } },
-        photoConsent: photoConsent,
-        allergies: allergies,
-        occupation: occupation,
-      };
-      createEventSignup({ variables: { data } });
-      setMessage("SUCCESS");
-    } catch (err) {
-      setMessage("ERROR");
-      console.log(err);
+    //reset error msg
+    setFirstnameError(null);
+    setLastnameError(null);
+    setEmailError(null);
+    setOccupationError(null);
+    setAllergiesError(null);
+
+    //validate form inputs
+    let isValid = true;
+
+    if (!firstname) {
+      setFirstnameError("Fyll i förnamn");
+      isValid = false;
+    } else if (firstname.length < 2) {
+      setFirstnameError("Förnamnet måste vara minst 2 tecken");
+      isValid = false;
+    } else if (!firstname.match(nameRegex)) {
+      setFirstnameError("Förnamnet får endast innehålla bokstäver");
+      isValid = false;
     }
-    setFirstname("");
-    setLastname("");
-    setEmail("");
-    setPhotoConsent(false);
-    setAllergies("");
-    setOccupation("");
+    if (!lastname) {
+      setLastnameError("Fyll i efternamn");
+      isValid = false;
+    } else if (lastname.length < 2) {
+      setLastnameError("Efternamnet måste vara minst 2 tecken");
+      isValid = false;
+    } else if (!lastname.match(nameRegex)) {
+      setLastnameError("Efternamnet får endast innehålla bokstäver");
+      isValid = false;
+    }
+    if (!email) {
+      setEmailError("Fyll i e-post");
+      isValid = false;
+    } else if (!email.includes("@")) {
+      setEmailError("Ogiltig email");
+      isValid = false;
+    } else if (!email.match(emailRegex)) {
+      setEmailError("Ogiltig email");
+      isValid = false;
+    }
+    if (!occupation) {
+      setOccupationError("Fyll i utbildning/yrke");
+      isValid = false;
+    } else if (occupation.length < 2) {
+      setOccupationError("Utbildning/yrke måste vara minst 2 tecken");
+      isValid = false;
+    }
+    if (allergies.length > 0) {
+      if (!allergies.match(nameRegex)) {
+        setAllergiesError(
+          "Allergier får endast innehålla bokstäver och mellanslag"
+        );
+        isValid = false;
+      }
+    }
+
+    if (isValid) {
+      try {
+        const data = {
+          firstName: firstname,
+          lastName: lastname,
+          email: email,
+          eventPageSlug: { connect: { slug: slug } },
+          photoConsent: photoConsent,
+          allergies: allergies,
+          occupation: occupation,
+        };
+        createEventSignup({ variables: { data } });
+        setMessage("SUCCESS");
+      } catch (err) {
+        setMessage("ERROR");
+        console.log(err);
+      }
+      setFirstname("");
+      setLastname("");
+      setEmail("");
+      setPhotoConsent(false);
+      setAllergies("");
+      setOccupation("");
+    }
   };
 
   //   set states to values of input fields
@@ -99,8 +169,8 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
                 aria-label="Förnamn"
                 value={firstname}
                 onChange={handleFirstnameChange}
-                required
               />
+              {firstnameError && <p className="error">{firstnameError}</p>}
             </div>
             <div className="form-child">
               <label htmlFor="event-lastname">
@@ -113,8 +183,8 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
                 aria-label="Efternamn"
                 value={lastname}
                 onChange={handleLastnameChange}
-                required
               />
+              {lastnameError && <p className="error">{lastnameError}</p>}
             </div>
             <div className="form-child">
               <label htmlFor="event-email">
@@ -127,8 +197,8 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
                 aria-label="Email"
                 value={email}
                 onChange={handleEmailChange}
-                required
               />
+              {emailError && <p className="error">{emailError}</p>}
             </div>
             <div className="form-child">
               <label htmlFor="occupation">
@@ -142,8 +212,8 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
                 aria-label="Utbildning eller sysselsättning"
                 value={occupation}
                 onChange={handleOccupationChange}
-                required
               />
+              {occupationError && <p className="error">{occupationError}</p>}
             </div>
             <div className="form-child">
               <label htmlFor="allergies">
@@ -158,6 +228,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
                 value={allergies}
                 onChange={handleAllergiesChange}
               />
+              {allergiesError && <p className="error">{allergiesError}</p>}
             </div>
             <div className="form-child checkbox">
               <input
