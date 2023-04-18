@@ -3,11 +3,11 @@
 .main-content {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 4em 2em 6em 2em;
+  padding: 2em;
 
-  .image-block{
-    padding-top: 4em;
-    padding-bottom: 6em;
+  .image-block {
+    padding-top: 2em;
+    padding-bottom: 3em;
   }
 
   img {
@@ -24,3 +24,8 @@
   }
 }
 
+@media screen and (min-width: 768px) {
+  .main-content {
+    padding: 4em 2em 6em 2em;
+  }
+}

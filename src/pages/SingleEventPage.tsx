@@ -106,6 +106,7 @@ function EventPage() {
     day: "numeric",
   });
   let time = newDate.toLocaleTimeString("sv-SE", {
+    timeZone: "CET",
     hour: "2-digit",
     minute: "2-digit",
   });
