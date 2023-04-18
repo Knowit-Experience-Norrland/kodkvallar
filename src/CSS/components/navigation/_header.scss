@@ -8,7 +8,7 @@
     justify-content: space-between;
     z-index: 99;
     position: relative;
-    padding-top: 1em;
+    padding: .5em 0;
 
     a{
         align-self: center;
@@ -36,7 +36,8 @@
 }
 .menu-btn{
     color: $primary-digital-black;
-    font-size: 2.5em;
+    height: 44px;
+    width: 44px;
     align-self: center;
     cursor: pointer;
     
@@ -44,7 +45,7 @@
 }
 
 .menu-btn:hover{
-    color: $primary-digital-lollipop;
+    color: $primary-forest;
 }
 
 .menu-btn-text{

@@ -33,11 +33,13 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      align-items: center;
       color: $primary-forest;
       cursor: pointer;
     }
     p {
       margin: 0.5em 0;
+      max-width: 475px;
     }
 
     a:visited {
@@ -53,8 +55,7 @@
       font-size: 2em;
       align-self: flex-end;
       cursor: pointer;
-      padding-left: 2em;
-      margin-top: 1em;
+      margin-top: .5em;
     }
   }
 }
@@ -80,9 +81,10 @@
         margin: 0;
       }
       a {
-        width: 100%;
+        max-width: 800px;
         display: flex;
         flex-direction: row;
+        margin: 0 auto;
       }
     }
   }

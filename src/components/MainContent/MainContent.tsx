@@ -21,7 +21,7 @@ const MainContent: React.FC<Props> = ({ content }) => {
       {content.map((content) => {
         if (content?.__typename === "Image") {
           return (
-            <div key={content.id}>
+            <div key={content.id} className="image-block">
               <img src={content?.image?.url} alt={content?.altText} />
               <p className="img-text">{content.imageText}</p>
             </div>
