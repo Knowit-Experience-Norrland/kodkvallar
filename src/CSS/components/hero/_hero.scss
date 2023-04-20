@@ -2,11 +2,11 @@
 .hero{
     max-width: 1920px;
     max-height: 400px;
+    height: 100%;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
     margin: 0 auto;
     position: relative;
 
@@ -36,7 +36,7 @@
         }
 
     @media screen and (min-width: 768px){
-        height: 400px;
+        max-height: 500px;
 
 
         .hero-overlay{
