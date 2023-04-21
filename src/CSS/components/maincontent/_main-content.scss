@@ -10,6 +10,35 @@
     padding-bottom: 3em;
   }
 
+  .feedback-highlight {
+    display: flex;
+    flex-direction: column;
+    background-color: $primary-mint;
+    border: 2px solid $primary-forest;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba($primary-digital-black, 0.2);
+    text-align: center;
+    color: $primary-digital-white;
+    padding: 1em;
+    margin: 3em 0;
+
+    .feedback-text {
+      align-self: center;
+      font-size: 1.2em;
+      font-weight: 700;
+      font-style: italic;
+      width: 80%;
+    }
+    .feedback-author {
+      align-self: flex-end;
+      text-align: right;
+      font-size: .8em;
+      padding-right: 2em;
+      margin: 0;
+      font-style: italic;
+    }
+  }
+
   img {
     width: 100%;
     height: auto;

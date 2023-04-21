@@ -33,10 +33,14 @@ const MainContent: React.FC<Props> = ({ content }) => {
           return <RichText content={content.text?.raw} key={content.id} />;
         }
         if (content?.__typename === "Heading") {
+          return <h2 key={content.id}>{content?.heading}</h2>;
+        }
+        if (content?.__typename === "FeedbackHighlight") {
           return (
-            <h2 key={content.id}>
-              {content?.heading}
-            </h2>
+            <div key={content.id} className="feedback-highlight">
+              <h2 className="feedback-text">"{content.feedback}"</h2>
+              <p className="feedback-author">- {content.author}</p>
+            </div>
           );
         }
         return null;
