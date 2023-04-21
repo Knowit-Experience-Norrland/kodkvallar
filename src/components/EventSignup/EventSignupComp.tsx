@@ -245,7 +245,12 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
               </label>
             </div>
             <div>
-              {message === "SUCCESS" && <p>Tack för din anmälan!</p>}
+              {message === "SUCCESS" &&   <>
+              <p>Tack för din anmälan! En bekräftelse kommer på mail.</p>
+              <p className="gdpr-text">
+                Pssst! Ibland hamnar vi i skärpkorgen, så kolla där om du inte får något mail!
+              </p>
+            </>}
               {message === "ERROR" && (
                 <p>Något gick fel. Vänligen försök igen.</p>
               )}

@@ -12,9 +12,9 @@ const NewsletterSignupComp = () => {
   const [lastnameError, setLastnameError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
 
-   // Regular expressions for input validation
-   const nameRegex = /^[A-Öa-ö\s]+$/; // Accepts only letters and whitespace
-   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
+  // Regular expressions for input validation
+  const nameRegex = /^[A-Öa-ö\s]+$/; // Accepts only letters and whitespace
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
 
   //create query
   const CREATE_NEWSLETTERSIGNUP = gql(`
@@ -57,7 +57,7 @@ const NewsletterSignupComp = () => {
     } else if (lastname.length < 2) {
       setLastnameError("Efternamnet måste vara minst 2 tecken");
       isValid = false;
-    } else if (!lastname.match(nameRegex)) {  
+    } else if (!lastname.match(nameRegex)) {
       setLastnameError("Efternamnet får endast innehålla bokstäver");
       isValid = false;
     }
@@ -107,7 +107,12 @@ const NewsletterSignupComp = () => {
 
         <div>
           {message === "SUCCESS" && (
-            <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
+            <>
+              <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
+              <p className="gdpr-text">
+                Pssst! Ibland hamnar vi i skärpkorgen, så kolla där om du inte får något mail!
+              </p>
+            </>
           )}
           {message === "ERROR" && <p>Något gick fel. Vänligen försök igen.</p>}
         </div>
