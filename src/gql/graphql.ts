@@ -29,7 +29,9 @@ export type Scalars = {
 
 export type AboutPage = Node & {
   __typename?: 'AboutPage';
+  /** Adress till kontor som syns i sidebaren  */
   adress: EventLocation;
+  /** Rubriker, bilder och text. Addera hur många av varje som helst. Publiceras i den ordning de placeras här. */
   content: Array<AboutPagecontentUnion>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -37,7 +39,9 @@ export type AboutPage = Node & {
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<AboutPage>;
+  /** Kontaktkort */
   employees: Array<ContactCard>;
+  /** Herobild som syns längst upp på sidan */
   hero: Hero;
   /** List of AboutPage versions */
   history: Array<Version>;
@@ -48,10 +52,16 @@ export type AboutPage = Node & {
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
+  /** Övrig info som visas i sidebaren */
   sidebarInfo?: Maybe<Scalars['String']>;
+  /**
+   * Sökvägen i URL. Blir automatiskt titeln på inlägget.
+   * För om oss sidan ska denna vara "om-oss" då det är på denna som webbplatsen hämtar datan
+   */
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
+  /** Sidans huvudtitel, placeras i herobilden */
   title: Scalars['String'];
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
@@ -1412,14 +1422,19 @@ export type ConnectPositionInput = {
 
 export type ContactCard = {
   __typename?: 'ContactCard';
+  /** Epost */
   email: Scalars['String'];
   /** The unique identifier */
   id: Scalars['ID'];
+  /** Bildfil */
   image?: Maybe<Asset>;
+  /** Namn på kontakt */
   name: Scalars['String'];
+  /** Telefonnummer */
   phone?: Maybe<Scalars['String']>;
   /** System stage field */
   stage: Stage;
+  /** Titel tex chef, projektledare, utvecklare */
   title: Scalars['String'];
 };
 
@@ -1957,6 +1972,10 @@ export type EventLandingpage = Node & {
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<EventLandingpage>;
+  /**
+   * Herobild längst upp på sidan
+   *
+   */
   hero: Hero;
   /** List of EventLandingpage versions */
   history: Array<Version>;
@@ -1967,9 +1986,11 @@ export type EventLandingpage = Node & {
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
+  /** Sökvägen i URL. Blir automatiskt titeln på inlägget. */
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
+  /** Sidans huvudtitel, placeras i herobilden */
   title: Scalars['String'];
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
@@ -2436,9 +2457,11 @@ export type EventLandingpageWhereUniqueInput = {
 
 export type EventLocation = {
   __typename?: 'EventLocation';
+  /** Adress */
   adress: Scalars['String'];
   /** The unique identifier */
   id: Scalars['ID'];
+  /** Adderar karta, sök på adressen. */
   map: Location;
   /** System stage field */
   stage: Stage;
@@ -2772,32 +2795,42 @@ export type EventLocationWhereUniqueInput = {
 
 export type EventPage = Node & {
   __typename?: 'EventPage';
+  /** Kontaktkort */
   contact: Array<ContactCard>;
+  /** Rubriker, bilder och text. Addera hur många av varje som helst. Publiceras i den ordning de placeras här. */
   content: Array<EventPagecontentUnion>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
   /** User that created this document */
   createdBy?: Maybe<User>;
+  /** Datum för eventet */
   date: Scalars['DateTime'];
   /** Get the document in other stages */
   documentInStages: Array<EventPage>;
+  /** Vilka som har anmält upp sig till eventet */
   eventSignups: Array<EventSignup>;
+  /** Herobilden längst upp på sidan */
   hero?: Maybe<Hero>;
   /** List of EventPage versions */
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
-  /** Only shows in upcoming eventlist */
+  /** Kort text som syns på samlingssidan. */
   ingress: Scalars['String'];
+  /** Adress och ev karta till eventet */
   location?: Maybe<EventLocation>;
+  /** Max antal deltagare på eventet. När detta fyllts kommer att formulär för "reserv listan" att finnas på webbplatsen istället för anmälan */
+  maxParticipants: Scalars['Int'];
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
+  /** Sökvägen i URL. Blir automatiskt titeln på inlägget. */
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
+  /** Sidans huvudtitel, placeras i herobilden */
   title: Scalars['String'];
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
@@ -2924,6 +2957,7 @@ export type EventPageCreateInput = {
   hero?: InputMaybe<HeroCreateOneInlineInput>;
   ingress: Scalars['String'];
   location?: InputMaybe<EventLocationCreateOneInlineInput>;
+  maxParticipants: Scalars['Int'];
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -3046,6 +3080,21 @@ export type EventPageManyWhereInput = {
   /** All values starting with the given string. */
   ingress_starts_with?: InputMaybe<Scalars['String']>;
   location?: InputMaybe<EventLocationWhereInput>;
+  maxParticipants?: InputMaybe<Scalars['Int']>;
+  /** All values greater than the given value. */
+  maxParticipants_gt?: InputMaybe<Scalars['Int']>;
+  /** All values greater than or equal the given value. */
+  maxParticipants_gte?: InputMaybe<Scalars['Int']>;
+  /** All values that are contained in given list. */
+  maxParticipants_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  /** All values less than the given value. */
+  maxParticipants_lt?: InputMaybe<Scalars['Int']>;
+  /** All values less than or equal the given value. */
+  maxParticipants_lte?: InputMaybe<Scalars['Int']>;
+  /** Any other value that exists and is not equal to the given value. */
+  maxParticipants_not?: InputMaybe<Scalars['Int']>;
+  /** All values that are not contained in given list. */
+  maxParticipants_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -3130,6 +3179,8 @@ export enum EventPageOrderByInput {
   IdDesc = 'id_DESC',
   IngressAsc = 'ingress_ASC',
   IngressDesc = 'ingress_DESC',
+  MaxParticipantsAsc = 'maxParticipants_ASC',
+  MaxParticipantsDesc = 'maxParticipants_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   SlugAsc = 'slug_ASC',
@@ -3148,6 +3199,7 @@ export type EventPageUpdateInput = {
   hero?: InputMaybe<HeroUpdateOneInlineInput>;
   ingress?: InputMaybe<Scalars['String']>;
   location?: InputMaybe<EventLocationUpdateOneInlineInput>;
+  maxParticipants?: InputMaybe<Scalars['Int']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -3172,6 +3224,7 @@ export type EventPageUpdateManyInlineInput = {
 export type EventPageUpdateManyInput = {
   date?: InputMaybe<Scalars['DateTime']>;
   ingress?: InputMaybe<Scalars['String']>;
+  maxParticipants?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -3318,6 +3371,21 @@ export type EventPageWhereInput = {
   /** All values starting with the given string. */
   ingress_starts_with?: InputMaybe<Scalars['String']>;
   location?: InputMaybe<EventLocationWhereInput>;
+  maxParticipants?: InputMaybe<Scalars['Int']>;
+  /** All values greater than the given value. */
+  maxParticipants_gt?: InputMaybe<Scalars['Int']>;
+  /** All values greater than or equal the given value. */
+  maxParticipants_gte?: InputMaybe<Scalars['Int']>;
+  /** All values that are contained in given list. */
+  maxParticipants_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  /** All values less than the given value. */
+  maxParticipants_lt?: InputMaybe<Scalars['Int']>;
+  /** All values less than or equal the given value. */
+  maxParticipants_lte?: InputMaybe<Scalars['Int']>;
+  /** Any other value that exists and is not equal to the given value. */
+  maxParticipants_not?: InputMaybe<Scalars['Int']>;
+  /** All values that are not contained in given list. */
+  maxParticipants_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -3530,7 +3598,9 @@ export type EventSignup = Node & {
   /** The unique identifier */
   id: Scalars['ID'];
   lastName: Scalars['String'];
+  /** Utbildning eller sysselsättning */
   occupation: Scalars['String'];
+  /** Om personen är ok med att bli publicerad med bild på webbplatsen från ett event */
   photoConsent?: Maybe<Scalars['Boolean']>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
@@ -4142,8 +4212,383 @@ export type EventSignupWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
+/** Highlight för feedback/kommentarer som kan placeras i tidigare event.  */
+export type FeedbackHighlight = {
+  __typename?: 'FeedbackHighlight';
+  /** Vem feedbacken kommer från. */
+  author: Scalars['String'];
+  /**
+   * Innehållet på feedbacken/kommentaren.
+   *
+   */
+  feedback: Scalars['String'];
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** System stage field */
+  stage: Stage;
+};
+
+export type FeedbackHighlightConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FeedbackHighlightWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FeedbackHighlightConnection = {
+  __typename?: 'FeedbackHighlightConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FeedbackHighlightEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FeedbackHighlightCreateInput = {
+  author: Scalars['String'];
+  feedback: Scalars['String'];
+};
+
+export type FeedbackHighlightCreateManyInlineInput = {
+  /** Create and connect multiple existing FeedbackHighlight documents */
+  create?: InputMaybe<Array<FeedbackHighlightCreateInput>>;
+};
+
+export type FeedbackHighlightCreateOneInlineInput = {
+  /** Create and connect one FeedbackHighlight document */
+  create?: InputMaybe<FeedbackHighlightCreateInput>;
+};
+
+export type FeedbackHighlightCreateWithPositionInput = {
+  /** Document to create */
+  data: FeedbackHighlightCreateInput;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+};
+
+/** An edge in a connection. */
+export type FeedbackHighlightEdge = {
+  __typename?: 'FeedbackHighlightEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: FeedbackHighlight;
+};
+
+/** Identifies documents */
+export type FeedbackHighlightManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FeedbackHighlightWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FeedbackHighlightWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FeedbackHighlightWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  author?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  author_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  author_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  author_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  author_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  author_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  author_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  author_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  author_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  author_starts_with?: InputMaybe<Scalars['String']>;
+  feedback?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  feedback_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  feedback_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  feedback_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  feedback_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  feedback_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  feedback_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  feedback_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  feedback_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  feedback_starts_with?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+};
+
+export enum FeedbackHighlightOrderByInput {
+  AuthorAsc = 'author_ASC',
+  AuthorDesc = 'author_DESC',
+  FeedbackAsc = 'feedback_ASC',
+  FeedbackDesc = 'feedback_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC'
+}
+
+export type FeedbackHighlightParent = PastEvent;
+
+export type FeedbackHighlightParentConnectInput = {
+  PastEvent?: InputMaybe<PastEventConnectInput>;
+};
+
+export type FeedbackHighlightParentCreateInput = {
+  PastEvent?: InputMaybe<PastEventCreateInput>;
+};
+
+export type FeedbackHighlightParentCreateManyInlineInput = {
+  /** Connect multiple existing FeedbackHighlightParent documents */
+  connect?: InputMaybe<Array<FeedbackHighlightParentWhereUniqueInput>>;
+  /** Create and connect multiple existing FeedbackHighlightParent documents */
+  create?: InputMaybe<Array<FeedbackHighlightParentCreateInput>>;
+};
+
+export type FeedbackHighlightParentCreateOneInlineInput = {
+  /** Connect one existing FeedbackHighlightParent document */
+  connect?: InputMaybe<FeedbackHighlightParentWhereUniqueInput>;
+  /** Create and connect one FeedbackHighlightParent document */
+  create?: InputMaybe<FeedbackHighlightParentCreateInput>;
+};
+
+export type FeedbackHighlightParentUpdateInput = {
+  PastEvent?: InputMaybe<PastEventUpdateInput>;
+};
+
+export type FeedbackHighlightParentUpdateManyInlineInput = {
+  /** Connect multiple existing FeedbackHighlightParent documents */
+  connect?: InputMaybe<Array<FeedbackHighlightParentConnectInput>>;
+  /** Create and connect multiple FeedbackHighlightParent documents */
+  create?: InputMaybe<Array<FeedbackHighlightParentCreateInput>>;
+  /** Delete multiple FeedbackHighlightParent documents */
+  delete?: InputMaybe<Array<FeedbackHighlightParentWhereUniqueInput>>;
+  /** Disconnect multiple FeedbackHighlightParent documents */
+  disconnect?: InputMaybe<Array<FeedbackHighlightParentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing FeedbackHighlightParent documents */
+  set?: InputMaybe<Array<FeedbackHighlightParentWhereUniqueInput>>;
+  /** Update multiple FeedbackHighlightParent documents */
+  update?: InputMaybe<Array<FeedbackHighlightParentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple FeedbackHighlightParent documents */
+  upsert?: InputMaybe<Array<FeedbackHighlightParentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FeedbackHighlightParentUpdateManyWithNestedWhereInput = {
+  PastEvent?: InputMaybe<PastEventUpdateManyWithNestedWhereInput>;
+};
+
+export type FeedbackHighlightParentUpdateOneInlineInput = {
+  /** Connect existing FeedbackHighlightParent document */
+  connect?: InputMaybe<FeedbackHighlightParentWhereUniqueInput>;
+  /** Create and connect one FeedbackHighlightParent document */
+  create?: InputMaybe<FeedbackHighlightParentCreateInput>;
+  /** Delete currently connected FeedbackHighlightParent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected FeedbackHighlightParent document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FeedbackHighlightParent document */
+  update?: InputMaybe<FeedbackHighlightParentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FeedbackHighlightParent document */
+  upsert?: InputMaybe<FeedbackHighlightParentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FeedbackHighlightParentUpdateWithNestedWhereUniqueInput = {
+  PastEvent?: InputMaybe<PastEventUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FeedbackHighlightParentUpsertWithNestedWhereUniqueInput = {
+  PastEvent?: InputMaybe<PastEventUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FeedbackHighlightParentWhereInput = {
+  PastEvent?: InputMaybe<PastEventWhereInput>;
+};
+
+export type FeedbackHighlightParentWhereUniqueInput = {
+  PastEvent?: InputMaybe<PastEventWhereUniqueInput>;
+};
+
+export type FeedbackHighlightUpdateInput = {
+  author?: InputMaybe<Scalars['String']>;
+  feedback?: InputMaybe<Scalars['String']>;
+};
+
+export type FeedbackHighlightUpdateManyInlineInput = {
+  /** Create and connect multiple FeedbackHighlight component instances */
+  create?: InputMaybe<Array<FeedbackHighlightCreateWithPositionInput>>;
+  /** Delete multiple FeedbackHighlight documents */
+  delete?: InputMaybe<Array<FeedbackHighlightWhereUniqueInput>>;
+  /** Update multiple FeedbackHighlight component instances */
+  update?: InputMaybe<Array<FeedbackHighlightUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FeedbackHighlight component instances */
+  upsert?: InputMaybe<Array<FeedbackHighlightUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FeedbackHighlightUpdateManyInput = {
+  author?: InputMaybe<Scalars['String']>;
+  feedback?: InputMaybe<Scalars['String']>;
+};
+
+export type FeedbackHighlightUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FeedbackHighlightUpdateManyInput;
+  /** Document search */
+  where: FeedbackHighlightWhereInput;
+};
+
+export type FeedbackHighlightUpdateOneInlineInput = {
+  /** Create and connect one FeedbackHighlight document */
+  create?: InputMaybe<FeedbackHighlightCreateInput>;
+  /** Delete currently connected FeedbackHighlight document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FeedbackHighlight document */
+  update?: InputMaybe<FeedbackHighlightUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FeedbackHighlight document */
+  upsert?: InputMaybe<FeedbackHighlightUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FeedbackHighlightUpdateWithNestedWhereUniqueAndPositionInput = {
+  /** Document to update */
+  data?: InputMaybe<FeedbackHighlightUpdateInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FeedbackHighlightWhereUniqueInput;
+};
+
+export type FeedbackHighlightUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FeedbackHighlightUpdateInput;
+  /** Unique document search */
+  where: FeedbackHighlightWhereUniqueInput;
+};
+
+export type FeedbackHighlightUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FeedbackHighlightCreateInput;
+  /** Update document if it exists */
+  update: FeedbackHighlightUpdateInput;
+};
+
+export type FeedbackHighlightUpsertWithNestedWhereUniqueAndPositionInput = {
+  /** Document to upsert */
+  data?: InputMaybe<FeedbackHighlightUpsertInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FeedbackHighlightWhereUniqueInput;
+};
+
+export type FeedbackHighlightUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FeedbackHighlightUpsertInput;
+  /** Unique document search */
+  where: FeedbackHighlightWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type FeedbackHighlightWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FeedbackHighlightWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FeedbackHighlightWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FeedbackHighlightWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  author?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  author_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  author_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  author_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  author_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  author_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  author_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  author_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  author_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  author_starts_with?: InputMaybe<Scalars['String']>;
+  feedback?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  feedback_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  feedback_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  feedback_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  feedback_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  feedback_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  feedback_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  feedback_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  feedback_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  feedback_starts_with?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+};
+
+/** References FeedbackHighlight record uniquely */
+export type FeedbackHighlightWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type Heading = {
   __typename?: 'Heading';
+  /** Rubrik */
   heading: Scalars['String'];
   /** The unique identifier */
   id: Scalars['ID'];
@@ -4492,9 +4937,11 @@ export type HeadingWhereUniqueInput = {
 
 export type Hero = {
   __typename?: 'Hero';
+  /** Alternativ text till bild om den ej laddas */
   altText: Scalars['String'];
   /** The unique identifier */
   id: Scalars['ID'];
+  /** Bildfil */
   image: Asset;
   /** System stage field */
   stage: Stage;
@@ -4859,10 +5306,13 @@ export type HeroWhereUniqueInput = {
 
 export type Image = {
   __typename?: 'Image';
+  /** Alternativ text för bild om den ej laddas */
   altText: Scalars['String'];
   /** The unique identifier */
   id: Scalars['ID'];
+  /** Bildfil */
   image: Asset;
+  /** Bildtext som placeras under bilden */
   imageText?: Maybe<Scalars['String']>;
   /** System stage field */
   stage: Stage;
@@ -7207,6 +7657,7 @@ export type PageInfo = {
 
 export type PastEvent = Node & {
   __typename?: 'PastEvent';
+  /** Rubriker, bilder, text och feedback highlights. Addera hur många av varje som helst. Publiceras i den ordning de placeras här. */
   content: Array<PastEventcontentUnion>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -7214,21 +7665,24 @@ export type PastEvent = Node & {
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<PastEvent>;
+  /** Hero bild längst upp på sidan.  */
   hero: Hero;
   /** List of PastEvent versions */
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
-  /** Only shows in upcoming eventlist */
+  /** Kort text som syns på samlingssidan. */
   ingress: Scalars['String'];
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
+  /** Sökvägen i URL. Blir automatiskt titeln på inlägget.  */
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
+  /** Sidans huvudtitel, placeras i herobilden */
   title: Scalars['String'];
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
@@ -7757,15 +8211,17 @@ export type PastEventWhereUniqueInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
-export type PastEventcontentUnion = Heading | Image | Text;
+export type PastEventcontentUnion = FeedbackHighlight | Heading | Image | Text;
 
 export type PastEventcontentUnionConnectInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightConnectInput>;
   Heading?: InputMaybe<HeadingConnectInput>;
   Image?: InputMaybe<ImageConnectInput>;
   Text?: InputMaybe<TextConnectInput>;
 };
 
 export type PastEventcontentUnionCreateInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightCreateInput>;
   Heading?: InputMaybe<HeadingCreateInput>;
   Image?: InputMaybe<ImageCreateInput>;
   Text?: InputMaybe<TextCreateInput>;
@@ -7782,12 +8238,14 @@ export type PastEventcontentUnionCreateOneInlineInput = {
 };
 
 export type PastEventcontentUnionCreateWithPositionInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightCreateWithPositionInput>;
   Heading?: InputMaybe<HeadingCreateWithPositionInput>;
   Image?: InputMaybe<ImageCreateWithPositionInput>;
   Text?: InputMaybe<TextCreateWithPositionInput>;
 };
 
 export type PastEventcontentUnionUpdateInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightUpdateInput>;
   Heading?: InputMaybe<HeadingUpdateInput>;
   Image?: InputMaybe<ImageUpdateInput>;
   Text?: InputMaybe<TextUpdateInput>;
@@ -7805,6 +8263,7 @@ export type PastEventcontentUnionUpdateManyInlineInput = {
 };
 
 export type PastEventcontentUnionUpdateManyWithNestedWhereInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightUpdateManyWithNestedWhereInput>;
   Heading?: InputMaybe<HeadingUpdateManyWithNestedWhereInput>;
   Image?: InputMaybe<ImageUpdateManyWithNestedWhereInput>;
   Text?: InputMaybe<TextUpdateManyWithNestedWhereInput>;
@@ -7822,36 +8281,42 @@ export type PastEventcontentUnionUpdateOneInlineInput = {
 };
 
 export type PastEventcontentUnionUpdateWithNestedWhereUniqueAndPositionInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightUpdateWithNestedWhereUniqueAndPositionInput>;
   Heading?: InputMaybe<HeadingUpdateWithNestedWhereUniqueAndPositionInput>;
   Image?: InputMaybe<ImageUpdateWithNestedWhereUniqueAndPositionInput>;
   Text?: InputMaybe<TextUpdateWithNestedWhereUniqueAndPositionInput>;
 };
 
 export type PastEventcontentUnionUpdateWithNestedWhereUniqueInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightUpdateWithNestedWhereUniqueInput>;
   Heading?: InputMaybe<HeadingUpdateWithNestedWhereUniqueInput>;
   Image?: InputMaybe<ImageUpdateWithNestedWhereUniqueInput>;
   Text?: InputMaybe<TextUpdateWithNestedWhereUniqueInput>;
 };
 
 export type PastEventcontentUnionUpsertWithNestedWhereUniqueAndPositionInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightUpsertWithNestedWhereUniqueAndPositionInput>;
   Heading?: InputMaybe<HeadingUpsertWithNestedWhereUniqueAndPositionInput>;
   Image?: InputMaybe<ImageUpsertWithNestedWhereUniqueAndPositionInput>;
   Text?: InputMaybe<TextUpsertWithNestedWhereUniqueAndPositionInput>;
 };
 
 export type PastEventcontentUnionUpsertWithNestedWhereUniqueInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightUpsertWithNestedWhereUniqueInput>;
   Heading?: InputMaybe<HeadingUpsertWithNestedWhereUniqueInput>;
   Image?: InputMaybe<ImageUpsertWithNestedWhereUniqueInput>;
   Text?: InputMaybe<TextUpsertWithNestedWhereUniqueInput>;
 };
 
 export type PastEventcontentUnionWhereInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightWhereInput>;
   Heading?: InputMaybe<HeadingWhereInput>;
   Image?: InputMaybe<ImageWhereInput>;
   Text?: InputMaybe<TextWhereInput>;
 };
 
 export type PastEventcontentUnionWhereUniqueInput = {
+  FeedbackHighlight?: InputMaybe<FeedbackHighlightWhereUniqueInput>;
   Heading?: InputMaybe<HeadingWhereUniqueInput>;
   Image?: InputMaybe<ImageWhereUniqueInput>;
   Text?: InputMaybe<TextWhereUniqueInput>;
@@ -9417,6 +9882,7 @@ export enum Stage {
 
 export type StartPage = Node & {
   __typename?: 'StartPage';
+  /** Rubriker, bilder och text. Addera hur många av varje som helst. Publiceras i den ordning de placeras här. */
   content: Array<StartPagecontentUnion>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -9424,6 +9890,7 @@ export type StartPage = Node & {
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<StartPage>;
+  /** Hero bild längst upp på sidan */
   hero: Hero;
   /** List of StartPage versions */
   history: Array<Version>;
@@ -9434,9 +9901,11 @@ export type StartPage = Node & {
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
+  /** sökvägen i URL. Denna som webbplatsen hämtar datan från. Startsidan ska vara "start" */
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
+  /** Sidans huvudtitel, placeras i herobilden */
   title: Scalars['String'];
   /** The time the document was updated */
   updatedAt: Scalars['DateTime'];
@@ -10036,6 +10505,7 @@ export type Text = {
   id: Scalars['ID'];
   /** System stage field */
   stage: Stage;
+  /** Text editor, formateringen kommer synas på webbplatsen */
   text: RichText;
 };
 
@@ -10906,7 +11376,7 @@ export type Get_EventpageQuery = { __typename?: 'Query', eventPage?: (
     & { ' $fragmentRefs'?: { 'EventContentFragmentFragment': EventContentFragmentFragment;'LocationFragmentFragment': LocationFragmentFragment } }
   ) | null };
 
-export type PastEventContentFragmentFragment = { __typename?: 'PastEvent', content: Array<{ __typename?: 'Heading', heading: string, id: string } | { __typename?: 'Image', altText: string, imageText?: string | null, id: string, image: { __typename?: 'Asset', url: string } } | { __typename?: 'Text', id: string, text: { __typename?: 'RichText', raw: any } }> } & { ' $fragmentName'?: 'PastEventContentFragmentFragment' };
+export type PastEventContentFragmentFragment = { __typename?: 'PastEvent', content: Array<{ __typename?: 'FeedbackHighlight', id: string, author: string, feedback: string } | { __typename?: 'Heading', heading: string, id: string } | { __typename?: 'Image', altText: string, imageText?: string | null, id: string, image: { __typename?: 'Asset', url: string } } | { __typename?: 'Text', id: string, text: { __typename?: 'RichText', raw: any } }> } & { ' $fragmentName'?: 'PastEventContentFragmentFragment' };
 
 export type Get_Past_EventpageQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -10937,7 +11407,7 @@ export const AdressFragmentFragmentDoc = {"kind":"Document","definitions":[{"kin
 export const ContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<ContentFragmentFragment, unknown>;
 export const LocationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<LocationFragmentFragment, unknown>;
 export const EventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventContentFragmentFragment, unknown>;
-export const PastEventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PastEventContentFragmentFragment, unknown>;
+export const PastEventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeedbackHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"feedback"}}]}}]}}]}}]} as unknown as DocumentNode<PastEventContentFragmentFragment, unknown>;
 export const StartpageContentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartpageContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<StartpageContentFragment, unknown>;
 export const CreateEventSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createEventSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEventSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photoConsent"}},{"kind":"Field","name":{"kind":"Name","value":"occupation"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"eventPageSlug"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"allergies"}}]}}]}}]} as unknown as DocumentNode<CreateEventSignupMutation, CreateEventSignupMutationVariables>;
 export const CreateNewsletterSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createNewsletterSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NewsletterSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createNewsletterSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<CreateNewsletterSignupMutation, CreateNewsletterSignupMutationVariables>;
@@ -10948,6 +11418,6 @@ export const Get_Upcoming_EventsDocument = {"kind":"Document","definitions":[{"k
 export const Get_About_PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_ABOUT_PAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aboutPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"om-oss","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"employees"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"sidebarInfo"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"adressFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"adressFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<Get_About_PageQuery, Get_About_PageQueryVariables>;
 export const Get_Landingpage_Past_EventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_LANDINGPAGE_PAST_EVENT"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventLandingpage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"tidigare-event","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_Landingpage_Past_EventQuery, Get_Landingpage_Past_EventQueryVariables>;
 export const Get_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"EventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"locationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_EventpageQuery, Get_EventpageQueryVariables>;
-export const Get_Past_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PastEventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_EventpageQuery, Get_Past_EventpageQueryVariables>;
+export const Get_Past_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PastEventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeedbackHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"feedback"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_EventpageQuery, Get_Past_EventpageQueryVariables>;
 export const Get_StartpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_STARTPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"start","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StartpageContent"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartpageContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_StartpageQuery, Get_StartpageQueryVariables>;
 export const Get_LandingpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_LANDINGPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventLandingpage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"kommande-event","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_LandingpageQuery, Get_LandingpageQueryVariables>;

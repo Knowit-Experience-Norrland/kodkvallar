@@ -7,7 +7,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 // add API to Apollo Client with authorization header
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_HG_API_URL,
+  uri: process.env.REACT_APP_HG_API_URL, 
   headers: {
     Authorization:
       `Bearer ${process.env.REACT_APP_HG_API_AUTH}` ||

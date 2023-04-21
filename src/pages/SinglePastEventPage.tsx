@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import EventSignupComp from "../components/EventSignup/EventSignupComp";
 import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
@@ -12,7 +12,8 @@ const SinglePastEventPage = () => {
   // get slug from params
   const params = useParams();
   let slug = params.slug;
-
+  
+  let navigate = useNavigate();
   
   //create fragment of query
   const PastEventContentFragment = graphql(`
@@ -36,6 +37,11 @@ const SinglePastEventPage = () => {
             raw
           }
         }
+        ... on FeedbackHighlight {
+        id
+        author
+        feedback
+      }
       }
     }
   `);
@@ -57,24 +63,24 @@ const SinglePastEventPage = () => {
     }
   `);
 
-  const { data, error } = useQuery<Get_Past_EventpageQuery>(GET_PAST_EVENTPAGE, {
+  const { data, error, loading } = useQuery<Get_Past_EventpageQuery>(GET_PAST_EVENTPAGE, {
     variables: { slug },
   });
+  
+  //redirect to 404 if no data
+  useEffect(() => {
+    if (!loading && (!data || error)) {
+      navigate("/404");
+    }
+  }, [loading, data, error, navigate]);
+
   const { pastEvent } = data || {};
   let mainContent = useFragment(PastEventContentFragment, pastEvent);
- 
-  if (error) {
-    return (
-      <div>
-        <p>Något gick fel..</p>
-      </div>
-    );
-  }
 
   return (
     <main>
       <HeroComp
-        url={pastEvent?.hero?.image.url || ""}
+        url={pastEvent?.hero?.image?.url || ""}
         altText={pastEvent?.hero?.altText || ""}
         title={pastEvent?.title || ""}
       />

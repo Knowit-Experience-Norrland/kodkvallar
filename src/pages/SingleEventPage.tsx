@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { ContactCard, Get_EventpageQuery } from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import EventSignupComp from "../components/EventSignup/EventSignupComp";
 import MapComp from "../components/Map/MapComp";
 import { graphql, useFragment } from "../gql";
@@ -19,6 +19,8 @@ function EventPage() {
   // get slug from params
   const params = useParams();
   let slug = params.slug;
+
+  let navigate = useNavigate();
 
   //create fragment of query
   const locationFragment = graphql(`
@@ -88,10 +90,16 @@ function EventPage() {
       }
     }
   `);
-
-  const { data, error } = useQuery<Get_EventpageQuery>(GET_EVENTPAGE, {
+  const { data, error, loading } = useQuery<Get_EventpageQuery>(GET_EVENTPAGE, {
     variables: { slug },
   });
+
+  useEffect(() => {
+    if (!loading && (!data || error)) {
+      navigate("/404");
+    }
+  }, [loading, data, error, navigate]);
+
   const { eventPage } = data || {};
   let location = useFragment(locationFragment, eventPage);
   let map = location?.location?.map;
@@ -111,18 +119,10 @@ function EventPage() {
     minute: "2-digit",
   });
 
-  if (error) {
-    return (
-      <div>
-        <p>Något gick fel..</p>
-      </div>
-    );
-  }
-
   return (
     <main>
       <HeroComp
-        url={eventPage?.hero?.image.url || ""}
+        url={eventPage?.hero?.image?.url || ""}
         altText={eventPage?.hero?.altText || ""}
         title={eventPage?.title || ""}
       />

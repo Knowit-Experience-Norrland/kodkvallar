@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { ContactCard, Get_About_PageQuery } from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
@@ -14,6 +14,8 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const AboutPage = () => {
+  let navigate = useNavigate();
+
   //create fragment of query
   const adressFragment = graphql(`
     fragment adressFragment on AboutPage {
@@ -80,21 +82,26 @@ const AboutPage = () => {
     }
   `);
 
-  const { data, error } = useQuery<Get_About_PageQuery>(GET_ABOUT_PAGE);
+  const { data, error, loading } =
+    useQuery<Get_About_PageQuery>(GET_ABOUT_PAGE);
+
+  //redirect to 404 if error or if no data
+  useEffect(() => {
+    if (!loading && (!data || error)) {
+      navigate("/404");
+    }
+  }, [loading, data, error, navigate]);
+
   const { aboutPage } = data || {};
   let location = useFragment(adressFragment, aboutPage);
   let map = location?.adress?.map;
   let mainContent = useFragment(ContentFragment, aboutPage);
   let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
-  let navigate = useNavigate();
 
-  //redirect to 404 if error or if no data
-  if (error || !aboutPage) {
-    navigate("/404");}
   return (
     <main>
       <HeroComp
-        url={aboutPage?.hero?.image.url || ""}
+        url={aboutPage?.hero?.image?.url || ""}
         altText={aboutPage?.hero?.altText || ""}
         title={aboutPage?.title || ""}
       />

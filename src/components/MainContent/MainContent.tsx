@@ -3,6 +3,7 @@ import { RichText } from "@graphcms/rich-text-react-renderer";
 import {
   StartpageContentFragment,
   EventContentFragmentFragment,
+  PastEventContentFragmentFragment,
 } from "../../gql/graphql";
 
 //This component is used to render the content of a page
@@ -10,7 +11,8 @@ import {
 type Props = {
   content:
     | StartpageContentFragment["content"]
-    | EventContentFragmentFragment["content"]; //Only the content part of the fragment
+    | EventContentFragmentFragment["content"]
+    | PastEventContentFragmentFragment["content"]; //Only the content part of the fragment
 };
 
 const MainContent: React.FC<Props> = ({ content }) => {
