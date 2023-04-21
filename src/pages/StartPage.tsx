@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { Get_StartpageQuery } from "../gql/graphql";
 import HeroComp from "../components/Hero/HeroComp";
@@ -9,8 +9,12 @@ import Lightbulb from "../media/Lightbulb.png";
 import Computer from "../media/Computer.png";
 import { graphql, useFragment } from "../gql";
 import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
+import { useNavigate } from "react-router-dom";
 
 const StartPage = () => {
+
+let navigate = useNavigate();
+
   // Define a fragment that will be used by the query
   // Fragment is a subset of the query, and is used to define the data that we want to use.
   const contentFragment = graphql(`
@@ -54,19 +58,22 @@ const StartPage = () => {
     }
   `);
 
-  const { data, error } = useQuery<Get_StartpageQuery>(GET_STARTPAGE);
+  const { data, error, loading } = useQuery<Get_StartpageQuery>(GET_STARTPAGE);
+    //redirect to 404 if no data
+    useEffect(() => {
+      if (!loading && (!data || error)) {
+        navigate("/404");
+      }
+    }, [loading, data, error, navigate]);
   const { startPage } = data || {};
   let content = useFragment(contentFragment, startPage);
   let startpageContent = content?.content || undefined;
  
-  if (error) {
-    return <div><p>Något gick fel..</p></div>;
-  }
   return (
     <main>
       <HeroComp
-        url={startPage?.hero.image.url || ""}
-        altText={startPage?.hero.altText || ""}
+        url={startPage?.hero?.image?.url || ""}
+        altText={startPage?.hero?.altText || ""}
         title={startPage?.title || ""}
       />
       {startpageContent && <MainContent content={startpageContent} />}
