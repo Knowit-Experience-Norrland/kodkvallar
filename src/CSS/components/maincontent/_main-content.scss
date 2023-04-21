@@ -8,6 +8,10 @@
   .image-block {
     padding-top: 2em;
     padding-bottom: 3em;
+
+    img{
+      box-shadow: 0 2px 4px rgba($primary-digital-black, 0.2);
+    }
   }
 
   .feedback-highlight {

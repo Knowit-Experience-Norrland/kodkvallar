@@ -84,15 +84,15 @@ const AboutPage = () => {
 
   const { data, error, loading } =
     useQuery<Get_About_PageQuery>(GET_ABOUT_PAGE);
+    const { aboutPage } = data || {};
 
   //redirect to 404 if error or if no data
   useEffect(() => {
-    if (!loading && (!data || error)) {
+    if (!loading && (!aboutPage || error)) {
       navigate("/404");
     }
-  }, [loading, data, error, navigate]);
+  }, [loading, aboutPage, error, navigate]);
 
-  const { aboutPage } = data || {};
   let location = useFragment(adressFragment, aboutPage);
   let map = location?.adress?.map;
   let mainContent = useFragment(ContentFragment, aboutPage);

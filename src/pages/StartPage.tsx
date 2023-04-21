@@ -59,13 +59,14 @@ let navigate = useNavigate();
   `);
 
   const { data, error, loading } = useQuery<Get_StartpageQuery>(GET_STARTPAGE);
+  const { startPage } = data || {};
     //redirect to 404 if no data
     useEffect(() => {
-      if (!loading && (!data || error)) {
+      if (!loading && (!startPage || error)) {
         navigate("/404");
       }
-    }, [loading, data, error, navigate]);
-  const { startPage } = data || {};
+    }, [loading, startPage, error, navigate]);
+    
   let content = useFragment(contentFragment, startPage);
   let startpageContent = content?.content || undefined;
  

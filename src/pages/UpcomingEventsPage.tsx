@@ -27,14 +27,14 @@ const UpcomingEventsPage = () => {
   `);
 
   const { data, error, loading } = useQuery<Get_LandingpageQuery>(GET_LANDINGPAGE);
+  const { eventLandingpage } = data || {};
   
   //redirect to 404 if no data
   useEffect(() => {
-    if (!loading && (!data || error)) {
+    if (!loading && (!eventLandingpage || error)) {
       navigate("/404");
     }
-  }, [loading, data, error, navigate]);
-  const { eventLandingpage } = data || {};
+  }, [loading, eventLandingpage, error, navigate]);
   
   return (
     <main>

@@ -93,14 +93,14 @@ function EventPage() {
   const { data, error, loading } = useQuery<Get_EventpageQuery>(GET_EVENTPAGE, {
     variables: { slug },
   });
+  const { eventPage } = data || {};
 
   useEffect(() => {
-    if (!loading && (!data || error)) {
+    if (!loading && (!eventPage || error)) {
       navigate("/404");
     }
-  }, [loading, data, error, navigate]);
+  }, [loading, eventPage, error, navigate]);
 
-  const { eventPage } = data || {};
   let location = useFragment(locationFragment, eventPage);
   let map = location?.location?.map;
   let mainContent = useFragment(EventContentFragment, eventPage);

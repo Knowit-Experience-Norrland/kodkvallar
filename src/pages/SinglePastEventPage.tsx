@@ -66,15 +66,15 @@ const SinglePastEventPage = () => {
   const { data, error, loading } = useQuery<Get_Past_EventpageQuery>(GET_PAST_EVENTPAGE, {
     variables: { slug },
   });
+  const { pastEvent } = data || {};
   
   //redirect to 404 if no data
   useEffect(() => {
-    if (!loading && (!data || error)) {
+    if (!loading && (!pastEvent || error)) {
       navigate("/404");
     }
-  }, [loading, data, error, navigate]);
+  }, [loading, pastEvent, error, navigate]);
 
-  const { pastEvent } = data || {};
   let mainContent = useFragment(PastEventContentFragment, pastEvent);
 
   return (
