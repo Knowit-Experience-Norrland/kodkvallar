@@ -36,7 +36,13 @@ const PastEventListComp = () => {
   }, [loading, error, navigate]);
 
   if (!pastEvents) {
-    return <p>Vi har tyvärr inga kommande event inplanerade just nu.</p>;
+    return (
+      <section className="event-container">
+        <article className="event-main">
+          <p>Vi har tyvärr inga inlägg om tidigare event just nu.</p>
+        </article>
+      </section>
+    );
   } else {
     return (
       <section className="event-container">

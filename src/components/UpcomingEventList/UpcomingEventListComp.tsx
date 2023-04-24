@@ -42,9 +42,15 @@ const UpcomingEventListComp = () => {
       navigate("/404");
     }
   }, [loading, error, navigate]);
-
-  if (!eventPages) {
-    return <p>Vi har tyvärr inga kommande event inplanerade just nu.</p>;
+  console.log(eventPages);
+  if (eventPages?.length === 0) {
+    return (
+      <section className="event-container">
+        <article className="event-main">
+          <p>Vi har tyvärr inga kommande event inplanerade just nu.</p>
+        </article>
+      </section>
+    );
   } else {
     return (
       <section className="event-container">

@@ -5,6 +5,7 @@ import {
   EventContentFragmentFragment,
   PastEventContentFragmentFragment,
 } from "../../gql/graphql";
+import Bubble from "../../media/Bubble.png";
 
 //This component is used to render the content of a page
 //props for the fragments that use this component
@@ -38,8 +39,11 @@ const MainContent: React.FC<Props> = ({ content }) => {
         if (content?.__typename === "FeedbackHighlight") {
           return (
             <div key={content.id} className="feedback-highlight">
-              <h2 className="feedback-text">"{content.feedback}"</h2>
-              <p className="feedback-author">- {content.author}</p>
+              <img src={Bubble} alt="Pratbubbla" />
+              <div className="feedback-highlight-content">
+                <h2 className="feedback-text">"{content.feedback}"</h2>
+                <p className="feedback-author">- {content.author}</p>
+              </div>
             </div>
           );
         }
