@@ -42,7 +42,6 @@ const UpcomingEventListComp = () => {
       navigate("/404");
     }
   }, [loading, error, navigate]);
-  console.log(eventPages);
   if (eventPages?.length === 0) {
     return (
       <section className="event-container">

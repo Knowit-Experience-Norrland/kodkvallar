@@ -29,7 +29,6 @@ const PastEventsPage = () => {
   `);
 
   const { data, error, loading } = useQuery<Get_Landingpage_Past_EventQuery>(GET_LANDINGPAGE_PAST_EVENT);
-  console.log(data, loading, error);
   const { eventLandingpage } = data || {};
   
   //redirect to 404 if no data

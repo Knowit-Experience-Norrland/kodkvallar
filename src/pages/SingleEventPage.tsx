@@ -14,6 +14,7 @@ import {
   RiFacebookBoxLine,
   RiInstagramLine,
 } from "react-icons/ri";
+import WaitinglistComp from "../components/Waitinglist/WaitinglistComp";
 
 function EventPage() {
   // get slug from params
@@ -82,11 +83,16 @@ function EventPage() {
             url
           }
         }
+        maxParticipants
         ...EventContentFragment
         date
         slug
         title
         ...locationFragment
+        eventSignups {
+          id
+          firstName
+        }
       }
     }
   `);
@@ -118,6 +124,9 @@ function EventPage() {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  let signups = eventPage?.eventSignups?.length || 0;
+  let maxParticipants = eventPage?.maxParticipants || 0;
 
   return (
     <main>
@@ -164,7 +173,7 @@ function EventPage() {
           </div>
         </div>
       </div>
-      <EventSignupComp slug={slug} />
+      {signups >= maxParticipants ? (<WaitinglistComp slug={slug} />) : (<EventSignupComp slug={slug} />)}
       <div className="events-spotlight-container">
         <PastEventSpotlightComp />
       </div>

@@ -2836,6 +2836,7 @@ export type EventPage = Node & {
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
+  waitingListEvents: Array<WaitingListEvent>;
 };
 
 
@@ -2931,6 +2932,19 @@ export type EventPageUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
+
+export type EventPageWaitingListEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<WaitingListEventOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<WaitingListEventWhereInput>;
+};
+
 export type EventPageConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
   position?: InputMaybe<ConnectPositionInput>;
@@ -2961,6 +2975,7 @@ export type EventPageCreateInput = {
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
+  waitingListEvents?: InputMaybe<WaitingListEventCreateManyInlineInput>;
 };
 
 export type EventPageCreateManyInlineInput = {
@@ -3168,6 +3183,9 @@ export type EventPageManyWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
+  waitingListEvents_every?: InputMaybe<WaitingListEventWhereInput>;
+  waitingListEvents_none?: InputMaybe<WaitingListEventWhereInput>;
+  waitingListEvents_some?: InputMaybe<WaitingListEventWhereInput>;
 };
 
 export enum EventPageOrderByInput {
@@ -3202,6 +3220,7 @@ export type EventPageUpdateInput = {
   maxParticipants?: InputMaybe<Scalars['Int']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
+  waitingListEvents?: InputMaybe<WaitingListEventUpdateManyInlineInput>;
 };
 
 export type EventPageUpdateManyInlineInput = {
@@ -3459,6 +3478,9 @@ export type EventPageWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
+  waitingListEvents_every?: InputMaybe<WaitingListEventWhereInput>;
+  waitingListEvents_none?: InputMaybe<WaitingListEventWhereInput>;
+  waitingListEvents_some?: InputMaybe<WaitingListEventWhereInput>;
 };
 
 /** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
@@ -5785,6 +5807,8 @@ export type Mutation = {
   createScheduledRelease?: Maybe<ScheduledRelease>;
   /** Create one startPage */
   createStartPage?: Maybe<StartPage>;
+  /** Create one waitingListEvent */
+  createWaitingListEvent?: Maybe<WaitingListEvent>;
   /** Delete one aboutPage from _all_ existing stages. Returns deleted document. */
   deleteAboutPage?: Maybe<AboutPage>;
   /** Delete one asset from _all_ existing stages. Returns deleted document. */
@@ -5851,6 +5875,13 @@ export type Mutation = {
   deleteManyStartPages: BatchPayload;
   /** Delete many StartPage documents, return deleted documents */
   deleteManyStartPagesConnection: StartPageConnection;
+  /**
+   * Delete many WaitingListEvent documents
+   * @deprecated Please use the new paginated many mutation (deleteManyWaitingListEventsConnection)
+   */
+  deleteManyWaitingListEvents: BatchPayload;
+  /** Delete many WaitingListEvent documents, return deleted documents */
+  deleteManyWaitingListEventsConnection: WaitingListEventConnection;
   /** Delete one newsletterSignup from _all_ existing stages. Returns deleted document. */
   deleteNewsletterSignup?: Maybe<NewsletterSignup>;
   /** Delete one pastEvent from _all_ existing stages. Returns deleted document. */
@@ -5861,6 +5892,8 @@ export type Mutation = {
   deleteScheduledRelease?: Maybe<ScheduledRelease>;
   /** Delete one startPage from _all_ existing stages. Returns deleted document. */
   deleteStartPage?: Maybe<StartPage>;
+  /** Delete one waitingListEvent from _all_ existing stages. Returns deleted document. */
+  deleteWaitingListEvent?: Maybe<WaitingListEvent>;
   /** Publish one aboutPage */
   publishAboutPage?: Maybe<AboutPage>;
   /** Publish one asset */
@@ -5927,12 +5960,21 @@ export type Mutation = {
   publishManyStartPages: BatchPayload;
   /** Publish many StartPage documents */
   publishManyStartPagesConnection: StartPageConnection;
+  /**
+   * Publish many WaitingListEvent documents
+   * @deprecated Please use the new paginated many mutation (publishManyWaitingListEventsConnection)
+   */
+  publishManyWaitingListEvents: BatchPayload;
+  /** Publish many WaitingListEvent documents */
+  publishManyWaitingListEventsConnection: WaitingListEventConnection;
   /** Publish one newsletterSignup */
   publishNewsletterSignup?: Maybe<NewsletterSignup>;
   /** Publish one pastEvent */
   publishPastEvent?: Maybe<PastEvent>;
   /** Publish one startPage */
   publishStartPage?: Maybe<StartPage>;
+  /** Publish one waitingListEvent */
+  publishWaitingListEvent?: Maybe<WaitingListEvent>;
   /** Schedule to publish one aboutPage */
   schedulePublishAboutPage?: Maybe<AboutPage>;
   /** Schedule to publish one asset */
@@ -5949,6 +5991,8 @@ export type Mutation = {
   schedulePublishPastEvent?: Maybe<PastEvent>;
   /** Schedule to publish one startPage */
   schedulePublishStartPage?: Maybe<StartPage>;
+  /** Schedule to publish one waitingListEvent */
+  schedulePublishWaitingListEvent?: Maybe<WaitingListEvent>;
   /** Unpublish one aboutPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAboutPage?: Maybe<AboutPage>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -5965,6 +6009,8 @@ export type Mutation = {
   scheduleUnpublishPastEvent?: Maybe<PastEvent>;
   /** Unpublish one startPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishStartPage?: Maybe<StartPage>;
+  /** Unpublish one waitingListEvent from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishWaitingListEvent?: Maybe<WaitingListEvent>;
   /** Unpublish one aboutPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAboutPage?: Maybe<AboutPage>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -6031,12 +6077,21 @@ export type Mutation = {
   unpublishManyStartPages: BatchPayload;
   /** Find many StartPage documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyStartPagesConnection: StartPageConnection;
+  /**
+   * Unpublish many WaitingListEvent documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyWaitingListEventsConnection)
+   */
+  unpublishManyWaitingListEvents: BatchPayload;
+  /** Find many WaitingListEvent documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyWaitingListEventsConnection: WaitingListEventConnection;
   /** Unpublish one newsletterSignup from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishNewsletterSignup?: Maybe<NewsletterSignup>;
   /** Unpublish one pastEvent from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishPastEvent?: Maybe<PastEvent>;
   /** Unpublish one startPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishStartPage?: Maybe<StartPage>;
+  /** Unpublish one waitingListEvent from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishWaitingListEvent?: Maybe<WaitingListEvent>;
   /** Update one aboutPage */
   updateAboutPage?: Maybe<AboutPage>;
   /** Update one asset */
@@ -6103,6 +6158,13 @@ export type Mutation = {
   updateManyStartPages: BatchPayload;
   /** Update many StartPage documents */
   updateManyStartPagesConnection: StartPageConnection;
+  /**
+   * Update many waitingListEvents
+   * @deprecated Please use the new paginated many mutation (updateManyWaitingListEventsConnection)
+   */
+  updateManyWaitingListEvents: BatchPayload;
+  /** Update many WaitingListEvent documents */
+  updateManyWaitingListEventsConnection: WaitingListEventConnection;
   /** Update one newsletterSignup */
   updateNewsletterSignup?: Maybe<NewsletterSignup>;
   /** Update one pastEvent */
@@ -6111,6 +6173,8 @@ export type Mutation = {
   updateScheduledRelease?: Maybe<ScheduledRelease>;
   /** Update one startPage */
   updateStartPage?: Maybe<StartPage>;
+  /** Update one waitingListEvent */
+  updateWaitingListEvent?: Maybe<WaitingListEvent>;
   /** Upsert one aboutPage */
   upsertAboutPage?: Maybe<AboutPage>;
   /** Upsert one asset */
@@ -6127,6 +6191,8 @@ export type Mutation = {
   upsertPastEvent?: Maybe<PastEvent>;
   /** Upsert one startPage */
   upsertStartPage?: Maybe<StartPage>;
+  /** Upsert one waitingListEvent */
+  upsertWaitingListEvent?: Maybe<WaitingListEvent>;
 };
 
 
@@ -6172,6 +6238,11 @@ export type MutationCreateScheduledReleaseArgs = {
 
 export type MutationCreateStartPageArgs = {
   data: StartPageCreateInput;
+};
+
+
+export type MutationCreateWaitingListEventArgs = {
+  data: WaitingListEventCreateInput;
 };
 
 
@@ -6320,6 +6391,21 @@ export type MutationDeleteManyStartPagesConnectionArgs = {
 };
 
 
+export type MutationDeleteManyWaitingListEventsArgs = {
+  where?: InputMaybe<WaitingListEventManyWhereInput>;
+};
+
+
+export type MutationDeleteManyWaitingListEventsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<WaitingListEventManyWhereInput>;
+};
+
+
 export type MutationDeleteNewsletterSignupArgs = {
   where: NewsletterSignupWhereUniqueInput;
 };
@@ -6342,6 +6428,11 @@ export type MutationDeleteScheduledReleaseArgs = {
 
 export type MutationDeleteStartPageArgs = {
   where: StartPageWhereUniqueInput;
+};
+
+
+export type MutationDeleteWaitingListEventArgs = {
+  where: WaitingListEventWhereUniqueInput;
 };
 
 
@@ -6528,6 +6619,24 @@ export type MutationPublishManyStartPagesConnectionArgs = {
 };
 
 
+export type MutationPublishManyWaitingListEventsArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<WaitingListEventManyWhereInput>;
+};
+
+
+export type MutationPublishManyWaitingListEventsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<WaitingListEventManyWhereInput>;
+};
+
+
 export type MutationPublishNewsletterSignupArgs = {
   to?: Array<Stage>;
   where: NewsletterSignupWhereUniqueInput;
@@ -6543,6 +6652,12 @@ export type MutationPublishPastEventArgs = {
 export type MutationPublishStartPageArgs = {
   to?: Array<Stage>;
   where: StartPageWhereUniqueInput;
+};
+
+
+export type MutationPublishWaitingListEventArgs = {
+  to?: Array<Stage>;
+  where: WaitingListEventWhereUniqueInput;
 };
 
 
@@ -6613,6 +6728,14 @@ export type MutationSchedulePublishStartPageArgs = {
 };
 
 
+export type MutationSchedulePublishWaitingListEventArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: WaitingListEventWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishAboutPageArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -6676,6 +6799,14 @@ export type MutationScheduleUnpublishStartPageArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   where: StartPageWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishWaitingListEventArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: WaitingListEventWhereUniqueInput;
 };
 
 
@@ -6859,6 +6990,24 @@ export type MutationUnpublishManyStartPagesConnectionArgs = {
 };
 
 
+export type MutationUnpublishManyWaitingListEventsArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<WaitingListEventManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyWaitingListEventsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<WaitingListEventManyWhereInput>;
+};
+
+
 export type MutationUnpublishNewsletterSignupArgs = {
   from?: Array<Stage>;
   where: NewsletterSignupWhereUniqueInput;
@@ -6874,6 +7023,12 @@ export type MutationUnpublishPastEventArgs = {
 export type MutationUnpublishStartPageArgs = {
   from?: Array<Stage>;
   where: StartPageWhereUniqueInput;
+};
+
+
+export type MutationUnpublishWaitingListEventArgs = {
+  from?: Array<Stage>;
+  where: WaitingListEventWhereUniqueInput;
 };
 
 
@@ -7043,6 +7198,23 @@ export type MutationUpdateManyStartPagesConnectionArgs = {
 };
 
 
+export type MutationUpdateManyWaitingListEventsArgs = {
+  data: WaitingListEventUpdateManyInput;
+  where?: InputMaybe<WaitingListEventManyWhereInput>;
+};
+
+
+export type MutationUpdateManyWaitingListEventsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: WaitingListEventUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<WaitingListEventManyWhereInput>;
+};
+
+
 export type MutationUpdateNewsletterSignupArgs = {
   data: NewsletterSignupUpdateInput;
   where: NewsletterSignupWhereUniqueInput;
@@ -7064,6 +7236,12 @@ export type MutationUpdateScheduledReleaseArgs = {
 export type MutationUpdateStartPageArgs = {
   data: StartPageUpdateInput;
   where: StartPageWhereUniqueInput;
+};
+
+
+export type MutationUpdateWaitingListEventArgs = {
+  data: WaitingListEventUpdateInput;
+  where: WaitingListEventWhereUniqueInput;
 };
 
 
@@ -7112,6 +7290,12 @@ export type MutationUpsertPastEventArgs = {
 export type MutationUpsertStartPageArgs = {
   upsert: StartPageUpsertInput;
   where: StartPageWhereUniqueInput;
+};
+
+
+export type MutationUpsertWaitingListEventArgs = {
+  upsert: WaitingListEventUpsertInput;
+  where: WaitingListEventWhereUniqueInput;
 };
 
 export type NewsletterSignup = Node & {
@@ -8415,6 +8599,14 @@ export type Query = {
   users: Array<User>;
   /** Retrieve multiple users using the Relay connection interface */
   usersConnection: UserConnection;
+  /** Retrieve a single waitingListEvent */
+  waitingListEvent?: Maybe<WaitingListEvent>;
+  /** Retrieve document version */
+  waitingListEventVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple waitingListEvents */
+  waitingListEvents: Array<WaitingListEvent>;
+  /** Retrieve multiple waitingListEvents using the Relay connection interface */
+  waitingListEventsConnection: WaitingListEventConnection;
 };
 
 
@@ -8827,6 +9019,44 @@ export type QueryUsersConnectionArgs = {
   where?: InputMaybe<UserWhereInput>;
 };
 
+
+export type QueryWaitingListEventArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: WaitingListEventWhereUniqueInput;
+};
+
+
+export type QueryWaitingListEventVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryWaitingListEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<WaitingListEventOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<WaitingListEventWhereInput>;
+};
+
+
+export type QueryWaitingListEventsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<WaitingListEventOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<WaitingListEventWhereInput>;
+};
+
 /** Representing a RGBA color value: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#rgb()_and_rgba() */
 export type Rgba = {
   __typename?: 'RGBA';
@@ -8939,7 +9169,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = AboutPage | Asset | EventLandingpage | EventPage | EventSignup | NewsletterSignup | PastEvent | StartPage;
+export type ScheduledOperationAffectedDocument = AboutPage | Asset | EventLandingpage | EventPage | EventSignup | NewsletterSignup | PastEvent | StartPage | WaitingListEvent;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -11221,6 +11451,543 @@ export type VersionWhereInput = {
   stage: Stage;
 };
 
+/** When event is fully booked people can sign up to the waiting list  */
+export type WaitingListEvent = Node & {
+  __typename?: 'WaitingListEvent';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<WaitingListEvent>;
+  email: Scalars['String'];
+  eventPage?: Maybe<EventPage>;
+  firstName: Scalars['String'];
+  /** List of WaitingListEvent versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  lastName: Scalars['String'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+/** When event is fully booked people can sign up to the waiting list  */
+export type WaitingListEventCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** When event is fully booked people can sign up to the waiting list  */
+export type WaitingListEventDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+/** When event is fully booked people can sign up to the waiting list  */
+export type WaitingListEventEventPageArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** When event is fully booked people can sign up to the waiting list  */
+export type WaitingListEventHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+/** When event is fully booked people can sign up to the waiting list  */
+export type WaitingListEventPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** When event is fully booked people can sign up to the waiting list  */
+export type WaitingListEventScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+/** When event is fully booked people can sign up to the waiting list  */
+export type WaitingListEventUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type WaitingListEventConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: WaitingListEventWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type WaitingListEventConnection = {
+  __typename?: 'WaitingListEventConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<WaitingListEventEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type WaitingListEventCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  eventPage?: InputMaybe<EventPageCreateOneInlineInput>;
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type WaitingListEventCreateManyInlineInput = {
+  /** Connect multiple existing WaitingListEvent documents */
+  connect?: InputMaybe<Array<WaitingListEventWhereUniqueInput>>;
+  /** Create and connect multiple existing WaitingListEvent documents */
+  create?: InputMaybe<Array<WaitingListEventCreateInput>>;
+};
+
+export type WaitingListEventCreateOneInlineInput = {
+  /** Connect one existing WaitingListEvent document */
+  connect?: InputMaybe<WaitingListEventWhereUniqueInput>;
+  /** Create and connect one WaitingListEvent document */
+  create?: InputMaybe<WaitingListEventCreateInput>;
+};
+
+/** An edge in a connection. */
+export type WaitingListEventEdge = {
+  __typename?: 'WaitingListEventEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: WaitingListEvent;
+};
+
+/** Identifies documents */
+export type WaitingListEventManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<WaitingListEventWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<WaitingListEventWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<WaitingListEventWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<WaitingListEventWhereStageInput>;
+  documentInStages_none?: InputMaybe<WaitingListEventWhereStageInput>;
+  documentInStages_some?: InputMaybe<WaitingListEventWhereStageInput>;
+  email?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  email_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  email_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  email_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  email_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  email_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  email_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  email_starts_with?: InputMaybe<Scalars['String']>;
+  eventPage?: InputMaybe<EventPageWhereInput>;
+  firstName?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  firstName_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  firstName_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  firstName_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  firstName_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  firstName_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  firstName_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  firstName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  firstName_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  firstName_starts_with?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  lastName?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  lastName_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  lastName_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  lastName_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  lastName_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  lastName_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  lastName_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  lastName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  lastName_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  lastName_starts_with?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum WaitingListEventOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  EmailAsc = 'email_ASC',
+  EmailDesc = 'email_DESC',
+  FirstNameAsc = 'firstName_ASC',
+  FirstNameDesc = 'firstName_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LastNameAsc = 'lastName_ASC',
+  LastNameDesc = 'lastName_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type WaitingListEventUpdateInput = {
+  email?: InputMaybe<Scalars['String']>;
+  eventPage?: InputMaybe<EventPageUpdateOneInlineInput>;
+  firstName?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
+};
+
+export type WaitingListEventUpdateManyInlineInput = {
+  /** Connect multiple existing WaitingListEvent documents */
+  connect?: InputMaybe<Array<WaitingListEventConnectInput>>;
+  /** Create and connect multiple WaitingListEvent documents */
+  create?: InputMaybe<Array<WaitingListEventCreateInput>>;
+  /** Delete multiple WaitingListEvent documents */
+  delete?: InputMaybe<Array<WaitingListEventWhereUniqueInput>>;
+  /** Disconnect multiple WaitingListEvent documents */
+  disconnect?: InputMaybe<Array<WaitingListEventWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing WaitingListEvent documents */
+  set?: InputMaybe<Array<WaitingListEventWhereUniqueInput>>;
+  /** Update multiple WaitingListEvent documents */
+  update?: InputMaybe<Array<WaitingListEventUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple WaitingListEvent documents */
+  upsert?: InputMaybe<Array<WaitingListEventUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type WaitingListEventUpdateManyInput = {
+  email?: InputMaybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
+};
+
+export type WaitingListEventUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: WaitingListEventUpdateManyInput;
+  /** Document search */
+  where: WaitingListEventWhereInput;
+};
+
+export type WaitingListEventUpdateOneInlineInput = {
+  /** Connect existing WaitingListEvent document */
+  connect?: InputMaybe<WaitingListEventWhereUniqueInput>;
+  /** Create and connect one WaitingListEvent document */
+  create?: InputMaybe<WaitingListEventCreateInput>;
+  /** Delete currently connected WaitingListEvent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected WaitingListEvent document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single WaitingListEvent document */
+  update?: InputMaybe<WaitingListEventUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single WaitingListEvent document */
+  upsert?: InputMaybe<WaitingListEventUpsertWithNestedWhereUniqueInput>;
+};
+
+export type WaitingListEventUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: WaitingListEventUpdateInput;
+  /** Unique document search */
+  where: WaitingListEventWhereUniqueInput;
+};
+
+export type WaitingListEventUpsertInput = {
+  /** Create document if it didn't exist */
+  create: WaitingListEventCreateInput;
+  /** Update document if it exists */
+  update: WaitingListEventUpdateInput;
+};
+
+export type WaitingListEventUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: WaitingListEventUpsertInput;
+  /** Unique document search */
+  where: WaitingListEventWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type WaitingListEventWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type WaitingListEventWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<WaitingListEventWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<WaitingListEventWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<WaitingListEventWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<WaitingListEventWhereStageInput>;
+  documentInStages_none?: InputMaybe<WaitingListEventWhereStageInput>;
+  documentInStages_some?: InputMaybe<WaitingListEventWhereStageInput>;
+  email?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  email_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  email_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  email_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  email_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  email_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  email_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  email_starts_with?: InputMaybe<Scalars['String']>;
+  eventPage?: InputMaybe<EventPageWhereInput>;
+  firstName?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  firstName_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  firstName_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  firstName_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  firstName_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  firstName_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  firstName_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  firstName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  firstName_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  firstName_starts_with?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  lastName?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  lastName_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  lastName_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  lastName_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  lastName_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  lastName_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  lastName_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  lastName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  lastName_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  lastName_starts_with?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type WaitingListEventWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<WaitingListEventWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<WaitingListEventWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<WaitingListEventWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<WaitingListEventWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References WaitingListEvent record uniquely */
+export type WaitingListEventWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export enum _FilterKind {
   And = 'AND',
   Not = 'NOT',
@@ -11345,6 +12112,13 @@ export type Get_Upcoming_EventsQueryVariables = Exact<{
 
 export type Get_Upcoming_EventsQuery = { __typename?: 'Query', eventPages: Array<{ __typename?: 'EventPage', title: string, slug: string, hero?: { __typename?: 'Hero', altText: string, image: { __typename?: 'Asset', url: string } } | null }> };
 
+export type CreateWaitingListEventMutationVariables = Exact<{
+  data: WaitingListEventCreateInput;
+}>;
+
+
+export type CreateWaitingListEventMutation = { __typename?: 'Mutation', createWaitingListEvent?: { __typename?: 'WaitingListEvent', email: string, lastName: string, firstName: string } | null };
+
 export type AdressFragmentFragment = { __typename?: 'AboutPage', adress: { __typename?: 'EventLocation', adress: string, map: { __typename?: 'Location', latitude: number, longitude: number } } } & { ' $fragmentName'?: 'AdressFragmentFragment' };
 
 export type ContentFragmentFragment = { __typename?: 'AboutPage', content: Array<{ __typename?: 'Heading', heading: string, id: string } | { __typename?: 'Image', altText: string, imageText?: string | null, id: string, image: { __typename?: 'Asset', url: string } } | { __typename?: 'Text', id: string, text: { __typename?: 'RichText', raw: any } }> } & { ' $fragmentName'?: 'ContentFragmentFragment' };
@@ -11372,7 +12146,7 @@ export type Get_EventpageQueryVariables = Exact<{
 
 
 export type Get_EventpageQuery = { __typename?: 'Query', eventPage?: (
-    { __typename?: 'EventPage', date: any, slug: string, title: string, contact: Array<{ __typename?: 'ContactCard', email: string, name: string, phone?: string | null, title: string, image?: { __typename?: 'Asset', url: string } | null }>, hero?: { __typename?: 'Hero', altText: string, id: string, image: { __typename?: 'Asset', url: string } } | null }
+    { __typename?: 'EventPage', maxParticipants: number, date: any, slug: string, title: string, contact: Array<{ __typename?: 'ContactCard', email: string, name: string, phone?: string | null, title: string, image?: { __typename?: 'Asset', url: string } | null }>, hero?: { __typename?: 'Hero', altText: string, id: string, image: { __typename?: 'Asset', url: string } } | null, eventSignups: Array<{ __typename?: 'EventSignup', id: string, firstName: string }> }
     & { ' $fragmentRefs'?: { 'EventContentFragmentFragment': EventContentFragmentFragment;'LocationFragmentFragment': LocationFragmentFragment } }
   ) | null };
 
@@ -11415,9 +12189,10 @@ export const Get_Past_Events_ListDocument = {"kind":"Document","definitions":[{"
 export const Get_Past_EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTS"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"2"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_EventsQuery, Get_Past_EventsQueryVariables>;
 export const Get_Upcoming_Events_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_UPCOMING_EVENTS_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"date_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"date_ASC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"ingress"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Upcoming_Events_ListQuery, Get_Upcoming_Events_ListQueryVariables>;
 export const Get_Upcoming_EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_UPCOMING_EVENTS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"date_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"date_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"2"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Upcoming_EventsQuery, Get_Upcoming_EventsQueryVariables>;
+export const CreateWaitingListEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createWaitingListEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WaitingListEventCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createWaitingListEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<CreateWaitingListEventMutation, CreateWaitingListEventMutationVariables>;
 export const Get_About_PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_ABOUT_PAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aboutPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"om-oss","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"employees"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"sidebarInfo"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"adressFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"adressFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<Get_About_PageQuery, Get_About_PageQueryVariables>;
 export const Get_Landingpage_Past_EventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_LANDINGPAGE_PAST_EVENT"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventLandingpage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"tidigare-event","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_Landingpage_Past_EventQuery, Get_Landingpage_Past_EventQueryVariables>;
-export const Get_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"EventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"locationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_EventpageQuery, Get_EventpageQueryVariables>;
+export const Get_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"maxParticipants"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"EventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"locationFragment"}},{"kind":"Field","name":{"kind":"Name","value":"eventSignups"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_EventpageQuery, Get_EventpageQueryVariables>;
 export const Get_Past_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PastEventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeedbackHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"feedback"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_EventpageQuery, Get_Past_EventpageQueryVariables>;
 export const Get_StartpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_STARTPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"start","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StartpageContent"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartpageContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_StartpageQuery, Get_StartpageQueryVariables>;
 export const Get_LandingpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_LANDINGPAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventLandingpage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"kommande-event","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_LandingpageQuery, Get_LandingpageQueryVariables>;
