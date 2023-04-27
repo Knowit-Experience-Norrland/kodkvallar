@@ -95,7 +95,7 @@ const Formpage = () => {
       <article className="main-content">
         
        {formPage && <RichText content={formPage?.formInfo?.raw || ""} />}
-        {formInputs && <FormComp inputs={formInputs.formInputs} />}
+        {formInputs && <FormComp inputs={formInputs.formInputs} slug={formPage?.eventPage?.slug} />}
       </article>
     </main>
   );

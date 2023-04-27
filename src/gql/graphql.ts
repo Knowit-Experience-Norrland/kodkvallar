@@ -2809,6 +2809,7 @@ export type EventPage = Node & {
   documentInStages: Array<EventPage>;
   /** Vilka som har anmält upp sig till eventet */
   eventSignups: Array<EventSignup>;
+  formAnswers: Array<FormAnswer>;
   /** Vilket formulär hör till eventet */
   formPages: Array<FormPage>;
   /** Herobilden längst upp på sidan */
@@ -2889,6 +2890,19 @@ export type EventPageEventSignupsArgs = {
   orderBy?: InputMaybe<EventSignupOrderByInput>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EventSignupWhereInput>;
+};
+
+
+export type EventPageFormAnswersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<FormAnswerOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FormAnswerWhereInput>;
 };
 
 
@@ -2983,6 +2997,7 @@ export type EventPageCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date: Scalars['DateTime'];
   eventSignups?: InputMaybe<EventSignupCreateManyInlineInput>;
+  formAnswers?: InputMaybe<FormAnswerCreateManyInlineInput>;
   formPages?: InputMaybe<FormPageCreateManyInlineInput>;
   hero?: InputMaybe<HeroCreateOneInlineInput>;
   ingress: Scalars['String'];
@@ -3071,6 +3086,9 @@ export type EventPageManyWhereInput = {
   eventSignups_every?: InputMaybe<EventSignupWhereInput>;
   eventSignups_none?: InputMaybe<EventSignupWhereInput>;
   eventSignups_some?: InputMaybe<EventSignupWhereInput>;
+  formAnswers_every?: InputMaybe<FormAnswerWhereInput>;
+  formAnswers_none?: InputMaybe<FormAnswerWhereInput>;
+  formAnswers_some?: InputMaybe<FormAnswerWhereInput>;
   formPages_every?: InputMaybe<FormPageWhereInput>;
   formPages_none?: InputMaybe<FormPageWhereInput>;
   formPages_some?: InputMaybe<FormPageWhereInput>;
@@ -3233,6 +3251,7 @@ export type EventPageUpdateInput = {
   content?: InputMaybe<EventPagecontentUnionUpdateManyInlineInput>;
   date?: InputMaybe<Scalars['DateTime']>;
   eventSignups?: InputMaybe<EventSignupUpdateManyInlineInput>;
+  formAnswers?: InputMaybe<FormAnswerUpdateManyInlineInput>;
   formPages?: InputMaybe<FormPageUpdateManyInlineInput>;
   hero?: InputMaybe<HeroUpdateOneInlineInput>;
   ingress?: InputMaybe<Scalars['String']>;
@@ -3370,6 +3389,9 @@ export type EventPageWhereInput = {
   eventSignups_every?: InputMaybe<EventSignupWhereInput>;
   eventSignups_none?: InputMaybe<EventSignupWhereInput>;
   eventSignups_some?: InputMaybe<EventSignupWhereInput>;
+  formAnswers_every?: InputMaybe<FormAnswerWhereInput>;
+  formAnswers_none?: InputMaybe<FormAnswerWhereInput>;
+  formAnswers_some?: InputMaybe<FormAnswerWhereInput>;
   formPages_every?: InputMaybe<FormPageWhereInput>;
   formPages_none?: InputMaybe<FormPageWhereInput>;
   formPages_some?: InputMaybe<FormPageWhereInput>;
@@ -4628,6 +4650,425 @@ export type FeedbackHighlightWhereInput = {
 
 /** References FeedbackHighlight record uniquely */
 export type FeedbackHighlightWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+export type FormAnswer = Node & {
+  __typename?: 'FormAnswer';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<FormAnswer>;
+  eventPage?: Maybe<EventPage>;
+  formData?: Maybe<Scalars['Json']>;
+  /** List of FormAnswer versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type FormAnswerCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type FormAnswerDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type FormAnswerEventPageArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type FormAnswerHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type FormAnswerPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type FormAnswerScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type FormAnswerUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type FormAnswerConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FormAnswerWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FormAnswerConnection = {
+  __typename?: 'FormAnswerConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FormAnswerEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FormAnswerCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  eventPage?: InputMaybe<EventPageCreateOneInlineInput>;
+  formData?: InputMaybe<Scalars['Json']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FormAnswerCreateManyInlineInput = {
+  /** Connect multiple existing FormAnswer documents */
+  connect?: InputMaybe<Array<FormAnswerWhereUniqueInput>>;
+  /** Create and connect multiple existing FormAnswer documents */
+  create?: InputMaybe<Array<FormAnswerCreateInput>>;
+};
+
+export type FormAnswerCreateOneInlineInput = {
+  /** Connect one existing FormAnswer document */
+  connect?: InputMaybe<FormAnswerWhereUniqueInput>;
+  /** Create and connect one FormAnswer document */
+  create?: InputMaybe<FormAnswerCreateInput>;
+};
+
+/** An edge in a connection. */
+export type FormAnswerEdge = {
+  __typename?: 'FormAnswerEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: FormAnswer;
+};
+
+/** Identifies documents */
+export type FormAnswerManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormAnswerWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormAnswerWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormAnswerWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<FormAnswerWhereStageInput>;
+  documentInStages_none?: InputMaybe<FormAnswerWhereStageInput>;
+  documentInStages_some?: InputMaybe<FormAnswerWhereStageInput>;
+  eventPage?: InputMaybe<EventPageWhereInput>;
+  /** All values containing the given json path. */
+  formData_json_path_exists?: InputMaybe<Scalars['String']>;
+  /**
+   * Recursively tries to find the provided JSON scalar value inside the field.
+   * It does use an exact match when comparing values.
+   * If you pass `null` as value the filter will be ignored.
+   * Note: This filter fails if you try to look for a non scalar JSON value!
+   */
+  formData_value_recursive?: InputMaybe<Scalars['Json']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum FormAnswerOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type FormAnswerUpdateInput = {
+  eventPage?: InputMaybe<EventPageUpdateOneInlineInput>;
+  formData?: InputMaybe<Scalars['Json']>;
+};
+
+export type FormAnswerUpdateManyInlineInput = {
+  /** Connect multiple existing FormAnswer documents */
+  connect?: InputMaybe<Array<FormAnswerConnectInput>>;
+  /** Create and connect multiple FormAnswer documents */
+  create?: InputMaybe<Array<FormAnswerCreateInput>>;
+  /** Delete multiple FormAnswer documents */
+  delete?: InputMaybe<Array<FormAnswerWhereUniqueInput>>;
+  /** Disconnect multiple FormAnswer documents */
+  disconnect?: InputMaybe<Array<FormAnswerWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing FormAnswer documents */
+  set?: InputMaybe<Array<FormAnswerWhereUniqueInput>>;
+  /** Update multiple FormAnswer documents */
+  update?: InputMaybe<Array<FormAnswerUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple FormAnswer documents */
+  upsert?: InputMaybe<Array<FormAnswerUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FormAnswerUpdateManyInput = {
+  formData?: InputMaybe<Scalars['Json']>;
+};
+
+export type FormAnswerUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FormAnswerUpdateManyInput;
+  /** Document search */
+  where: FormAnswerWhereInput;
+};
+
+export type FormAnswerUpdateOneInlineInput = {
+  /** Connect existing FormAnswer document */
+  connect?: InputMaybe<FormAnswerWhereUniqueInput>;
+  /** Create and connect one FormAnswer document */
+  create?: InputMaybe<FormAnswerCreateInput>;
+  /** Delete currently connected FormAnswer document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected FormAnswer document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormAnswer document */
+  update?: InputMaybe<FormAnswerUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormAnswer document */
+  upsert?: InputMaybe<FormAnswerUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormAnswerUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FormAnswerUpdateInput;
+  /** Unique document search */
+  where: FormAnswerWhereUniqueInput;
+};
+
+export type FormAnswerUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FormAnswerCreateInput;
+  /** Update document if it exists */
+  update: FormAnswerUpdateInput;
+};
+
+export type FormAnswerUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FormAnswerUpsertInput;
+  /** Unique document search */
+  where: FormAnswerWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type FormAnswerWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type FormAnswerWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormAnswerWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormAnswerWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormAnswerWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<FormAnswerWhereStageInput>;
+  documentInStages_none?: InputMaybe<FormAnswerWhereStageInput>;
+  documentInStages_some?: InputMaybe<FormAnswerWhereStageInput>;
+  eventPage?: InputMaybe<EventPageWhereInput>;
+  /** All values containing the given json path. */
+  formData_json_path_exists?: InputMaybe<Scalars['String']>;
+  /**
+   * Recursively tries to find the provided JSON scalar value inside the field.
+   * It does use an exact match when comparing values.
+   * If you pass `null` as value the filter will be ignored.
+   * Note: This filter fails if you try to look for a non scalar JSON value!
+   */
+  formData_value_recursive?: InputMaybe<Scalars['Json']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type FormAnswerWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormAnswerWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormAnswerWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormAnswerWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<FormAnswerWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References FormAnswer record uniquely */
+export type FormAnswerWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
@@ -8436,6 +8877,8 @@ export type Mutation = {
   createEventPage?: Maybe<EventPage>;
   /** Create one eventSignup */
   createEventSignup?: Maybe<EventSignup>;
+  /** Create one formAnswer */
+  createFormAnswer?: Maybe<FormAnswer>;
   /** Create one formPage */
   createFormPage?: Maybe<FormPage>;
   /** Create one newsletterSignup */
@@ -8458,6 +8901,8 @@ export type Mutation = {
   deleteEventPage?: Maybe<EventPage>;
   /** Delete one eventSignup from _all_ existing stages. Returns deleted document. */
   deleteEventSignup?: Maybe<EventSignup>;
+  /** Delete one formAnswer from _all_ existing stages. Returns deleted document. */
+  deleteFormAnswer?: Maybe<FormAnswer>;
   /** Delete one formPage from _all_ existing stages. Returns deleted document. */
   deleteFormPage?: Maybe<FormPage>;
   /**
@@ -8495,6 +8940,13 @@ export type Mutation = {
   deleteManyEventSignups: BatchPayload;
   /** Delete many EventSignup documents, return deleted documents */
   deleteManyEventSignupsConnection: EventSignupConnection;
+  /**
+   * Delete many FormAnswer documents
+   * @deprecated Please use the new paginated many mutation (deleteManyFormAnswersConnection)
+   */
+  deleteManyFormAnswers: BatchPayload;
+  /** Delete many FormAnswer documents, return deleted documents */
+  deleteManyFormAnswersConnection: FormAnswerConnection;
   /**
    * Delete many FormPage documents
    * @deprecated Please use the new paginated many mutation (deleteManyFormPagesConnection)
@@ -8552,6 +9004,8 @@ export type Mutation = {
   publishEventPage?: Maybe<EventPage>;
   /** Publish one eventSignup */
   publishEventSignup?: Maybe<EventSignup>;
+  /** Publish one formAnswer */
+  publishFormAnswer?: Maybe<FormAnswer>;
   /** Publish one formPage */
   publishFormPage?: Maybe<FormPage>;
   /**
@@ -8589,6 +9043,13 @@ export type Mutation = {
   publishManyEventSignups: BatchPayload;
   /** Publish many EventSignup documents */
   publishManyEventSignupsConnection: EventSignupConnection;
+  /**
+   * Publish many FormAnswer documents
+   * @deprecated Please use the new paginated many mutation (publishManyFormAnswersConnection)
+   */
+  publishManyFormAnswers: BatchPayload;
+  /** Publish many FormAnswer documents */
+  publishManyFormAnswersConnection: FormAnswerConnection;
   /**
    * Publish many FormPage documents
    * @deprecated Please use the new paginated many mutation (publishManyFormPagesConnection)
@@ -8642,6 +9103,8 @@ export type Mutation = {
   schedulePublishEventPage?: Maybe<EventPage>;
   /** Schedule to publish one eventSignup */
   schedulePublishEventSignup?: Maybe<EventSignup>;
+  /** Schedule to publish one formAnswer */
+  schedulePublishFormAnswer?: Maybe<FormAnswer>;
   /** Schedule to publish one formPage */
   schedulePublishFormPage?: Maybe<FormPage>;
   /** Schedule to publish one newsletterSignup */
@@ -8662,6 +9125,8 @@ export type Mutation = {
   scheduleUnpublishEventPage?: Maybe<EventPage>;
   /** Unpublish one eventSignup from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishEventSignup?: Maybe<EventSignup>;
+  /** Unpublish one formAnswer from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishFormAnswer?: Maybe<FormAnswer>;
   /** Unpublish one formPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishFormPage?: Maybe<FormPage>;
   /** Unpublish one newsletterSignup from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -8682,6 +9147,8 @@ export type Mutation = {
   unpublishEventPage?: Maybe<EventPage>;
   /** Unpublish one eventSignup from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishEventSignup?: Maybe<EventSignup>;
+  /** Unpublish one formAnswer from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishFormAnswer?: Maybe<FormAnswer>;
   /** Unpublish one formPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishFormPage?: Maybe<FormPage>;
   /**
@@ -8719,6 +9186,13 @@ export type Mutation = {
   unpublishManyEventSignups: BatchPayload;
   /** Find many EventSignup documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyEventSignupsConnection: EventSignupConnection;
+  /**
+   * Unpublish many FormAnswer documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyFormAnswersConnection)
+   */
+  unpublishManyFormAnswers: BatchPayload;
+  /** Find many FormAnswer documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyFormAnswersConnection: FormAnswerConnection;
   /**
    * Unpublish many FormPage documents
    * @deprecated Please use the new paginated many mutation (unpublishManyFormPagesConnection)
@@ -8772,6 +9246,8 @@ export type Mutation = {
   updateEventPage?: Maybe<EventPage>;
   /** Update one eventSignup */
   updateEventSignup?: Maybe<EventSignup>;
+  /** Update one formAnswer */
+  updateFormAnswer?: Maybe<FormAnswer>;
   /** Update one formPage */
   updateFormPage?: Maybe<FormPage>;
   /**
@@ -8809,6 +9285,13 @@ export type Mutation = {
   updateManyEventSignups: BatchPayload;
   /** Update many EventSignup documents */
   updateManyEventSignupsConnection: EventSignupConnection;
+  /**
+   * Update many formAnswers
+   * @deprecated Please use the new paginated many mutation (updateManyFormAnswersConnection)
+   */
+  updateManyFormAnswers: BatchPayload;
+  /** Update many FormAnswer documents */
+  updateManyFormAnswersConnection: FormAnswerConnection;
   /**
    * Update many formPages
    * @deprecated Please use the new paginated many mutation (updateManyFormPagesConnection)
@@ -8864,6 +9347,8 @@ export type Mutation = {
   upsertEventPage?: Maybe<EventPage>;
   /** Upsert one eventSignup */
   upsertEventSignup?: Maybe<EventSignup>;
+  /** Upsert one formAnswer */
+  upsertFormAnswer?: Maybe<FormAnswer>;
   /** Upsert one formPage */
   upsertFormPage?: Maybe<FormPage>;
   /** Upsert one newsletterSignup */
@@ -8899,6 +9384,11 @@ export type MutationCreateEventPageArgs = {
 
 export type MutationCreateEventSignupArgs = {
   data: EventSignupCreateInput;
+};
+
+
+export type MutationCreateFormAnswerArgs = {
+  data: FormAnswerCreateInput;
 };
 
 
@@ -8954,6 +9444,11 @@ export type MutationDeleteEventPageArgs = {
 
 export type MutationDeleteEventSignupArgs = {
   where: EventSignupWhereUniqueInput;
+};
+
+
+export type MutationDeleteFormAnswerArgs = {
+  where: FormAnswerWhereUniqueInput;
 };
 
 
@@ -9034,6 +9529,21 @@ export type MutationDeleteManyEventSignupsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EventSignupManyWhereInput>;
+};
+
+
+export type MutationDeleteManyFormAnswersArgs = {
+  where?: InputMaybe<FormAnswerManyWhereInput>;
+};
+
+
+export type MutationDeleteManyFormAnswersConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FormAnswerManyWhereInput>;
 };
 
 
@@ -9175,6 +9685,12 @@ export type MutationPublishEventSignupArgs = {
 };
 
 
+export type MutationPublishFormAnswerArgs = {
+  to?: Array<Stage>;
+  where: FormAnswerWhereUniqueInput;
+};
+
+
 export type MutationPublishFormPageArgs = {
   to?: Array<Stage>;
   where: FormPageWhereUniqueInput;
@@ -9274,6 +9790,24 @@ export type MutationPublishManyEventSignupsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   to?: Array<Stage>;
   where?: InputMaybe<EventSignupManyWhereInput>;
+};
+
+
+export type MutationPublishManyFormAnswersArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<FormAnswerManyWhereInput>;
+};
+
+
+export type MutationPublishManyFormAnswersConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<FormAnswerManyWhereInput>;
 };
 
 
@@ -9434,6 +9968,14 @@ export type MutationSchedulePublishEventSignupArgs = {
 };
 
 
+export type MutationSchedulePublishFormAnswerArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: FormAnswerWhereUniqueInput;
+};
+
+
 export type MutationSchedulePublishFormPageArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
@@ -9516,6 +10058,14 @@ export type MutationScheduleUnpublishEventSignupArgs = {
 };
 
 
+export type MutationScheduleUnpublishFormAnswerArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: FormAnswerWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishFormPageArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -9585,6 +10135,12 @@ export type MutationUnpublishEventPageArgs = {
 export type MutationUnpublishEventSignupArgs = {
   from?: Array<Stage>;
   where: EventSignupWhereUniqueInput;
+};
+
+
+export type MutationUnpublishFormAnswerArgs = {
+  from?: Array<Stage>;
+  where: FormAnswerWhereUniqueInput;
 };
 
 
@@ -9685,6 +10241,24 @@ export type MutationUnpublishManyEventSignupsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: InputMaybe<Stage>;
   where?: InputMaybe<EventSignupManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyFormAnswersArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<FormAnswerManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyFormAnswersConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<FormAnswerManyWhereInput>;
 };
 
 
@@ -9832,6 +10406,12 @@ export type MutationUpdateEventSignupArgs = {
 };
 
 
+export type MutationUpdateFormAnswerArgs = {
+  data: FormAnswerUpdateInput;
+  where: FormAnswerWhereUniqueInput;
+};
+
+
 export type MutationUpdateFormPageArgs = {
   data: FormPageUpdateInput;
   where: FormPageWhereUniqueInput;
@@ -9920,6 +10500,23 @@ export type MutationUpdateManyEventSignupsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EventSignupManyWhereInput>;
+};
+
+
+export type MutationUpdateManyFormAnswersArgs = {
+  data: FormAnswerUpdateManyInput;
+  where?: InputMaybe<FormAnswerManyWhereInput>;
+};
+
+
+export type MutationUpdateManyFormAnswersConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: FormAnswerUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FormAnswerManyWhereInput>;
 };
 
 
@@ -10065,6 +10662,12 @@ export type MutationUpsertEventPageArgs = {
 export type MutationUpsertEventSignupArgs = {
   upsert: EventSignupUpsertInput;
   where: EventSignupWhereUniqueInput;
+};
+
+
+export type MutationUpsertFormAnswerArgs = {
+  upsert: FormAnswerUpsertInput;
+  where: FormAnswerWhereUniqueInput;
 };
 
 
@@ -11354,6 +11957,14 @@ export type Query = {
   eventSignups: Array<EventSignup>;
   /** Retrieve multiple eventSignups using the Relay connection interface */
   eventSignupsConnection: EventSignupConnection;
+  /** Retrieve a single formAnswer */
+  formAnswer?: Maybe<FormAnswer>;
+  /** Retrieve document version */
+  formAnswerVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple formAnswers */
+  formAnswers: Array<FormAnswer>;
+  /** Retrieve multiple formAnswers using the Relay connection interface */
+  formAnswersConnection: FormAnswerConnection;
   /** Retrieve a single formPage */
   formPage?: Maybe<FormPage>;
   /** Retrieve document version */
@@ -11604,6 +12215,44 @@ export type QueryEventSignupsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<EventSignupWhereInput>;
+};
+
+
+export type QueryFormAnswerArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: FormAnswerWhereUniqueInput;
+};
+
+
+export type QueryFormAnswerVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryFormAnswersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<FormAnswerOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<FormAnswerWhereInput>;
+};
+
+
+export type QueryFormAnswersConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<FormAnswerOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<FormAnswerWhereInput>;
 };
 
 
@@ -12014,7 +12663,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = AboutPage | Asset | EventLandingpage | EventPage | EventSignup | FormPage | NewsletterSignup | PastEvent | StartPage | WaitingListEvent;
+export type ScheduledOperationAffectedDocument = AboutPage | Asset | EventLandingpage | EventPage | EventSignup | FormAnswer | FormPage | NewsletterSignup | PastEvent | StartPage | WaitingListEvent;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -14926,6 +15575,13 @@ export type CreateEventSignupMutationVariables = Exact<{
 
 export type CreateEventSignupMutation = { __typename?: 'Mutation', createEventSignup?: { __typename?: 'EventSignup', photoConsent?: boolean | null, occupation: string, lastName: string, firstName: string, email: string, allergies?: string | null, eventPageSlug?: { __typename?: 'EventPage', slug: string } | null } | null };
 
+export type CreateFormAnswerMutationVariables = Exact<{
+  data: FormAnswerCreateInput;
+}>;
+
+
+export type CreateFormAnswerMutation = { __typename?: 'Mutation', createFormAnswer?: { __typename?: 'FormAnswer', formData?: any | null, eventPage?: { __typename?: 'EventPage', slug: string } | null } | null };
+
 export type CreateNewsletterSignupMutationVariables = Exact<{
   data: NewsletterSignupCreateInput;
 }>;
@@ -14962,7 +15618,7 @@ export type CreateWaitingListEventMutationVariables = Exact<{
 }>;
 
 
-export type CreateWaitingListEventMutation = { __typename?: 'Mutation', createWaitingListEvent?: { __typename?: 'WaitingListEvent', email: string, lastName: string, firstName: string } | null };
+export type CreateWaitingListEventMutation = { __typename?: 'Mutation', createWaitingListEvent?: { __typename?: 'WaitingListEvent', email: string, lastName: string, firstName: string, eventPage?: { __typename?: 'EventPage', slug: string } | null } | null };
 
 export type AdressFragmentFragment = { __typename?: 'AboutPage', adress: { __typename?: 'EventLocation', adress: string, map: { __typename?: 'Location', latitude: number, longitude: number } } } & { ' $fragmentName'?: 'AdressFragmentFragment' };
 
@@ -15042,12 +15698,13 @@ export const EventContentFragmentFragmentDoc = {"kind":"Document","definitions":
 export const PastEventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeedbackHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"feedback"}}]}}]}}]}}]} as unknown as DocumentNode<PastEventContentFragmentFragment, unknown>;
 export const StartpageContentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartpageContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<StartpageContentFragment, unknown>;
 export const CreateEventSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createEventSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEventSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photoConsent"}},{"kind":"Field","name":{"kind":"Name","value":"occupation"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"eventPageSlug"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"allergies"}}]}}]}}]} as unknown as DocumentNode<CreateEventSignupMutation, CreateEventSignupMutationVariables>;
+export const CreateFormAnswerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createFormAnswer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"FormAnswerCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createFormAnswer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formData"}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<CreateFormAnswerMutation, CreateFormAnswerMutationVariables>;
 export const CreateNewsletterSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createNewsletterSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NewsletterSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createNewsletterSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<CreateNewsletterSignupMutation, CreateNewsletterSignupMutationVariables>;
 export const Get_Past_Events_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTS_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"publishedAt_ASC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"ingress"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_Events_ListQuery, Get_Past_Events_ListQueryVariables>;
 export const Get_Past_EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTS"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"2"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_EventsQuery, Get_Past_EventsQueryVariables>;
 export const Get_Upcoming_Events_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_UPCOMING_EVENTS_LIST"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"date_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"date_ASC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"ingress"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Upcoming_Events_ListQuery, Get_Upcoming_Events_ListQueryVariables>;
 export const Get_Upcoming_EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_UPCOMING_EVENTS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"date_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"date_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"2"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Upcoming_EventsQuery, Get_Upcoming_EventsQueryVariables>;
-export const CreateWaitingListEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createWaitingListEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WaitingListEventCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createWaitingListEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<CreateWaitingListEventMutation, CreateWaitingListEventMutationVariables>;
+export const CreateWaitingListEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createWaitingListEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WaitingListEventCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createWaitingListEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<CreateWaitingListEventMutation, CreateWaitingListEventMutationVariables>;
 export const Get_About_PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_ABOUT_PAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aboutPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"om-oss","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"employees"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"sidebarInfo"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"adressFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"adressFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<Get_About_PageQuery, Get_About_PageQueryVariables>;
 export const Get_FormpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_FORMPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"formInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FormInputsFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FormInputsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formInputs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsTextarea"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"textareaname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsSelect"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"selectname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"options"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"option"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsInput"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"inputname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsCheckbox"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","alias":{"kind":"Name","value":"checkboxname"},"name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Get_FormpageQuery, Get_FormpageQueryVariables>;
 export const Get_Landingpage_Past_EventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_LANDINGPAGE_PAST_EVENT"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventLandingpage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"tidigare-event","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_Landingpage_Past_EventQuery, Get_Landingpage_Past_EventQueryVariables>;

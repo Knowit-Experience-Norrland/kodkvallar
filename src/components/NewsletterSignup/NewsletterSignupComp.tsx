@@ -118,11 +118,11 @@ const NewsletterSignupComp = () => {
         </div>
         <form onSubmit={handleSubmit} name="NewsletterSignup">
           <div className="form-child">
-            <label htmlFor="firstname">
+            <label htmlFor="newsletter-firstname">
               Förnamn: <span className="required">*</span>
             </label>
             <input
-              id="firstname"
+              id="newsletter-firstname"
               name="firstname"
               type="text"
               aria-label="Förnamn"
@@ -131,11 +131,11 @@ const NewsletterSignupComp = () => {
             />
           </div>
           <div className="form-child">
-            <label htmlFor="lastname">
+            <label htmlFor="newsletter-lastname">
               Efternamn: <span className="required">*</span>
             </label>
             <input
-              id="lastname"
+              id="newsletter-lastname"
               name="lastname"
               type="text"
               aria-label="Efternamn"
@@ -144,11 +144,11 @@ const NewsletterSignupComp = () => {
             />
           </div>
           <div className="form-child">
-            <label htmlFor="email">
+            <label htmlFor="newsletter-email">
               Email: <span className="required">*</span>
             </label>
             <input
-              id="email"
+              id="newsletter-email"
               name="email"
               type="email"
               aria-label="Email"

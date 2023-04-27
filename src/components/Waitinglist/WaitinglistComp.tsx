@@ -1,12 +1,12 @@
-import { gql, useMutation } from '@apollo/client';
-import React, { useState } from 'react'
+import { gql, useMutation } from "@apollo/client";
+import React, { useState } from "react";
 
 interface WaitinglistProps {
-    slug: string | undefined;
-  }
+  slug: string | undefined;
+}
 
 const WaitinglistComp = ({ slug }: WaitinglistProps) => {
-    const [firstname, setFirstname] = useState("");
+  const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
@@ -26,6 +26,9 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
       email
       lastName
       firstName
+      eventPage {
+      slug
+    }
     }
   }
     `);
@@ -77,7 +80,12 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
 
     if (isValid) {
       try {
-        const data = { firstName: firstname, lastName: lastname, email: email, eventPage: { connect: { slug: slug } } };
+        const data = {
+          firstName: firstname,
+          lastName: lastname,
+          email: email,
+          eventPage: { connect: { slug: slug } },
+        };
         createWaitingListEvent({ variables: { data } });
         setMessage("SUCCESS");
       } catch (err) {
@@ -104,11 +112,10 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
   return (
     <section className="waiting-list">
       <div className="form-container">
-        <h2 className="bold">
-          Eventet är fullbokat!
-        </h2>
+        <h2 className="bold">Eventet är fullbokat!</h2>
         <p className="bold">
-            Anmäl dig till väntelistan så kontaktar vi dig om det blir en plats ledig.
+          Anmäl dig till väntelistan så kontaktar vi dig om det blir en plats
+          ledig.
         </p>
 
         <div>
@@ -116,7 +123,7 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
             <>
               <p>Tack för din anmälan till väntelistan!</p>
               <p className="gdpr-text">
-                Pssst! Ibland hamnar vi i skärpkorgen, så kolla där om du inte får något mail!
+                Pssst! Ibland hamnar vi i skärpkorgen..
               </p>
             </>
           )}
@@ -162,17 +169,17 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
               onChange={handleEmailChange}
             />
           </div>
-          <button type="submit">Prenumerera</button>
+          <button type="submit">Ställ dig i kö!</button>
         </form>
         {firstnameError && <p className="error">{firstnameError}</p>}
         {lastnameError && <p className="error">{lastnameError}</p>}
         {emailError && <p className="error">{emailError}</p>}
         <p className="gdpr-text">
-          Genom att prenumerera godkänner du att vi lagrar ovan information.
+          Genom att anmäla dig godkänner du att vi lagrar ovan information.
         </p>
       </div>
     </section>
   );
 };
 
-export default WaitinglistComp
+export default WaitinglistComp;

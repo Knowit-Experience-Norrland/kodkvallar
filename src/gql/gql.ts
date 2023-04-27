@@ -14,12 +14,13 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n mutation createEventSignup($data: EventSignupCreateInput!) {\n  createEventSignup(data: $data) {\n    photoConsent\n    occupation\n    lastName\n    firstName\n    eventPageSlug {\n      slug\n    }\n    email\n    allergies\n  }\n}\n    ": types.CreateEventSignupDocument,
+    "\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    eventPage {\n      slug\n    }\n  }\n  }\n    ": types.CreateFormAnswerDocument,
     "\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    ": types.CreateNewsletterSignupDocument,
     "\n    query GET_PAST_EVENTS_LIST {\n      pastEvents(orderBy: publishedAt_ASC) {\n        title\n        slug\n        ingress\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Past_Events_ListDocument,
     "\n    query GET_PAST_EVENTS {\n      pastEvents(first: 2) {\n        title\n        slug\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Past_EventsDocument,
     "\n    query GET_UPCOMING_EVENTS_LIST($today: DateTime!) {\n      eventPages(where: { date_gte: $today }, orderBy: date_ASC) {\n        title\n        slug\n        date\n        ingress\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Upcoming_Events_ListDocument,
     "\n    query GET_UPCOMING_EVENTS($today: DateTime!) {\n      eventPages(where: { date_gte: $today }, orderBy: date_ASC, first: 2) {\n        title\n        slug\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Upcoming_EventsDocument,
-    "\n  mutation createWaitingListEvent($data: WaitingListEventCreateInput!) {\n    createWaitingListEvent(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    ": types.CreateWaitingListEventDocument,
+    "\n  mutation createWaitingListEvent($data: WaitingListEventCreateInput!) {\n    createWaitingListEvent(data: $data) {\n      email\n      lastName\n      firstName\n      eventPage {\n      slug\n    }\n    }\n  }\n    ": types.CreateWaitingListEventDocument,
     "\n    fragment adressFragment on AboutPage {\n      adress {\n        adress\n        map {\n          latitude\n          longitude\n        }\n      }\n    }\n  ": types.AdressFragmentFragmentDoc,
     "\n    fragment ContentFragment on AboutPage {\n      content {\n        ... on Heading {\n          heading\n          id\n        }\n        ... on Image {\n          altText\n          imageText\n          id\n          image {\n            url\n          }\n        }\n        ... on Text {\n          id\n          text {\n            raw\n          }\n        }\n      }\n    }\n  ": types.ContentFragmentFragmentDoc,
     "\n    query GET_ABOUT_PAGE {\n      aboutPage(where: { slug: \"om-oss\" }) {\n        employees {\n          title\n          name\n          phone\n          email\n          image {\n            url\n          }\n        }\n        hero {\n          altText\n          id\n          image {\n            url\n          }\n        }\n        ...ContentFragment\n        slug\n        title\n        sidebarInfo\n        ...adressFragment\n      }\n    }\n  ": types.Get_About_PageDocument,
@@ -57,6 +58,10 @@ export function graphql(source: "\n mutation createEventSignup($data: EventSignu
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    eventPage {\n      slug\n    }\n  }\n  }\n    "): (typeof documents)["\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    eventPage {\n      slug\n    }\n  }\n  }\n    "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    "): (typeof documents)["\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -77,7 +82,7 @@ export function graphql(source: "\n    query GET_UPCOMING_EVENTS($today: DateTim
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation createWaitingListEvent($data: WaitingListEventCreateInput!) {\n    createWaitingListEvent(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    "): (typeof documents)["\n  mutation createWaitingListEvent($data: WaitingListEventCreateInput!) {\n    createWaitingListEvent(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    "];
+export function graphql(source: "\n  mutation createWaitingListEvent($data: WaitingListEventCreateInput!) {\n    createWaitingListEvent(data: $data) {\n      email\n      lastName\n      firstName\n      eventPage {\n      slug\n    }\n    }\n  }\n    "): (typeof documents)["\n  mutation createWaitingListEvent($data: WaitingListEventCreateInput!) {\n    createWaitingListEvent(data: $data) {\n      email\n      lastName\n      firstName\n      eventPage {\n      slug\n    }\n    }\n  }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
