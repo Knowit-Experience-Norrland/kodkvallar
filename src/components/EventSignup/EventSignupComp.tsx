@@ -203,7 +203,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
             </div>
             <div className="form-child">
               <label htmlFor="occupation">
-                Utbildning eller sysselsättning:{" "}
+                Utbildning eller sysselsättning:
                 <span className="required">*</span>
               </label>
               <input

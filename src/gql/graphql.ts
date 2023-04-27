@@ -2809,6 +2809,8 @@ export type EventPage = Node & {
   documentInStages: Array<EventPage>;
   /** Vilka som har anmält upp sig till eventet */
   eventSignups: Array<EventSignup>;
+  /** Vilket formulär hör till eventet */
+  formPages: Array<FormPage>;
   /** Herobilden längst upp på sidan */
   hero?: Maybe<Hero>;
   /** List of EventPage versions */
@@ -2890,6 +2892,19 @@ export type EventPageEventSignupsArgs = {
 };
 
 
+export type EventPageFormPagesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<FormPageOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FormPageWhereInput>;
+};
+
+
 export type EventPageHeroArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
@@ -2968,6 +2983,7 @@ export type EventPageCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date: Scalars['DateTime'];
   eventSignups?: InputMaybe<EventSignupCreateManyInlineInput>;
+  formPages?: InputMaybe<FormPageCreateManyInlineInput>;
   hero?: InputMaybe<HeroCreateOneInlineInput>;
   ingress: Scalars['String'];
   location?: InputMaybe<EventLocationCreateOneInlineInput>;
@@ -3055,6 +3071,9 @@ export type EventPageManyWhereInput = {
   eventSignups_every?: InputMaybe<EventSignupWhereInput>;
   eventSignups_none?: InputMaybe<EventSignupWhereInput>;
   eventSignups_some?: InputMaybe<EventSignupWhereInput>;
+  formPages_every?: InputMaybe<FormPageWhereInput>;
+  formPages_none?: InputMaybe<FormPageWhereInput>;
+  formPages_some?: InputMaybe<FormPageWhereInput>;
   hero?: InputMaybe<HeroWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
@@ -3214,6 +3233,7 @@ export type EventPageUpdateInput = {
   content?: InputMaybe<EventPagecontentUnionUpdateManyInlineInput>;
   date?: InputMaybe<Scalars['DateTime']>;
   eventSignups?: InputMaybe<EventSignupUpdateManyInlineInput>;
+  formPages?: InputMaybe<FormPageUpdateManyInlineInput>;
   hero?: InputMaybe<HeroUpdateOneInlineInput>;
   ingress?: InputMaybe<Scalars['String']>;
   location?: InputMaybe<EventLocationUpdateOneInlineInput>;
@@ -3350,6 +3370,9 @@ export type EventPageWhereInput = {
   eventSignups_every?: InputMaybe<EventSignupWhereInput>;
   eventSignups_none?: InputMaybe<EventSignupWhereInput>;
   eventSignups_some?: InputMaybe<EventSignupWhereInput>;
+  formPages_every?: InputMaybe<FormPageWhereInput>;
+  formPages_none?: InputMaybe<FormPageWhereInput>;
+  formPages_some?: InputMaybe<FormPageWhereInput>;
   hero?: InputMaybe<HeroWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
@@ -4608,6 +4631,2612 @@ export type FeedbackHighlightWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
+/** Vilket sorts fält detta är, tex text, telefonnummer, email  */
+export enum FormInputType {
+  Email = 'email',
+  Number = 'number',
+  Text = 'text'
+}
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPage = Node & {
+  __typename?: 'FormPage';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<FormPage>;
+  /** Vilket event hör till formuläret */
+  eventPage?: Maybe<EventPage>;
+  /** Information om formuläret och dess syfte osv */
+  formInfo: RichText;
+  /** skapa ett formulär med hjälp av olika input fält, de visas i den ordning som de placeras här  */
+  formInputs: Array<FormPageformInputsUnion>;
+  /** bilden högst upp på sidan */
+  hero: Hero;
+  /** List of FormPage versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** genereras från title, måste vara unik. Bildar sidans sökväg på webbplatsen */
+  slug: Scalars['String'];
+  /** System stage field */
+  stage: Stage;
+  /** Sidans huvudtitel, placeras i herobilden */
+  title: Scalars['String'];
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageEventPageArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageFormInputsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageHeroArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPagePublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type FormPageConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FormPageWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FormPageConnection = {
+  __typename?: 'FormPageConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FormPageEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FormPageCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  eventPage?: InputMaybe<EventPageCreateOneInlineInput>;
+  formInfo: Scalars['RichTextAST'];
+  formInputs?: InputMaybe<FormPageformInputsUnionCreateManyInlineInput>;
+  hero: HeroCreateOneInlineInput;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type FormPageCreateManyInlineInput = {
+  /** Connect multiple existing FormPage documents */
+  connect?: InputMaybe<Array<FormPageWhereUniqueInput>>;
+  /** Create and connect multiple existing FormPage documents */
+  create?: InputMaybe<Array<FormPageCreateInput>>;
+};
+
+export type FormPageCreateOneInlineInput = {
+  /** Connect one existing FormPage document */
+  connect?: InputMaybe<FormPageWhereUniqueInput>;
+  /** Create and connect one FormPage document */
+  create?: InputMaybe<FormPageCreateInput>;
+};
+
+/** An edge in a connection. */
+export type FormPageEdge = {
+  __typename?: 'FormPageEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: FormPage;
+};
+
+/** Identifies documents */
+export type FormPageManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormPageWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormPageWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormPageWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<FormPageWhereStageInput>;
+  documentInStages_none?: InputMaybe<FormPageWhereStageInput>;
+  documentInStages_some?: InputMaybe<FormPageWhereStageInput>;
+  eventPage?: InputMaybe<EventPageWhereInput>;
+  /** All values in which the union is empty. */
+  formInputs_empty?: InputMaybe<Scalars['Boolean']>;
+  /** Matches if the modular component contains at least one connection to the item provided to the filter */
+  formInputs_some?: InputMaybe<FormPageformInputsUnionWhereInput>;
+  hero?: InputMaybe<HeroWhereInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  slug?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  slug_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  title_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  title_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  title_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum FormPageOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type FormPageUpdateInput = {
+  eventPage?: InputMaybe<EventPageUpdateOneInlineInput>;
+  formInfo?: InputMaybe<Scalars['RichTextAST']>;
+  formInputs?: InputMaybe<FormPageformInputsUnionUpdateManyInlineInput>;
+  hero?: InputMaybe<HeroUpdateOneInlineInput>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type FormPageUpdateManyInlineInput = {
+  /** Connect multiple existing FormPage documents */
+  connect?: InputMaybe<Array<FormPageConnectInput>>;
+  /** Create and connect multiple FormPage documents */
+  create?: InputMaybe<Array<FormPageCreateInput>>;
+  /** Delete multiple FormPage documents */
+  delete?: InputMaybe<Array<FormPageWhereUniqueInput>>;
+  /** Disconnect multiple FormPage documents */
+  disconnect?: InputMaybe<Array<FormPageWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing FormPage documents */
+  set?: InputMaybe<Array<FormPageWhereUniqueInput>>;
+  /** Update multiple FormPage documents */
+  update?: InputMaybe<Array<FormPageUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple FormPage documents */
+  upsert?: InputMaybe<Array<FormPageUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FormPageUpdateManyInput = {
+  formInfo?: InputMaybe<Scalars['RichTextAST']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type FormPageUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FormPageUpdateManyInput;
+  /** Document search */
+  where: FormPageWhereInput;
+};
+
+export type FormPageUpdateOneInlineInput = {
+  /** Connect existing FormPage document */
+  connect?: InputMaybe<FormPageWhereUniqueInput>;
+  /** Create and connect one FormPage document */
+  create?: InputMaybe<FormPageCreateInput>;
+  /** Delete currently connected FormPage document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected FormPage document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormPage document */
+  update?: InputMaybe<FormPageUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormPage document */
+  upsert?: InputMaybe<FormPageUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormPageUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FormPageUpdateInput;
+  /** Unique document search */
+  where: FormPageWhereUniqueInput;
+};
+
+export type FormPageUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FormPageCreateInput;
+  /** Update document if it exists */
+  update: FormPageUpdateInput;
+};
+
+export type FormPageUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FormPageUpsertInput;
+  /** Unique document search */
+  where: FormPageWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type FormPageWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type FormPageWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormPageWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormPageWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormPageWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<FormPageWhereStageInput>;
+  documentInStages_none?: InputMaybe<FormPageWhereStageInput>;
+  documentInStages_some?: InputMaybe<FormPageWhereStageInput>;
+  eventPage?: InputMaybe<EventPageWhereInput>;
+  /** All values in which the union is empty. */
+  formInputs_empty?: InputMaybe<Scalars['Boolean']>;
+  /** Matches if the modular component contains at least one connection to the item provided to the filter */
+  formInputs_some?: InputMaybe<FormPageformInputsUnionWhereInput>;
+  hero?: InputMaybe<HeroWhereInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  slug?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  slug_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  title_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  title_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  title_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type FormPageWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormPageWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormPageWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormPageWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<FormPageWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References FormPage record uniquely */
+export type FormPageWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  slug?: InputMaybe<Scalars['String']>;
+};
+
+export type FormPageformInputsUnion = FormsCheckbox | FormsInput | FormsSelect | FormsTextarea;
+
+export type FormPageformInputsUnionConnectInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxConnectInput>;
+  FormsInput?: InputMaybe<FormsInputConnectInput>;
+  FormsSelect?: InputMaybe<FormsSelectConnectInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaConnectInput>;
+};
+
+export type FormPageformInputsUnionCreateInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxCreateInput>;
+  FormsInput?: InputMaybe<FormsInputCreateInput>;
+  FormsSelect?: InputMaybe<FormsSelectCreateInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaCreateInput>;
+};
+
+export type FormPageformInputsUnionCreateManyInlineInput = {
+  /** Create and connect multiple existing FormPageformInputsUnion documents */
+  create?: InputMaybe<Array<FormPageformInputsUnionCreateInput>>;
+};
+
+export type FormPageformInputsUnionCreateOneInlineInput = {
+  /** Create and connect one FormPageformInputsUnion document */
+  create?: InputMaybe<FormPageformInputsUnionCreateInput>;
+};
+
+export type FormPageformInputsUnionCreateWithPositionInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxCreateWithPositionInput>;
+  FormsInput?: InputMaybe<FormsInputCreateWithPositionInput>;
+  FormsSelect?: InputMaybe<FormsSelectCreateWithPositionInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaCreateWithPositionInput>;
+};
+
+export type FormPageformInputsUnionUpdateInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxUpdateInput>;
+  FormsInput?: InputMaybe<FormsInputUpdateInput>;
+  FormsSelect?: InputMaybe<FormsSelectUpdateInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaUpdateInput>;
+};
+
+export type FormPageformInputsUnionUpdateManyInlineInput = {
+  /** Create and connect multiple FormPageformInputsUnion component instances */
+  create?: InputMaybe<Array<FormPageformInputsUnionCreateWithPositionInput>>;
+  /** Delete multiple FormPageformInputsUnion documents */
+  delete?: InputMaybe<Array<FormPageformInputsUnionWhereUniqueInput>>;
+  /** Update multiple FormPageformInputsUnion component instances */
+  update?: InputMaybe<Array<FormPageformInputsUnionUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FormPageformInputsUnion component instances */
+  upsert?: InputMaybe<Array<FormPageformInputsUnionUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FormPageformInputsUnionUpdateManyWithNestedWhereInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxUpdateManyWithNestedWhereInput>;
+  FormsInput?: InputMaybe<FormsInputUpdateManyWithNestedWhereInput>;
+  FormsSelect?: InputMaybe<FormsSelectUpdateManyWithNestedWhereInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaUpdateManyWithNestedWhereInput>;
+};
+
+export type FormPageformInputsUnionUpdateOneInlineInput = {
+  /** Create and connect one FormPageformInputsUnion document */
+  create?: InputMaybe<FormPageformInputsUnionCreateInput>;
+  /** Delete currently connected FormPageformInputsUnion document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormPageformInputsUnion document */
+  update?: InputMaybe<FormPageformInputsUnionUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormPageformInputsUnion document */
+  upsert?: InputMaybe<FormPageformInputsUnionUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormPageformInputsUnionUpdateWithNestedWhereUniqueAndPositionInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxUpdateWithNestedWhereUniqueAndPositionInput>;
+  FormsInput?: InputMaybe<FormsInputUpdateWithNestedWhereUniqueAndPositionInput>;
+  FormsSelect?: InputMaybe<FormsSelectUpdateWithNestedWhereUniqueAndPositionInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaUpdateWithNestedWhereUniqueAndPositionInput>;
+};
+
+export type FormPageformInputsUnionUpdateWithNestedWhereUniqueInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxUpdateWithNestedWhereUniqueInput>;
+  FormsInput?: InputMaybe<FormsInputUpdateWithNestedWhereUniqueInput>;
+  FormsSelect?: InputMaybe<FormsSelectUpdateWithNestedWhereUniqueInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FormPageformInputsUnionUpsertWithNestedWhereUniqueAndPositionInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxUpsertWithNestedWhereUniqueAndPositionInput>;
+  FormsInput?: InputMaybe<FormsInputUpsertWithNestedWhereUniqueAndPositionInput>;
+  FormsSelect?: InputMaybe<FormsSelectUpsertWithNestedWhereUniqueAndPositionInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaUpsertWithNestedWhereUniqueAndPositionInput>;
+};
+
+export type FormPageformInputsUnionUpsertWithNestedWhereUniqueInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxUpsertWithNestedWhereUniqueInput>;
+  FormsInput?: InputMaybe<FormsInputUpsertWithNestedWhereUniqueInput>;
+  FormsSelect?: InputMaybe<FormsSelectUpsertWithNestedWhereUniqueInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormPageformInputsUnionWhereInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxWhereInput>;
+  FormsInput?: InputMaybe<FormsInputWhereInput>;
+  FormsSelect?: InputMaybe<FormsSelectWhereInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaWhereInput>;
+};
+
+export type FormPageformInputsUnionWhereUniqueInput = {
+  FormsCheckbox?: InputMaybe<FormsCheckboxWhereUniqueInput>;
+  FormsInput?: InputMaybe<FormsInputWhereUniqueInput>;
+  FormsSelect?: InputMaybe<FormsSelectWhereUniqueInput>;
+  FormsTextarea?: InputMaybe<FormsTextareaWhereUniqueInput>;
+};
+
+/** skapar en checkbox */
+export type FormsCheckbox = {
+  __typename?: 'FormsCheckbox';
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** Fältets rubrik tex "Ditt namn: " */
+  label: Scalars['String'];
+  /** Namnge fältet på engelska, används som referens i backend */
+  name: Scalars['String'];
+  /** anger om fältet är obligatoriskt eller ej  */
+  required: Scalars['Boolean'];
+  /** System stage field */
+  stage: Stage;
+};
+
+export type FormsCheckboxConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FormsCheckboxWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FormsCheckboxConnection = {
+  __typename?: 'FormsCheckboxConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FormsCheckboxEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FormsCheckboxCreateInput = {
+  label: Scalars['String'];
+  name: Scalars['String'];
+  required: Scalars['Boolean'];
+};
+
+export type FormsCheckboxCreateManyInlineInput = {
+  /** Create and connect multiple existing FormsCheckbox documents */
+  create?: InputMaybe<Array<FormsCheckboxCreateInput>>;
+};
+
+export type FormsCheckboxCreateOneInlineInput = {
+  /** Create and connect one FormsCheckbox document */
+  create?: InputMaybe<FormsCheckboxCreateInput>;
+};
+
+export type FormsCheckboxCreateWithPositionInput = {
+  /** Document to create */
+  data: FormsCheckboxCreateInput;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+};
+
+/** An edge in a connection. */
+export type FormsCheckboxEdge = {
+  __typename?: 'FormsCheckboxEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: FormsCheckbox;
+};
+
+/** Identifies documents */
+export type FormsCheckboxManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsCheckboxWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsCheckboxWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsCheckboxWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  label_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  label_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  label_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  label_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  label_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  label_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  label_starts_with?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  required_not?: InputMaybe<Scalars['Boolean']>;
+};
+
+export enum FormsCheckboxOrderByInput {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LabelAsc = 'label_ASC',
+  LabelDesc = 'label_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RequiredAsc = 'required_ASC',
+  RequiredDesc = 'required_DESC'
+}
+
+export type FormsCheckboxParent = FormPage;
+
+export type FormsCheckboxParentConnectInput = {
+  FormPage?: InputMaybe<FormPageConnectInput>;
+};
+
+export type FormsCheckboxParentCreateInput = {
+  FormPage?: InputMaybe<FormPageCreateInput>;
+};
+
+export type FormsCheckboxParentCreateManyInlineInput = {
+  /** Connect multiple existing FormsCheckboxParent documents */
+  connect?: InputMaybe<Array<FormsCheckboxParentWhereUniqueInput>>;
+  /** Create and connect multiple existing FormsCheckboxParent documents */
+  create?: InputMaybe<Array<FormsCheckboxParentCreateInput>>;
+};
+
+export type FormsCheckboxParentCreateOneInlineInput = {
+  /** Connect one existing FormsCheckboxParent document */
+  connect?: InputMaybe<FormsCheckboxParentWhereUniqueInput>;
+  /** Create and connect one FormsCheckboxParent document */
+  create?: InputMaybe<FormsCheckboxParentCreateInput>;
+};
+
+export type FormsCheckboxParentUpdateInput = {
+  FormPage?: InputMaybe<FormPageUpdateInput>;
+};
+
+export type FormsCheckboxParentUpdateManyInlineInput = {
+  /** Connect multiple existing FormsCheckboxParent documents */
+  connect?: InputMaybe<Array<FormsCheckboxParentConnectInput>>;
+  /** Create and connect multiple FormsCheckboxParent documents */
+  create?: InputMaybe<Array<FormsCheckboxParentCreateInput>>;
+  /** Delete multiple FormsCheckboxParent documents */
+  delete?: InputMaybe<Array<FormsCheckboxParentWhereUniqueInput>>;
+  /** Disconnect multiple FormsCheckboxParent documents */
+  disconnect?: InputMaybe<Array<FormsCheckboxParentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing FormsCheckboxParent documents */
+  set?: InputMaybe<Array<FormsCheckboxParentWhereUniqueInput>>;
+  /** Update multiple FormsCheckboxParent documents */
+  update?: InputMaybe<Array<FormsCheckboxParentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple FormsCheckboxParent documents */
+  upsert?: InputMaybe<Array<FormsCheckboxParentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FormsCheckboxParentUpdateManyWithNestedWhereInput = {
+  FormPage?: InputMaybe<FormPageUpdateManyWithNestedWhereInput>;
+};
+
+export type FormsCheckboxParentUpdateOneInlineInput = {
+  /** Connect existing FormsCheckboxParent document */
+  connect?: InputMaybe<FormsCheckboxParentWhereUniqueInput>;
+  /** Create and connect one FormsCheckboxParent document */
+  create?: InputMaybe<FormsCheckboxParentCreateInput>;
+  /** Delete currently connected FormsCheckboxParent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected FormsCheckboxParent document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsCheckboxParent document */
+  update?: InputMaybe<FormsCheckboxParentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsCheckboxParent document */
+  upsert?: InputMaybe<FormsCheckboxParentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsCheckboxParentUpdateWithNestedWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FormsCheckboxParentUpsertWithNestedWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsCheckboxParentWhereInput = {
+  FormPage?: InputMaybe<FormPageWhereInput>;
+};
+
+export type FormsCheckboxParentWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageWhereUniqueInput>;
+};
+
+export type FormsCheckboxUpdateInput = {
+  label?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FormsCheckboxUpdateManyInlineInput = {
+  /** Create and connect multiple FormsCheckbox component instances */
+  create?: InputMaybe<Array<FormsCheckboxCreateWithPositionInput>>;
+  /** Delete multiple FormsCheckbox documents */
+  delete?: InputMaybe<Array<FormsCheckboxWhereUniqueInput>>;
+  /** Update multiple FormsCheckbox component instances */
+  update?: InputMaybe<Array<FormsCheckboxUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FormsCheckbox component instances */
+  upsert?: InputMaybe<Array<FormsCheckboxUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FormsCheckboxUpdateManyInput = {
+  label?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FormsCheckboxUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FormsCheckboxUpdateManyInput;
+  /** Document search */
+  where: FormsCheckboxWhereInput;
+};
+
+export type FormsCheckboxUpdateOneInlineInput = {
+  /** Create and connect one FormsCheckbox document */
+  create?: InputMaybe<FormsCheckboxCreateInput>;
+  /** Delete currently connected FormsCheckbox document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsCheckbox document */
+  update?: InputMaybe<FormsCheckboxUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsCheckbox document */
+  upsert?: InputMaybe<FormsCheckboxUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsCheckboxUpdateWithNestedWhereUniqueAndPositionInput = {
+  /** Document to update */
+  data?: InputMaybe<FormsCheckboxUpdateInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsCheckboxWhereUniqueInput;
+};
+
+export type FormsCheckboxUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FormsCheckboxUpdateInput;
+  /** Unique document search */
+  where: FormsCheckboxWhereUniqueInput;
+};
+
+export type FormsCheckboxUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FormsCheckboxCreateInput;
+  /** Update document if it exists */
+  update: FormsCheckboxUpdateInput;
+};
+
+export type FormsCheckboxUpsertWithNestedWhereUniqueAndPositionInput = {
+  /** Document to upsert */
+  data?: InputMaybe<FormsCheckboxUpsertInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsCheckboxWhereUniqueInput;
+};
+
+export type FormsCheckboxUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FormsCheckboxUpsertInput;
+  /** Unique document search */
+  where: FormsCheckboxWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type FormsCheckboxWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsCheckboxWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsCheckboxWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsCheckboxWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  label_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  label_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  label_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  label_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  label_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  label_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  label_starts_with?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  required_not?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** References FormsCheckbox record uniquely */
+export type FormsCheckboxWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+/** Vanligt input fält med antingen typen text/email(kräver ett email-format)/number(tar endast siffror) */
+export type FormsInput = {
+  __typename?: 'FormsInput';
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** Rubriken för fältet */
+  label: Scalars['String'];
+  /** namnger fältet, används som referens mot backend */
+  name: Scalars['String'];
+  /** om fältet är obligatoriskt eller ej */
+  required: Scalars['Boolean'];
+  /** System stage field */
+  stage: Stage;
+  /** vilken typ av input ska godkännas: text, email (kräver ett email-format) eller number (endast siffror) */
+  type: FormInputType;
+};
+
+export type FormsInputConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FormsInputWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FormsInputConnection = {
+  __typename?: 'FormsInputConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FormsInputEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FormsInputCreateInput = {
+  label: Scalars['String'];
+  name: Scalars['String'];
+  required: Scalars['Boolean'];
+  type: FormInputType;
+};
+
+export type FormsInputCreateManyInlineInput = {
+  /** Create and connect multiple existing FormsInput documents */
+  create?: InputMaybe<Array<FormsInputCreateInput>>;
+};
+
+export type FormsInputCreateOneInlineInput = {
+  /** Create and connect one FormsInput document */
+  create?: InputMaybe<FormsInputCreateInput>;
+};
+
+export type FormsInputCreateWithPositionInput = {
+  /** Document to create */
+  data: FormsInputCreateInput;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+};
+
+/** An edge in a connection. */
+export type FormsInputEdge = {
+  __typename?: 'FormsInputEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: FormsInput;
+};
+
+/** Identifies documents */
+export type FormsInputManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsInputWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsInputWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsInputWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  label_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  label_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  label_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  label_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  label_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  label_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  label_starts_with?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  required_not?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<FormInputType>;
+  /** All values that are contained in given list. */
+  type_in?: InputMaybe<Array<InputMaybe<FormInputType>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  type_not?: InputMaybe<FormInputType>;
+  /** All values that are not contained in given list. */
+  type_not_in?: InputMaybe<Array<InputMaybe<FormInputType>>>;
+};
+
+export enum FormsInputOrderByInput {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LabelAsc = 'label_ASC',
+  LabelDesc = 'label_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RequiredAsc = 'required_ASC',
+  RequiredDesc = 'required_DESC',
+  TypeAsc = 'type_ASC',
+  TypeDesc = 'type_DESC'
+}
+
+export type FormsInputParent = FormPage;
+
+export type FormsInputParentConnectInput = {
+  FormPage?: InputMaybe<FormPageConnectInput>;
+};
+
+export type FormsInputParentCreateInput = {
+  FormPage?: InputMaybe<FormPageCreateInput>;
+};
+
+export type FormsInputParentCreateManyInlineInput = {
+  /** Connect multiple existing FormsInputParent documents */
+  connect?: InputMaybe<Array<FormsInputParentWhereUniqueInput>>;
+  /** Create and connect multiple existing FormsInputParent documents */
+  create?: InputMaybe<Array<FormsInputParentCreateInput>>;
+};
+
+export type FormsInputParentCreateOneInlineInput = {
+  /** Connect one existing FormsInputParent document */
+  connect?: InputMaybe<FormsInputParentWhereUniqueInput>;
+  /** Create and connect one FormsInputParent document */
+  create?: InputMaybe<FormsInputParentCreateInput>;
+};
+
+export type FormsInputParentUpdateInput = {
+  FormPage?: InputMaybe<FormPageUpdateInput>;
+};
+
+export type FormsInputParentUpdateManyInlineInput = {
+  /** Connect multiple existing FormsInputParent documents */
+  connect?: InputMaybe<Array<FormsInputParentConnectInput>>;
+  /** Create and connect multiple FormsInputParent documents */
+  create?: InputMaybe<Array<FormsInputParentCreateInput>>;
+  /** Delete multiple FormsInputParent documents */
+  delete?: InputMaybe<Array<FormsInputParentWhereUniqueInput>>;
+  /** Disconnect multiple FormsInputParent documents */
+  disconnect?: InputMaybe<Array<FormsInputParentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing FormsInputParent documents */
+  set?: InputMaybe<Array<FormsInputParentWhereUniqueInput>>;
+  /** Update multiple FormsInputParent documents */
+  update?: InputMaybe<Array<FormsInputParentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple FormsInputParent documents */
+  upsert?: InputMaybe<Array<FormsInputParentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FormsInputParentUpdateManyWithNestedWhereInput = {
+  FormPage?: InputMaybe<FormPageUpdateManyWithNestedWhereInput>;
+};
+
+export type FormsInputParentUpdateOneInlineInput = {
+  /** Connect existing FormsInputParent document */
+  connect?: InputMaybe<FormsInputParentWhereUniqueInput>;
+  /** Create and connect one FormsInputParent document */
+  create?: InputMaybe<FormsInputParentCreateInput>;
+  /** Delete currently connected FormsInputParent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected FormsInputParent document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsInputParent document */
+  update?: InputMaybe<FormsInputParentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsInputParent document */
+  upsert?: InputMaybe<FormsInputParentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsInputParentUpdateWithNestedWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FormsInputParentUpsertWithNestedWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsInputParentWhereInput = {
+  FormPage?: InputMaybe<FormPageWhereInput>;
+};
+
+export type FormsInputParentWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageWhereUniqueInput>;
+};
+
+export type FormsInputUpdateInput = {
+  label?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<FormInputType>;
+};
+
+export type FormsInputUpdateManyInlineInput = {
+  /** Create and connect multiple FormsInput component instances */
+  create?: InputMaybe<Array<FormsInputCreateWithPositionInput>>;
+  /** Delete multiple FormsInput documents */
+  delete?: InputMaybe<Array<FormsInputWhereUniqueInput>>;
+  /** Update multiple FormsInput component instances */
+  update?: InputMaybe<Array<FormsInputUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FormsInput component instances */
+  upsert?: InputMaybe<Array<FormsInputUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FormsInputUpdateManyInput = {
+  label?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<FormInputType>;
+};
+
+export type FormsInputUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FormsInputUpdateManyInput;
+  /** Document search */
+  where: FormsInputWhereInput;
+};
+
+export type FormsInputUpdateOneInlineInput = {
+  /** Create and connect one FormsInput document */
+  create?: InputMaybe<FormsInputCreateInput>;
+  /** Delete currently connected FormsInput document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsInput document */
+  update?: InputMaybe<FormsInputUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsInput document */
+  upsert?: InputMaybe<FormsInputUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsInputUpdateWithNestedWhereUniqueAndPositionInput = {
+  /** Document to update */
+  data?: InputMaybe<FormsInputUpdateInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsInputWhereUniqueInput;
+};
+
+export type FormsInputUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FormsInputUpdateInput;
+  /** Unique document search */
+  where: FormsInputWhereUniqueInput;
+};
+
+export type FormsInputUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FormsInputCreateInput;
+  /** Update document if it exists */
+  update: FormsInputUpdateInput;
+};
+
+export type FormsInputUpsertWithNestedWhereUniqueAndPositionInput = {
+  /** Document to upsert */
+  data?: InputMaybe<FormsInputUpsertInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsInputWhereUniqueInput;
+};
+
+export type FormsInputUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FormsInputUpsertInput;
+  /** Unique document search */
+  where: FormsInputWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type FormsInputWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsInputWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsInputWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsInputWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  label_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  label_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  label_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  label_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  label_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  label_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  label_starts_with?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  required_not?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<FormInputType>;
+  /** All values that are contained in given list. */
+  type_in?: InputMaybe<Array<InputMaybe<FormInputType>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  type_not?: InputMaybe<FormInputType>;
+  /** All values that are not contained in given list. */
+  type_not_in?: InputMaybe<Array<InputMaybe<FormInputType>>>;
+};
+
+/** References FormsInput record uniquely */
+export type FormsInputWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+/** Dropdown lista med alternativ */
+export type FormsSelect = {
+  __typename?: 'FormsSelect';
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** Rubrik mot användaren */
+  label: Scalars['String'];
+  /** namnge fältet på engelska, används som referens för fältet */
+  name: Scalars['String'];
+  /** De olika alternativen i listan */
+  options: Array<FormsSelectOption>;
+  /** anger om fältet är obligatoriskt eller ej  */
+  required: Scalars['Boolean'];
+  /** System stage field */
+  stage: Stage;
+};
+
+
+/** Dropdown lista med alternativ */
+export type FormsSelectOptionsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<FormsSelectOptionOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FormsSelectOptionWhereInput>;
+};
+
+export type FormsSelectConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FormsSelectWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FormsSelectConnection = {
+  __typename?: 'FormsSelectConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FormsSelectEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FormsSelectCreateInput = {
+  label: Scalars['String'];
+  name: Scalars['String'];
+  options?: InputMaybe<FormsSelectOptionCreateManyInlineInput>;
+  required: Scalars['Boolean'];
+};
+
+export type FormsSelectCreateManyInlineInput = {
+  /** Create and connect multiple existing FormsSelect documents */
+  create?: InputMaybe<Array<FormsSelectCreateInput>>;
+};
+
+export type FormsSelectCreateOneInlineInput = {
+  /** Create and connect one FormsSelect document */
+  create?: InputMaybe<FormsSelectCreateInput>;
+};
+
+export type FormsSelectCreateWithPositionInput = {
+  /** Document to create */
+  data: FormsSelectCreateInput;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+};
+
+/** An edge in a connection. */
+export type FormsSelectEdge = {
+  __typename?: 'FormsSelectEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: FormsSelect;
+};
+
+/** Identifies documents */
+export type FormsSelectManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsSelectWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsSelectWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsSelectWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  label_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  label_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  label_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  label_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  label_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  label_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  label_starts_with?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  options_every?: InputMaybe<FormsSelectOptionWhereInput>;
+  options_none?: InputMaybe<FormsSelectOptionWhereInput>;
+  options_some?: InputMaybe<FormsSelectOptionWhereInput>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  required_not?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Alternativen till dropdown */
+export type FormsSelectOption = {
+  __typename?: 'FormsSelectOption';
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** Det som visas till användaren tex "Kvinna", "Man" */
+  option: Scalars['String'];
+  /** System stage field */
+  stage: Stage;
+  /** Det som sparas i backend, på engelska tex "female", "male" */
+  value: Scalars['String'];
+};
+
+export type FormsSelectOptionConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FormsSelectOptionWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FormsSelectOptionConnection = {
+  __typename?: 'FormsSelectOptionConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FormsSelectOptionEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FormsSelectOptionCreateInput = {
+  option: Scalars['String'];
+  value: Scalars['String'];
+};
+
+export type FormsSelectOptionCreateManyInlineInput = {
+  /** Create and connect multiple existing FormsSelectOption documents */
+  create?: InputMaybe<Array<FormsSelectOptionCreateInput>>;
+};
+
+export type FormsSelectOptionCreateOneInlineInput = {
+  /** Create and connect one FormsSelectOption document */
+  create?: InputMaybe<FormsSelectOptionCreateInput>;
+};
+
+export type FormsSelectOptionCreateWithPositionInput = {
+  /** Document to create */
+  data: FormsSelectOptionCreateInput;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+};
+
+/** An edge in a connection. */
+export type FormsSelectOptionEdge = {
+  __typename?: 'FormsSelectOptionEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: FormsSelectOption;
+};
+
+/** Identifies documents */
+export type FormsSelectOptionManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsSelectOptionWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsSelectOptionWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsSelectOptionWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  option?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  option_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  option_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  option_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  option_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  option_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  option_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  option_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  option_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  option_starts_with?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  value_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  value_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  value_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  value_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  value_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  value_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  value_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  value_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  value_starts_with?: InputMaybe<Scalars['String']>;
+};
+
+export enum FormsSelectOptionOrderByInput {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  OptionAsc = 'option_ASC',
+  OptionDesc = 'option_DESC',
+  ValueAsc = 'value_ASC',
+  ValueDesc = 'value_DESC'
+}
+
+export type FormsSelectOptionParent = FormsSelect;
+
+export type FormsSelectOptionParentConnectInput = {
+  FormsSelect?: InputMaybe<FormsSelectConnectInput>;
+};
+
+export type FormsSelectOptionParentCreateInput = {
+  FormsSelect?: InputMaybe<FormsSelectCreateInput>;
+};
+
+export type FormsSelectOptionParentCreateManyInlineInput = {
+  /** Create and connect multiple existing FormsSelectOptionParent documents */
+  create?: InputMaybe<Array<FormsSelectOptionParentCreateInput>>;
+};
+
+export type FormsSelectOptionParentCreateOneInlineInput = {
+  /** Create and connect one FormsSelectOptionParent document */
+  create?: InputMaybe<FormsSelectOptionParentCreateInput>;
+};
+
+export type FormsSelectOptionParentCreateWithPositionInput = {
+  FormsSelect?: InputMaybe<FormsSelectCreateWithPositionInput>;
+};
+
+export type FormsSelectOptionParentUpdateInput = {
+  FormsSelect?: InputMaybe<FormsSelectUpdateInput>;
+};
+
+export type FormsSelectOptionParentUpdateManyInlineInput = {
+  /** Create and connect multiple FormsSelectOptionParent component instances */
+  create?: InputMaybe<Array<FormsSelectOptionParentCreateWithPositionInput>>;
+  /** Delete multiple FormsSelectOptionParent documents */
+  delete?: InputMaybe<Array<FormsSelectOptionParentWhereUniqueInput>>;
+  /** Update multiple FormsSelectOptionParent component instances */
+  update?: InputMaybe<Array<FormsSelectOptionParentUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FormsSelectOptionParent component instances */
+  upsert?: InputMaybe<Array<FormsSelectOptionParentUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FormsSelectOptionParentUpdateManyWithNestedWhereInput = {
+  FormsSelect?: InputMaybe<FormsSelectUpdateManyWithNestedWhereInput>;
+};
+
+export type FormsSelectOptionParentUpdateOneInlineInput = {
+  /** Create and connect one FormsSelectOptionParent document */
+  create?: InputMaybe<FormsSelectOptionParentCreateInput>;
+  /** Delete currently connected FormsSelectOptionParent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsSelectOptionParent document */
+  update?: InputMaybe<FormsSelectOptionParentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsSelectOptionParent document */
+  upsert?: InputMaybe<FormsSelectOptionParentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsSelectOptionParentUpdateWithNestedWhereUniqueAndPositionInput = {
+  FormsSelect?: InputMaybe<FormsSelectUpdateWithNestedWhereUniqueAndPositionInput>;
+};
+
+export type FormsSelectOptionParentUpdateWithNestedWhereUniqueInput = {
+  FormsSelect?: InputMaybe<FormsSelectUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FormsSelectOptionParentUpsertWithNestedWhereUniqueAndPositionInput = {
+  FormsSelect?: InputMaybe<FormsSelectUpsertWithNestedWhereUniqueAndPositionInput>;
+};
+
+export type FormsSelectOptionParentUpsertWithNestedWhereUniqueInput = {
+  FormsSelect?: InputMaybe<FormsSelectUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsSelectOptionParentWhereInput = {
+  FormsSelect?: InputMaybe<FormsSelectWhereInput>;
+};
+
+export type FormsSelectOptionParentWhereUniqueInput = {
+  FormsSelect?: InputMaybe<FormsSelectWhereUniqueInput>;
+};
+
+export type FormsSelectOptionUpdateInput = {
+  option?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+};
+
+export type FormsSelectOptionUpdateManyInlineInput = {
+  /** Create and connect multiple FormsSelectOption component instances */
+  create?: InputMaybe<Array<FormsSelectOptionCreateWithPositionInput>>;
+  /** Delete multiple FormsSelectOption documents */
+  delete?: InputMaybe<Array<FormsSelectOptionWhereUniqueInput>>;
+  /** Update multiple FormsSelectOption component instances */
+  update?: InputMaybe<Array<FormsSelectOptionUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FormsSelectOption component instances */
+  upsert?: InputMaybe<Array<FormsSelectOptionUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FormsSelectOptionUpdateManyInput = {
+  option?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+};
+
+export type FormsSelectOptionUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FormsSelectOptionUpdateManyInput;
+  /** Document search */
+  where: FormsSelectOptionWhereInput;
+};
+
+export type FormsSelectOptionUpdateOneInlineInput = {
+  /** Create and connect one FormsSelectOption document */
+  create?: InputMaybe<FormsSelectOptionCreateInput>;
+  /** Delete currently connected FormsSelectOption document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsSelectOption document */
+  update?: InputMaybe<FormsSelectOptionUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsSelectOption document */
+  upsert?: InputMaybe<FormsSelectOptionUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsSelectOptionUpdateWithNestedWhereUniqueAndPositionInput = {
+  /** Document to update */
+  data?: InputMaybe<FormsSelectOptionUpdateInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsSelectOptionWhereUniqueInput;
+};
+
+export type FormsSelectOptionUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FormsSelectOptionUpdateInput;
+  /** Unique document search */
+  where: FormsSelectOptionWhereUniqueInput;
+};
+
+export type FormsSelectOptionUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FormsSelectOptionCreateInput;
+  /** Update document if it exists */
+  update: FormsSelectOptionUpdateInput;
+};
+
+export type FormsSelectOptionUpsertWithNestedWhereUniqueAndPositionInput = {
+  /** Document to upsert */
+  data?: InputMaybe<FormsSelectOptionUpsertInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsSelectOptionWhereUniqueInput;
+};
+
+export type FormsSelectOptionUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FormsSelectOptionUpsertInput;
+  /** Unique document search */
+  where: FormsSelectOptionWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type FormsSelectOptionWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsSelectOptionWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsSelectOptionWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsSelectOptionWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  option?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  option_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  option_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  option_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  option_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  option_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  option_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  option_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  option_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  option_starts_with?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  value_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  value_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  value_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  value_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  value_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  value_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  value_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  value_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  value_starts_with?: InputMaybe<Scalars['String']>;
+};
+
+/** References FormsSelectOption record uniquely */
+export type FormsSelectOptionWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+export enum FormsSelectOrderByInput {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LabelAsc = 'label_ASC',
+  LabelDesc = 'label_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RequiredAsc = 'required_ASC',
+  RequiredDesc = 'required_DESC'
+}
+
+export type FormsSelectParent = FormPage;
+
+export type FormsSelectParentConnectInput = {
+  FormPage?: InputMaybe<FormPageConnectInput>;
+};
+
+export type FormsSelectParentCreateInput = {
+  FormPage?: InputMaybe<FormPageCreateInput>;
+};
+
+export type FormsSelectParentCreateManyInlineInput = {
+  /** Connect multiple existing FormsSelectParent documents */
+  connect?: InputMaybe<Array<FormsSelectParentWhereUniqueInput>>;
+  /** Create and connect multiple existing FormsSelectParent documents */
+  create?: InputMaybe<Array<FormsSelectParentCreateInput>>;
+};
+
+export type FormsSelectParentCreateOneInlineInput = {
+  /** Connect one existing FormsSelectParent document */
+  connect?: InputMaybe<FormsSelectParentWhereUniqueInput>;
+  /** Create and connect one FormsSelectParent document */
+  create?: InputMaybe<FormsSelectParentCreateInput>;
+};
+
+export type FormsSelectParentUpdateInput = {
+  FormPage?: InputMaybe<FormPageUpdateInput>;
+};
+
+export type FormsSelectParentUpdateManyInlineInput = {
+  /** Connect multiple existing FormsSelectParent documents */
+  connect?: InputMaybe<Array<FormsSelectParentConnectInput>>;
+  /** Create and connect multiple FormsSelectParent documents */
+  create?: InputMaybe<Array<FormsSelectParentCreateInput>>;
+  /** Delete multiple FormsSelectParent documents */
+  delete?: InputMaybe<Array<FormsSelectParentWhereUniqueInput>>;
+  /** Disconnect multiple FormsSelectParent documents */
+  disconnect?: InputMaybe<Array<FormsSelectParentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing FormsSelectParent documents */
+  set?: InputMaybe<Array<FormsSelectParentWhereUniqueInput>>;
+  /** Update multiple FormsSelectParent documents */
+  update?: InputMaybe<Array<FormsSelectParentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple FormsSelectParent documents */
+  upsert?: InputMaybe<Array<FormsSelectParentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FormsSelectParentUpdateManyWithNestedWhereInput = {
+  FormPage?: InputMaybe<FormPageUpdateManyWithNestedWhereInput>;
+};
+
+export type FormsSelectParentUpdateOneInlineInput = {
+  /** Connect existing FormsSelectParent document */
+  connect?: InputMaybe<FormsSelectParentWhereUniqueInput>;
+  /** Create and connect one FormsSelectParent document */
+  create?: InputMaybe<FormsSelectParentCreateInput>;
+  /** Delete currently connected FormsSelectParent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected FormsSelectParent document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsSelectParent document */
+  update?: InputMaybe<FormsSelectParentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsSelectParent document */
+  upsert?: InputMaybe<FormsSelectParentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsSelectParentUpdateWithNestedWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FormsSelectParentUpsertWithNestedWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsSelectParentWhereInput = {
+  FormPage?: InputMaybe<FormPageWhereInput>;
+};
+
+export type FormsSelectParentWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageWhereUniqueInput>;
+};
+
+export type FormsSelectUpdateInput = {
+  label?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  options?: InputMaybe<FormsSelectOptionUpdateManyInlineInput>;
+  required?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FormsSelectUpdateManyInlineInput = {
+  /** Create and connect multiple FormsSelect component instances */
+  create?: InputMaybe<Array<FormsSelectCreateWithPositionInput>>;
+  /** Delete multiple FormsSelect documents */
+  delete?: InputMaybe<Array<FormsSelectWhereUniqueInput>>;
+  /** Update multiple FormsSelect component instances */
+  update?: InputMaybe<Array<FormsSelectUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FormsSelect component instances */
+  upsert?: InputMaybe<Array<FormsSelectUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FormsSelectUpdateManyInput = {
+  label?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FormsSelectUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FormsSelectUpdateManyInput;
+  /** Document search */
+  where: FormsSelectWhereInput;
+};
+
+export type FormsSelectUpdateOneInlineInput = {
+  /** Create and connect one FormsSelect document */
+  create?: InputMaybe<FormsSelectCreateInput>;
+  /** Delete currently connected FormsSelect document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsSelect document */
+  update?: InputMaybe<FormsSelectUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsSelect document */
+  upsert?: InputMaybe<FormsSelectUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsSelectUpdateWithNestedWhereUniqueAndPositionInput = {
+  /** Document to update */
+  data?: InputMaybe<FormsSelectUpdateInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsSelectWhereUniqueInput;
+};
+
+export type FormsSelectUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FormsSelectUpdateInput;
+  /** Unique document search */
+  where: FormsSelectWhereUniqueInput;
+};
+
+export type FormsSelectUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FormsSelectCreateInput;
+  /** Update document if it exists */
+  update: FormsSelectUpdateInput;
+};
+
+export type FormsSelectUpsertWithNestedWhereUniqueAndPositionInput = {
+  /** Document to upsert */
+  data?: InputMaybe<FormsSelectUpsertInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsSelectWhereUniqueInput;
+};
+
+export type FormsSelectUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FormsSelectUpsertInput;
+  /** Unique document search */
+  where: FormsSelectWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type FormsSelectWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsSelectWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsSelectWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsSelectWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  label_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  label_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  label_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  label_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  label_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  label_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  label_starts_with?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  options_every?: InputMaybe<FormsSelectOptionWhereInput>;
+  options_none?: InputMaybe<FormsSelectOptionWhereInput>;
+  options_some?: InputMaybe<FormsSelectOptionWhereInput>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  required_not?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** References FormsSelect record uniquely */
+export type FormsSelectWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+/** skapar ett större textfält för längre svar  */
+export type FormsTextarea = {
+  __typename?: 'FormsTextarea';
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** Fältets rubrik så som "Ditt namn: "  */
+  label: Scalars['String'];
+  /** Namnge fältet på engelska, används som referens till backend  */
+  name: Scalars['String'];
+  /** Anger om fältet är obligatoriskt eller ej  */
+  required: Scalars['Boolean'];
+  /** System stage field */
+  stage: Stage;
+};
+
+export type FormsTextareaConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: FormsTextareaWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type FormsTextareaConnection = {
+  __typename?: 'FormsTextareaConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<FormsTextareaEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type FormsTextareaCreateInput = {
+  label: Scalars['String'];
+  name: Scalars['String'];
+  required: Scalars['Boolean'];
+};
+
+export type FormsTextareaCreateManyInlineInput = {
+  /** Create and connect multiple existing FormsTextarea documents */
+  create?: InputMaybe<Array<FormsTextareaCreateInput>>;
+};
+
+export type FormsTextareaCreateOneInlineInput = {
+  /** Create and connect one FormsTextarea document */
+  create?: InputMaybe<FormsTextareaCreateInput>;
+};
+
+export type FormsTextareaCreateWithPositionInput = {
+  /** Document to create */
+  data: FormsTextareaCreateInput;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+};
+
+/** An edge in a connection. */
+export type FormsTextareaEdge = {
+  __typename?: 'FormsTextareaEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: FormsTextarea;
+};
+
+/** Identifies documents */
+export type FormsTextareaManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsTextareaWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsTextareaWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsTextareaWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  label_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  label_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  label_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  label_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  label_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  label_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  label_starts_with?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  required_not?: InputMaybe<Scalars['Boolean']>;
+};
+
+export enum FormsTextareaOrderByInput {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LabelAsc = 'label_ASC',
+  LabelDesc = 'label_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RequiredAsc = 'required_ASC',
+  RequiredDesc = 'required_DESC'
+}
+
+export type FormsTextareaParent = FormPage;
+
+export type FormsTextareaParentConnectInput = {
+  FormPage?: InputMaybe<FormPageConnectInput>;
+};
+
+export type FormsTextareaParentCreateInput = {
+  FormPage?: InputMaybe<FormPageCreateInput>;
+};
+
+export type FormsTextareaParentCreateManyInlineInput = {
+  /** Connect multiple existing FormsTextareaParent documents */
+  connect?: InputMaybe<Array<FormsTextareaParentWhereUniqueInput>>;
+  /** Create and connect multiple existing FormsTextareaParent documents */
+  create?: InputMaybe<Array<FormsTextareaParentCreateInput>>;
+};
+
+export type FormsTextareaParentCreateOneInlineInput = {
+  /** Connect one existing FormsTextareaParent document */
+  connect?: InputMaybe<FormsTextareaParentWhereUniqueInput>;
+  /** Create and connect one FormsTextareaParent document */
+  create?: InputMaybe<FormsTextareaParentCreateInput>;
+};
+
+export type FormsTextareaParentUpdateInput = {
+  FormPage?: InputMaybe<FormPageUpdateInput>;
+};
+
+export type FormsTextareaParentUpdateManyInlineInput = {
+  /** Connect multiple existing FormsTextareaParent documents */
+  connect?: InputMaybe<Array<FormsTextareaParentConnectInput>>;
+  /** Create and connect multiple FormsTextareaParent documents */
+  create?: InputMaybe<Array<FormsTextareaParentCreateInput>>;
+  /** Delete multiple FormsTextareaParent documents */
+  delete?: InputMaybe<Array<FormsTextareaParentWhereUniqueInput>>;
+  /** Disconnect multiple FormsTextareaParent documents */
+  disconnect?: InputMaybe<Array<FormsTextareaParentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing FormsTextareaParent documents */
+  set?: InputMaybe<Array<FormsTextareaParentWhereUniqueInput>>;
+  /** Update multiple FormsTextareaParent documents */
+  update?: InputMaybe<Array<FormsTextareaParentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple FormsTextareaParent documents */
+  upsert?: InputMaybe<Array<FormsTextareaParentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type FormsTextareaParentUpdateManyWithNestedWhereInput = {
+  FormPage?: InputMaybe<FormPageUpdateManyWithNestedWhereInput>;
+};
+
+export type FormsTextareaParentUpdateOneInlineInput = {
+  /** Connect existing FormsTextareaParent document */
+  connect?: InputMaybe<FormsTextareaParentWhereUniqueInput>;
+  /** Create and connect one FormsTextareaParent document */
+  create?: InputMaybe<FormsTextareaParentCreateInput>;
+  /** Delete currently connected FormsTextareaParent document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected FormsTextareaParent document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsTextareaParent document */
+  update?: InputMaybe<FormsTextareaParentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsTextareaParent document */
+  upsert?: InputMaybe<FormsTextareaParentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsTextareaParentUpdateWithNestedWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageUpdateWithNestedWhereUniqueInput>;
+};
+
+export type FormsTextareaParentUpsertWithNestedWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsTextareaParentWhereInput = {
+  FormPage?: InputMaybe<FormPageWhereInput>;
+};
+
+export type FormsTextareaParentWhereUniqueInput = {
+  FormPage?: InputMaybe<FormPageWhereUniqueInput>;
+};
+
+export type FormsTextareaUpdateInput = {
+  label?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FormsTextareaUpdateManyInlineInput = {
+  /** Create and connect multiple FormsTextarea component instances */
+  create?: InputMaybe<Array<FormsTextareaCreateWithPositionInput>>;
+  /** Delete multiple FormsTextarea documents */
+  delete?: InputMaybe<Array<FormsTextareaWhereUniqueInput>>;
+  /** Update multiple FormsTextarea component instances */
+  update?: InputMaybe<Array<FormsTextareaUpdateWithNestedWhereUniqueAndPositionInput>>;
+  /** Upsert multiple FormsTextarea component instances */
+  upsert?: InputMaybe<Array<FormsTextareaUpsertWithNestedWhereUniqueAndPositionInput>>;
+};
+
+export type FormsTextareaUpdateManyInput = {
+  label?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type FormsTextareaUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: FormsTextareaUpdateManyInput;
+  /** Document search */
+  where: FormsTextareaWhereInput;
+};
+
+export type FormsTextareaUpdateOneInlineInput = {
+  /** Create and connect one FormsTextarea document */
+  create?: InputMaybe<FormsTextareaCreateInput>;
+  /** Delete currently connected FormsTextarea document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Update single FormsTextarea document */
+  update?: InputMaybe<FormsTextareaUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single FormsTextarea document */
+  upsert?: InputMaybe<FormsTextareaUpsertWithNestedWhereUniqueInput>;
+};
+
+export type FormsTextareaUpdateWithNestedWhereUniqueAndPositionInput = {
+  /** Document to update */
+  data?: InputMaybe<FormsTextareaUpdateInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsTextareaWhereUniqueInput;
+};
+
+export type FormsTextareaUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: FormsTextareaUpdateInput;
+  /** Unique document search */
+  where: FormsTextareaWhereUniqueInput;
+};
+
+export type FormsTextareaUpsertInput = {
+  /** Create document if it didn't exist */
+  create: FormsTextareaCreateInput;
+  /** Update document if it exists */
+  update: FormsTextareaUpdateInput;
+};
+
+export type FormsTextareaUpsertWithNestedWhereUniqueAndPositionInput = {
+  /** Document to upsert */
+  data?: InputMaybe<FormsTextareaUpsertInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: FormsTextareaWhereUniqueInput;
+};
+
+export type FormsTextareaUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: FormsTextareaUpsertInput;
+  /** Unique document search */
+  where: FormsTextareaWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type FormsTextareaWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<FormsTextareaWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<FormsTextareaWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<FormsTextareaWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  label_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  label_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  label_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  label_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  label_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  label_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  label_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  label_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  label_starts_with?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  required_not?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** References FormsTextarea record uniquely */
+export type FormsTextareaWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type Heading = {
   __typename?: 'Heading';
   /** Rubrik */
@@ -5081,12 +7710,13 @@ export enum HeroOrderByInput {
   IdDesc = 'id_DESC'
 }
 
-export type HeroParent = AboutPage | EventLandingpage | EventPage | PastEvent | StartPage;
+export type HeroParent = AboutPage | EventLandingpage | EventPage | FormPage | PastEvent | StartPage;
 
 export type HeroParentConnectInput = {
   AboutPage?: InputMaybe<AboutPageConnectInput>;
   EventLandingpage?: InputMaybe<EventLandingpageConnectInput>;
   EventPage?: InputMaybe<EventPageConnectInput>;
+  FormPage?: InputMaybe<FormPageConnectInput>;
   PastEvent?: InputMaybe<PastEventConnectInput>;
   StartPage?: InputMaybe<StartPageConnectInput>;
 };
@@ -5095,6 +7725,7 @@ export type HeroParentCreateInput = {
   AboutPage?: InputMaybe<AboutPageCreateInput>;
   EventLandingpage?: InputMaybe<EventLandingpageCreateInput>;
   EventPage?: InputMaybe<EventPageCreateInput>;
+  FormPage?: InputMaybe<FormPageCreateInput>;
   PastEvent?: InputMaybe<PastEventCreateInput>;
   StartPage?: InputMaybe<StartPageCreateInput>;
 };
@@ -5117,6 +7748,7 @@ export type HeroParentUpdateInput = {
   AboutPage?: InputMaybe<AboutPageUpdateInput>;
   EventLandingpage?: InputMaybe<EventLandingpageUpdateInput>;
   EventPage?: InputMaybe<EventPageUpdateInput>;
+  FormPage?: InputMaybe<FormPageUpdateInput>;
   PastEvent?: InputMaybe<PastEventUpdateInput>;
   StartPage?: InputMaybe<StartPageUpdateInput>;
 };
@@ -5142,6 +7774,7 @@ export type HeroParentUpdateManyWithNestedWhereInput = {
   AboutPage?: InputMaybe<AboutPageUpdateManyWithNestedWhereInput>;
   EventLandingpage?: InputMaybe<EventLandingpageUpdateManyWithNestedWhereInput>;
   EventPage?: InputMaybe<EventPageUpdateManyWithNestedWhereInput>;
+  FormPage?: InputMaybe<FormPageUpdateManyWithNestedWhereInput>;
   PastEvent?: InputMaybe<PastEventUpdateManyWithNestedWhereInput>;
   StartPage?: InputMaybe<StartPageUpdateManyWithNestedWhereInput>;
 };
@@ -5165,6 +7798,7 @@ export type HeroParentUpdateWithNestedWhereUniqueInput = {
   AboutPage?: InputMaybe<AboutPageUpdateWithNestedWhereUniqueInput>;
   EventLandingpage?: InputMaybe<EventLandingpageUpdateWithNestedWhereUniqueInput>;
   EventPage?: InputMaybe<EventPageUpdateWithNestedWhereUniqueInput>;
+  FormPage?: InputMaybe<FormPageUpdateWithNestedWhereUniqueInput>;
   PastEvent?: InputMaybe<PastEventUpdateWithNestedWhereUniqueInput>;
   StartPage?: InputMaybe<StartPageUpdateWithNestedWhereUniqueInput>;
 };
@@ -5173,6 +7807,7 @@ export type HeroParentUpsertWithNestedWhereUniqueInput = {
   AboutPage?: InputMaybe<AboutPageUpsertWithNestedWhereUniqueInput>;
   EventLandingpage?: InputMaybe<EventLandingpageUpsertWithNestedWhereUniqueInput>;
   EventPage?: InputMaybe<EventPageUpsertWithNestedWhereUniqueInput>;
+  FormPage?: InputMaybe<FormPageUpsertWithNestedWhereUniqueInput>;
   PastEvent?: InputMaybe<PastEventUpsertWithNestedWhereUniqueInput>;
   StartPage?: InputMaybe<StartPageUpsertWithNestedWhereUniqueInput>;
 };
@@ -5181,6 +7816,7 @@ export type HeroParentWhereInput = {
   AboutPage?: InputMaybe<AboutPageWhereInput>;
   EventLandingpage?: InputMaybe<EventLandingpageWhereInput>;
   EventPage?: InputMaybe<EventPageWhereInput>;
+  FormPage?: InputMaybe<FormPageWhereInput>;
   PastEvent?: InputMaybe<PastEventWhereInput>;
   StartPage?: InputMaybe<StartPageWhereInput>;
 };
@@ -5189,6 +7825,7 @@ export type HeroParentWhereUniqueInput = {
   AboutPage?: InputMaybe<AboutPageWhereUniqueInput>;
   EventLandingpage?: InputMaybe<EventLandingpageWhereUniqueInput>;
   EventPage?: InputMaybe<EventPageWhereUniqueInput>;
+  FormPage?: InputMaybe<FormPageWhereUniqueInput>;
   PastEvent?: InputMaybe<PastEventWhereUniqueInput>;
   StartPage?: InputMaybe<StartPageWhereUniqueInput>;
 };
@@ -5799,6 +8436,8 @@ export type Mutation = {
   createEventPage?: Maybe<EventPage>;
   /** Create one eventSignup */
   createEventSignup?: Maybe<EventSignup>;
+  /** Create one formPage */
+  createFormPage?: Maybe<FormPage>;
   /** Create one newsletterSignup */
   createNewsletterSignup?: Maybe<NewsletterSignup>;
   /** Create one pastEvent */
@@ -5819,6 +8458,8 @@ export type Mutation = {
   deleteEventPage?: Maybe<EventPage>;
   /** Delete one eventSignup from _all_ existing stages. Returns deleted document. */
   deleteEventSignup?: Maybe<EventSignup>;
+  /** Delete one formPage from _all_ existing stages. Returns deleted document. */
+  deleteFormPage?: Maybe<FormPage>;
   /**
    * Delete many AboutPage documents
    * @deprecated Please use the new paginated many mutation (deleteManyAboutPagesConnection)
@@ -5854,6 +8495,13 @@ export type Mutation = {
   deleteManyEventSignups: BatchPayload;
   /** Delete many EventSignup documents, return deleted documents */
   deleteManyEventSignupsConnection: EventSignupConnection;
+  /**
+   * Delete many FormPage documents
+   * @deprecated Please use the new paginated many mutation (deleteManyFormPagesConnection)
+   */
+  deleteManyFormPages: BatchPayload;
+  /** Delete many FormPage documents, return deleted documents */
+  deleteManyFormPagesConnection: FormPageConnection;
   /**
    * Delete many NewsletterSignup documents
    * @deprecated Please use the new paginated many mutation (deleteManyNewsletterSignupsConnection)
@@ -5904,6 +8552,8 @@ export type Mutation = {
   publishEventPage?: Maybe<EventPage>;
   /** Publish one eventSignup */
   publishEventSignup?: Maybe<EventSignup>;
+  /** Publish one formPage */
+  publishFormPage?: Maybe<FormPage>;
   /**
    * Publish many AboutPage documents
    * @deprecated Please use the new paginated many mutation (publishManyAboutPagesConnection)
@@ -5939,6 +8589,13 @@ export type Mutation = {
   publishManyEventSignups: BatchPayload;
   /** Publish many EventSignup documents */
   publishManyEventSignupsConnection: EventSignupConnection;
+  /**
+   * Publish many FormPage documents
+   * @deprecated Please use the new paginated many mutation (publishManyFormPagesConnection)
+   */
+  publishManyFormPages: BatchPayload;
+  /** Publish many FormPage documents */
+  publishManyFormPagesConnection: FormPageConnection;
   /**
    * Publish many NewsletterSignup documents
    * @deprecated Please use the new paginated many mutation (publishManyNewsletterSignupsConnection)
@@ -5985,6 +8642,8 @@ export type Mutation = {
   schedulePublishEventPage?: Maybe<EventPage>;
   /** Schedule to publish one eventSignup */
   schedulePublishEventSignup?: Maybe<EventSignup>;
+  /** Schedule to publish one formPage */
+  schedulePublishFormPage?: Maybe<FormPage>;
   /** Schedule to publish one newsletterSignup */
   schedulePublishNewsletterSignup?: Maybe<NewsletterSignup>;
   /** Schedule to publish one pastEvent */
@@ -6003,6 +8662,8 @@ export type Mutation = {
   scheduleUnpublishEventPage?: Maybe<EventPage>;
   /** Unpublish one eventSignup from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishEventSignup?: Maybe<EventSignup>;
+  /** Unpublish one formPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishFormPage?: Maybe<FormPage>;
   /** Unpublish one newsletterSignup from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishNewsletterSignup?: Maybe<NewsletterSignup>;
   /** Unpublish one pastEvent from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -6021,6 +8682,8 @@ export type Mutation = {
   unpublishEventPage?: Maybe<EventPage>;
   /** Unpublish one eventSignup from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishEventSignup?: Maybe<EventSignup>;
+  /** Unpublish one formPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishFormPage?: Maybe<FormPage>;
   /**
    * Unpublish many AboutPage documents
    * @deprecated Please use the new paginated many mutation (unpublishManyAboutPagesConnection)
@@ -6056,6 +8719,13 @@ export type Mutation = {
   unpublishManyEventSignups: BatchPayload;
   /** Find many EventSignup documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyEventSignupsConnection: EventSignupConnection;
+  /**
+   * Unpublish many FormPage documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyFormPagesConnection)
+   */
+  unpublishManyFormPages: BatchPayload;
+  /** Find many FormPage documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyFormPagesConnection: FormPageConnection;
   /**
    * Unpublish many NewsletterSignup documents
    * @deprecated Please use the new paginated many mutation (unpublishManyNewsletterSignupsConnection)
@@ -6102,6 +8772,8 @@ export type Mutation = {
   updateEventPage?: Maybe<EventPage>;
   /** Update one eventSignup */
   updateEventSignup?: Maybe<EventSignup>;
+  /** Update one formPage */
+  updateFormPage?: Maybe<FormPage>;
   /**
    * Update many aboutPages
    * @deprecated Please use the new paginated many mutation (updateManyAboutPagesConnection)
@@ -6137,6 +8809,13 @@ export type Mutation = {
   updateManyEventSignups: BatchPayload;
   /** Update many EventSignup documents */
   updateManyEventSignupsConnection: EventSignupConnection;
+  /**
+   * Update many formPages
+   * @deprecated Please use the new paginated many mutation (updateManyFormPagesConnection)
+   */
+  updateManyFormPages: BatchPayload;
+  /** Update many FormPage documents */
+  updateManyFormPagesConnection: FormPageConnection;
   /**
    * Update many newsletterSignups
    * @deprecated Please use the new paginated many mutation (updateManyNewsletterSignupsConnection)
@@ -6185,6 +8864,8 @@ export type Mutation = {
   upsertEventPage?: Maybe<EventPage>;
   /** Upsert one eventSignup */
   upsertEventSignup?: Maybe<EventSignup>;
+  /** Upsert one formPage */
+  upsertFormPage?: Maybe<FormPage>;
   /** Upsert one newsletterSignup */
   upsertNewsletterSignup?: Maybe<NewsletterSignup>;
   /** Upsert one pastEvent */
@@ -6218,6 +8899,11 @@ export type MutationCreateEventPageArgs = {
 
 export type MutationCreateEventSignupArgs = {
   data: EventSignupCreateInput;
+};
+
+
+export type MutationCreateFormPageArgs = {
+  data: FormPageCreateInput;
 };
 
 
@@ -6268,6 +8954,11 @@ export type MutationDeleteEventPageArgs = {
 
 export type MutationDeleteEventSignupArgs = {
   where: EventSignupWhereUniqueInput;
+};
+
+
+export type MutationDeleteFormPageArgs = {
+  where: FormPageWhereUniqueInput;
 };
 
 
@@ -6343,6 +9034,21 @@ export type MutationDeleteManyEventSignupsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EventSignupManyWhereInput>;
+};
+
+
+export type MutationDeleteManyFormPagesArgs = {
+  where?: InputMaybe<FormPageManyWhereInput>;
+};
+
+
+export type MutationDeleteManyFormPagesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FormPageManyWhereInput>;
 };
 
 
@@ -6469,6 +9175,12 @@ export type MutationPublishEventSignupArgs = {
 };
 
 
+export type MutationPublishFormPageArgs = {
+  to?: Array<Stage>;
+  where: FormPageWhereUniqueInput;
+};
+
+
 export type MutationPublishManyAboutPagesArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<AboutPageManyWhereInput>;
@@ -6562,6 +9274,24 @@ export type MutationPublishManyEventSignupsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   to?: Array<Stage>;
   where?: InputMaybe<EventSignupManyWhereInput>;
+};
+
+
+export type MutationPublishManyFormPagesArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<FormPageManyWhereInput>;
+};
+
+
+export type MutationPublishManyFormPagesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<FormPageManyWhereInput>;
 };
 
 
@@ -6704,6 +9434,14 @@ export type MutationSchedulePublishEventSignupArgs = {
 };
 
 
+export type MutationSchedulePublishFormPageArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: FormPageWhereUniqueInput;
+};
+
+
 export type MutationSchedulePublishNewsletterSignupArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
@@ -6778,6 +9516,14 @@ export type MutationScheduleUnpublishEventSignupArgs = {
 };
 
 
+export type MutationScheduleUnpublishFormPageArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: FormPageWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishNewsletterSignupArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -6839,6 +9585,12 @@ export type MutationUnpublishEventPageArgs = {
 export type MutationUnpublishEventSignupArgs = {
   from?: Array<Stage>;
   where: EventSignupWhereUniqueInput;
+};
+
+
+export type MutationUnpublishFormPageArgs = {
+  from?: Array<Stage>;
+  where: FormPageWhereUniqueInput;
 };
 
 
@@ -6933,6 +9685,24 @@ export type MutationUnpublishManyEventSignupsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: InputMaybe<Stage>;
   where?: InputMaybe<EventSignupManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyFormPagesArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<FormPageManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyFormPagesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<FormPageManyWhereInput>;
 };
 
 
@@ -7062,6 +9832,12 @@ export type MutationUpdateEventSignupArgs = {
 };
 
 
+export type MutationUpdateFormPageArgs = {
+  data: FormPageUpdateInput;
+  where: FormPageWhereUniqueInput;
+};
+
+
 export type MutationUpdateManyAboutPagesArgs = {
   data: AboutPageUpdateManyInput;
   where?: InputMaybe<AboutPageManyWhereInput>;
@@ -7144,6 +9920,23 @@ export type MutationUpdateManyEventSignupsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<EventSignupManyWhereInput>;
+};
+
+
+export type MutationUpdateManyFormPagesArgs = {
+  data: FormPageUpdateManyInput;
+  where?: InputMaybe<FormPageManyWhereInput>;
+};
+
+
+export type MutationUpdateManyFormPagesConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: FormPageUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FormPageManyWhereInput>;
 };
 
 
@@ -7272,6 +10065,12 @@ export type MutationUpsertEventPageArgs = {
 export type MutationUpsertEventSignupArgs = {
   upsert: EventSignupUpsertInput;
   where: EventSignupWhereUniqueInput;
+};
+
+
+export type MutationUpsertFormPageArgs = {
+  upsert: FormPageUpsertInput;
+  where: FormPageWhereUniqueInput;
 };
 
 
@@ -8555,6 +11354,14 @@ export type Query = {
   eventSignups: Array<EventSignup>;
   /** Retrieve multiple eventSignups using the Relay connection interface */
   eventSignupsConnection: EventSignupConnection;
+  /** Retrieve a single formPage */
+  formPage?: Maybe<FormPage>;
+  /** Retrieve document version */
+  formPageVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple formPages */
+  formPages: Array<FormPage>;
+  /** Retrieve multiple formPages using the Relay connection interface */
+  formPagesConnection: FormPageConnection;
   /** Retrieve a single newsletterSignup */
   newsletterSignup?: Maybe<NewsletterSignup>;
   /** Retrieve document version */
@@ -8797,6 +11604,44 @@ export type QueryEventSignupsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<EventSignupWhereInput>;
+};
+
+
+export type QueryFormPageArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: FormPageWhereUniqueInput;
+};
+
+
+export type QueryFormPageVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryFormPagesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<FormPageOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<FormPageWhereInput>;
+};
+
+
+export type QueryFormPagesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<FormPageOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<FormPageWhereInput>;
 };
 
 
@@ -9169,7 +12014,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = AboutPage | Asset | EventLandingpage | EventPage | EventSignup | NewsletterSignup | PastEvent | StartPage | WaitingListEvent;
+export type ScheduledOperationAffectedDocument = AboutPage | Asset | EventLandingpage | EventPage | EventSignup | FormPage | NewsletterSignup | PastEvent | StartPage | WaitingListEvent;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -12131,6 +14976,18 @@ export type Get_About_PageQuery = { __typename?: 'Query', aboutPage?: (
     & { ' $fragmentRefs'?: { 'ContentFragmentFragment': ContentFragmentFragment;'AdressFragmentFragment': AdressFragmentFragment } }
   ) | null };
 
+export type FormInputsFragmentFragment = { __typename?: 'FormPage', formInputs: Array<{ __typename?: 'FormsCheckbox', required: boolean, label: string, checkboxname: string } | { __typename?: 'FormsInput', type: FormInputType, required: boolean, label: string, inputname: string } | { __typename?: 'FormsSelect', required: boolean, label: string, selectname: string, options: Array<{ __typename?: 'FormsSelectOption', option: string, value: string }> } | { __typename?: 'FormsTextarea', required: boolean, label: string, textareaname: string }> } & { ' $fragmentName'?: 'FormInputsFragmentFragment' };
+
+export type Get_FormpageQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type Get_FormpageQuery = { __typename?: 'Query', formPage?: (
+    { __typename?: 'FormPage', slug: string, title: string, hero: { __typename?: 'Hero', altText: string, id: string, image: { __typename?: 'Asset', url: string } }, eventPage?: { __typename?: 'EventPage', slug: string } | null, formInfo: { __typename?: 'RichText', raw: any } }
+    & { ' $fragmentRefs'?: { 'FormInputsFragmentFragment': FormInputsFragmentFragment } }
+  ) | null };
+
 export type Get_Landingpage_Past_EventQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -12179,6 +15036,7 @@ export type Get_LandingpageQuery = { __typename?: 'Query', eventLandingpage?: { 
 
 export const AdressFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"adressFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<AdressFragmentFragment, unknown>;
 export const ContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<ContentFragmentFragment, unknown>;
+export const FormInputsFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FormInputsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formInputs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsTextarea"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"textareaname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsSelect"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"selectname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"options"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"option"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsInput"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"inputname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsCheckbox"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","alias":{"kind":"Name","value":"checkboxname"},"name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<FormInputsFragmentFragment, unknown>;
 export const LocationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<LocationFragmentFragment, unknown>;
 export const EventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventContentFragmentFragment, unknown>;
 export const PastEventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeedbackHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"feedback"}}]}}]}}]}}]} as unknown as DocumentNode<PastEventContentFragmentFragment, unknown>;
@@ -12191,6 +15049,7 @@ export const Get_Upcoming_Events_ListDocument = {"kind":"Document","definitions"
 export const Get_Upcoming_EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_UPCOMING_EVENTS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"date_gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"today"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"date_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"2"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Upcoming_EventsQuery, Get_Upcoming_EventsQueryVariables>;
 export const CreateWaitingListEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createWaitingListEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WaitingListEventCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createWaitingListEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<CreateWaitingListEventMutation, CreateWaitingListEventMutationVariables>;
 export const Get_About_PageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_ABOUT_PAGE"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aboutPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"om-oss","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"employees"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"sidebarInfo"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"adressFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"adressFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AboutPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]} as unknown as DocumentNode<Get_About_PageQuery, Get_About_PageQueryVariables>;
+export const Get_FormpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_FORMPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"formInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"FormInputsFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FormInputsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formInputs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsTextarea"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"textareaname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsSelect"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"selectname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"options"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"option"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsInput"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","alias":{"kind":"Name","value":"inputname"},"name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FormsCheckbox"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"required"}},{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","alias":{"kind":"Name","value":"checkboxname"},"name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Get_FormpageQuery, Get_FormpageQueryVariables>;
 export const Get_Landingpage_Past_EventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_LANDINGPAGE_PAST_EVENT"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventLandingpage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"StringValue","value":"tidigare-event","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]} as unknown as DocumentNode<Get_Landingpage_Past_EventQuery, Get_Landingpage_Past_EventQueryVariables>;
 export const Get_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contact"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"maxParticipants"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"EventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"locationFragment"}},{"kind":"Field","name":{"kind":"Name","value":"eventSignups"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"locationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventLocation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adress"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"map"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}}]}}]}}]}}]} as unknown as DocumentNode<Get_EventpageQuery, Get_EventpageQueryVariables>;
 export const Get_Past_EventpageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTPAGE"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PastEventContentFragment"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeedbackHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"feedback"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_EventpageQuery, Get_Past_EventpageQueryVariables>;

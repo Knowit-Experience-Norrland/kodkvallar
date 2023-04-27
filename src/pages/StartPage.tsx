@@ -30,7 +30,7 @@ let navigate = useNavigate();
           imageText
           image {
             url
-          }
+          } 
         }
         ... on Text {
           id
