@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import {
   StartpageContentFragment,
@@ -16,7 +16,24 @@ type Props = {
     | PastEventContentFragmentFragment["content"]; //Only the content part of the fragment
 };
 
+function addBackgroundColor(elements: NodeListOf<Element>): void {
+  for (let i = 0; i < elements.length; i++) {
+    if (i % 2 === 0) {
+      (elements[i] as HTMLElement).style.backgroundColor = "#FCDFD8"; // Set background color for even-indexed elements
+    } else {
+      (elements[i] as HTMLElement).style.backgroundColor = "#DBEEDE"; // Set background color for odd-indexed elements
+    }
+  }
+}
+
+
 const MainContent: React.FC<Props> = ({ content }) => {
+  useEffect(() => {
+    const elements = document.querySelectorAll(".feedback-highlight"); 
+    console.log(elements)
+    addBackgroundColor(elements); 
+  }, []);
+  
   if (content === undefined) return <div>Inget innehåll...</div>;
 
   return (
