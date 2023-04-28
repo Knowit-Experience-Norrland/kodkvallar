@@ -14,10 +14,10 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
     handleSubmit,
     reset,
     formState,
-    formState: { errors, isSubmitSuccessful }
+    formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-   useEffect(() => {
+  useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
       setSuccess("Tack för ditt svar!");
@@ -38,7 +38,7 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
 
   const [createFormAnswer] = useMutation(CREATE_FORM_ANSWER);
   const onSubmit = (data: any) => {
-     data = {
+    data = {
       formData: data,
       eventPage: { connect: { slug: slug } },
     };
@@ -62,9 +62,10 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
                     id={input.inputname}
                     aria-label={input.label}
                     {...register(input.inputname, {
-                      
-                      required: "Detta fält är obligatoriskt.",
-                 
+                      required: {
+                        value: input.required,
+                        message: "Detta fält är obligatoriskt.",
+                      },
                       pattern: {
                         value:
                           input.type === "email"
@@ -76,15 +77,16 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
                           input.type === "email"
                             ? "Felaktigt e-postformat."
                             : input.type === "number"
-                            ? "Endast nummer tillåtna."
+                            ? "Endast siffror tillåtna."
                             : "Felaktigt format. Endast bokstäver tillåtna.", // default error message for text input type
                       },
                       minLength: {
-                        value: input.type === "number" ? 8 : 3, // default pattern for text input type
+                       //if input type is number, minLength is 8, if input type is text, minLength is 2 if email, minLength is not required
+                        value: input.type === "number" ? 8 : input.type === "text" ? 2 : 0,
                         message:
                           input.type === "number"
-                            ? "Minst en 8 siffror krävs."
-                            : "Minst 3 tecken.", // default error message for text input type
+                            ? "Minst 8 siffror."
+                            : "Minst 2 tecken.",
                       },
                     })}
                   />
