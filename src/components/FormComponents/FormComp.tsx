@@ -14,7 +14,7 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
     handleSubmit,
     reset,
     formState,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm();
 
   useEffect(() => {
@@ -82,11 +82,8 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
                       },
                       minLength: {
                        //if input type is number, minLength is 8, if input type is text, minLength is 2 if email, minLength is not required
-                        value: input.type === "number" ? 8 : input.type === "text" ? 2 : 0,
-                        message:
-                          input.type === "number"
-                            ? "Minst 8 siffror."
-                            : "Minst 2 tecken.",
+                        value: 2,
+                        message: "Minst 2 tecken.",
                       },
                     })}
                   />
@@ -98,103 +95,103 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
                 </div>
               );
             }
-            // if (input?.__typename === "FormsTextarea") {
-            //   return (
-            //     <div key={input.textareaname} className="form-child">
-            //       <label htmlFor={input.textareaname}>
-            //         {input.label}
-            //         {input.required && <span className="required">*</span>}
-            //       </label>
-            //       <textarea
-            //         {...register(input.textareaname, {
-            //           required: {
-            //             value: input.required,
-            //             message: "Detta fält är obligatoriskt.",
-            //           },
-            //           pattern: {
-            //             value:
-            //               /^[A-Za-zåäöÅÄÖ0-9\s.,!?;()[\]{}"\-_+=*&%#@€£$\n\r]+$/,
-            //             message:
-            //               "Felaktigt format. Endast bokstäver och skiljetecken tillåtna.",
-            //           },
-            //         })}
-            //         id={input.textareaname}
-            //         aria-label={input.label}
-            //         rows={5}
-            //         cols={33}
-            //       />
-            //       {errors[input.textareaname] && (
-            //         <p className="error">
-            //           {(errors[input.textareaname] as any).message}
-            //         </p>
-            //       )}
-            //     </div>
-            //   );
-            // }
-            // if (input?.__typename === "FormsSelect") {
-            //   return (
-            //     <div key={input.selectname} className="form-child select">
-            //       <label htmlFor={input.selectname}>
-            //         {input.label}
-            //         {input.required && <span className="required">*</span>}
-            //       </label>
-            //       <select
-            //         {...register(input.selectname, {
-            //           required: {
-            //             value: input.required,
-            //             message: "Detta fält är obligatoriskt.",
-            //           },
-            //         })}
-            //         id={input.selectname}
-            //         aria-label={input.label}
-            //         defaultValue={""}
-            //       >
-            //         <option value="" disabled>
-            //           {" "}
-            //           -- Välj --{" "}
-            //         </option>
-            //         {input.options?.map((choice) => {
-            //           return (
-            //             <option key={choice.value} value={choice.value}>
-            //               {choice.option}
-            //             </option>
-            //           );
-            //         })}
-            //       </select>
-            //       {errors[input.selectname] && (
-            //         <p className="error">
-            //           {(errors[input.selectname] as any).message}
-            //         </p>
-            //       )}
-            //     </div>
-            //   );
-            // }
-            // if (input?.__typename === "FormsCheckbox") {
-            //   return (
-            //     <div key={input.checkboxname} className="form-child checkbox">
-            //       <input
-            //         type="checkbox"
-            //         {...register(input.checkboxname, {
-            //           required: {
-            //             value: input.required,
-            //             message: "Detta fält är obligatoriskt.",
-            //           },
-            //         })}
-            //         id={"form-" + input.checkboxname}
-            //         aria-label={input.label}
-            //       />
-            //       <label htmlFor={input.checkboxname}>
-            //         {input.label}
-            //         {input.required && <span className="required">*</span>}
-            //       </label>
-            //       {errors[input.checkboxname] && (
-            //         <p className="error">
-            //           {(errors[input.checkboxname] as any).message}
-            //         </p>
-            //       )}
-            //     </div>
-            //   );
-            // }
+            if (input?.__typename === "FormsTextarea") {
+              return (
+                <div key={input.textareaname} className="form-child">
+                  <label htmlFor={input.textareaname}>
+                    {input.label}
+                    {input.required && <span className="required">*</span>}
+                  </label>
+                  <textarea
+                    {...register(input.textareaname, {
+                      required: {
+                        value: input.required,
+                        message: "Detta fält är obligatoriskt.",
+                      },
+                      pattern: {
+                        value:
+                          /^[A-Za-zåäöÅÄÖ0-9\s.,!?;()[\]{}"\-_+=*&%#@€£$\n\r]+$/,
+                        message:
+                          "Felaktigt format. Endast bokstäver och skiljetecken tillåtna.",
+                      },
+                    })}
+                    id={input.textareaname}
+                    aria-label={input.label}
+                    rows={5}
+                    cols={33}
+                  />
+                  {errors[input.textareaname] && (
+                    <p className="error">
+                      {(errors[input.textareaname] as any).message}
+                    </p>
+                  )}
+                </div>
+              );
+            }
+            if (input?.__typename === "FormsSelect") {
+              return (
+                <div key={input.selectname} className="form-child select">
+                  <label htmlFor={input.selectname}>
+                    {input.label}
+                    {input.required && <span className="required">*</span>}
+                  </label>
+                  <select
+                    {...register(input.selectname, {
+                      required: {
+                        value: input.required,
+                        message: "Detta fält är obligatoriskt.",
+                      },
+                    })}
+                    id={input.selectname}
+                    aria-label={input.label}
+                    defaultValue={""}
+                  >
+                    <option value="" disabled>
+                      {" "}
+                      -- Välj --{" "}
+                    </option>
+                    {input.options?.map((choice) => {
+                      return (
+                        <option key={choice.value} value={choice.value}>
+                          {choice.option}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  {errors[input.selectname] && (
+                    <p className="error">
+                      {(errors[input.selectname] as any).message}
+                    </p>
+                  )}
+                </div>
+              );
+            }
+            if (input?.__typename === "FormsCheckbox") {
+              return (
+                <div key={input.checkboxname} className="form-child checkbox">
+                  <input
+                    type="checkbox"
+                    {...register(input.checkboxname, {
+                      required: {
+                        value: input.required,
+                        message: "Detta fält är obligatoriskt.",
+                      },
+                    })}
+                    id={"form-" + input.checkboxname}
+                    aria-label={input.label}
+                  />
+                  <label htmlFor={input.checkboxname}>
+                    {input.label}
+                    {input.required && <span className="required">*</span>}
+                  </label>
+                  {errors[input.checkboxname] && (
+                    <p className="error">
+                      {(errors[input.checkboxname] as any).message}
+                    </p>
+                  )}
+                </div>
+              );
+            }
             return null;
           })}
 
