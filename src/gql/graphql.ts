@@ -4663,6 +4663,7 @@ export type FormAnswer = Node & {
   documentInStages: Array<FormAnswer>;
   eventPage?: Maybe<EventPage>;
   formData?: Maybe<Scalars['Json']>;
+  formPage?: Maybe<FormPage>;
   /** List of FormAnswer versions */
   history: Array<Version>;
   /** The unique identifier */
@@ -4695,6 +4696,12 @@ export type FormAnswerDocumentInStagesArgs = {
 
 
 export type FormAnswerEventPageArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type FormAnswerFormPageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
 };
@@ -4751,6 +4758,7 @@ export type FormAnswerCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   eventPage?: InputMaybe<EventPageCreateOneInlineInput>;
   formData?: InputMaybe<Scalars['Json']>;
+  formPage?: InputMaybe<FormPageCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -4816,6 +4824,7 @@ export type FormAnswerManyWhereInput = {
    * Note: This filter fails if you try to look for a non scalar JSON value!
    */
   formData_value_recursive?: InputMaybe<Scalars['Json']>;
+  formPage?: InputMaybe<FormPageWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -4886,6 +4895,7 @@ export enum FormAnswerOrderByInput {
 export type FormAnswerUpdateInput = {
   eventPage?: InputMaybe<EventPageUpdateOneInlineInput>;
   formData?: InputMaybe<Scalars['Json']>;
+  formPage?: InputMaybe<FormPageUpdateOneInlineInput>;
 };
 
 export type FormAnswerUpdateManyInlineInput = {
@@ -4997,6 +5007,7 @@ export type FormAnswerWhereInput = {
    * Note: This filter fails if you try to look for a non scalar JSON value!
    */
   formData_value_recursive?: InputMaybe<Scalars['Json']>;
+  formPage?: InputMaybe<FormPageWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -5090,6 +5101,7 @@ export type FormPage = Node & {
   documentInStages: Array<FormPage>;
   /** Vilket event hör till formuläret */
   eventPage?: Maybe<EventPage>;
+  formAnswers: Array<FormAnswer>;
   /** Information om formuläret och dess syfte osv */
   formInfo: RichText;
   /** skapa ett formulär med hjälp av olika input fält, de visas i den ordning som de placeras här  */
@@ -5137,6 +5149,20 @@ export type FormPageDocumentInStagesArgs = {
 export type FormPageEventPageArgs = {
   forceParentLocale?: InputMaybe<Scalars['Boolean']>;
   locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** Sida med formulär för feedback på specifika event */
+export type FormPageFormAnswersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<FormAnswerOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<FormAnswerWhereInput>;
 };
 
 
@@ -5213,6 +5239,7 @@ export type FormPageConnection = {
 export type FormPageCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   eventPage?: InputMaybe<EventPageCreateOneInlineInput>;
+  formAnswers?: InputMaybe<FormAnswerCreateManyInlineInput>;
   formInfo: Scalars['RichTextAST'];
   formInputs?: InputMaybe<FormPageformInputsUnionCreateManyInlineInput>;
   hero: HeroCreateOneInlineInput;
@@ -5274,6 +5301,9 @@ export type FormPageManyWhereInput = {
   documentInStages_none?: InputMaybe<FormPageWhereStageInput>;
   documentInStages_some?: InputMaybe<FormPageWhereStageInput>;
   eventPage?: InputMaybe<EventPageWhereInput>;
+  formAnswers_every?: InputMaybe<FormAnswerWhereInput>;
+  formAnswers_none?: InputMaybe<FormAnswerWhereInput>;
+  formAnswers_some?: InputMaybe<FormAnswerWhereInput>;
   /** All values in which the union is empty. */
   formInputs_empty?: InputMaybe<Scalars['Boolean']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
@@ -5390,6 +5420,7 @@ export enum FormPageOrderByInput {
 
 export type FormPageUpdateInput = {
   eventPage?: InputMaybe<EventPageUpdateOneInlineInput>;
+  formAnswers?: InputMaybe<FormAnswerUpdateManyInlineInput>;
   formInfo?: InputMaybe<Scalars['RichTextAST']>;
   formInputs?: InputMaybe<FormPageformInputsUnionUpdateManyInlineInput>;
   hero?: InputMaybe<HeroUpdateOneInlineInput>;
@@ -5498,6 +5529,9 @@ export type FormPageWhereInput = {
   documentInStages_none?: InputMaybe<FormPageWhereStageInput>;
   documentInStages_some?: InputMaybe<FormPageWhereStageInput>;
   eventPage?: InputMaybe<EventPageWhereInput>;
+  formAnswers_every?: InputMaybe<FormAnswerWhereInput>;
+  formAnswers_none?: InputMaybe<FormAnswerWhereInput>;
+  formAnswers_some?: InputMaybe<FormAnswerWhereInput>;
   /** All values in which the union is empty. */
   formInputs_empty?: InputMaybe<Scalars['Boolean']>;
   /** Matches if the modular component contains at least one connection to the item provided to the filter */
@@ -15580,7 +15614,7 @@ export type CreateFormAnswerMutationVariables = Exact<{
 }>;
 
 
-export type CreateFormAnswerMutation = { __typename?: 'Mutation', createFormAnswer?: { __typename?: 'FormAnswer', formData?: any | null, eventPage?: { __typename?: 'EventPage', slug: string } | null } | null };
+export type CreateFormAnswerMutation = { __typename?: 'Mutation', createFormAnswer?: { __typename?: 'FormAnswer', formData?: any | null, formPage?: { __typename?: 'FormPage', slug: string } | null, eventPage?: { __typename?: 'EventPage', slug: string } | null } | null };
 
 export type CreateNewsletterSignupMutationVariables = Exact<{
   data: NewsletterSignupCreateInput;
@@ -15698,7 +15732,7 @@ export const EventContentFragmentFragmentDoc = {"kind":"Document","definitions":
 export const PastEventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeedbackHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"feedback"}}]}}]}}]}}]} as unknown as DocumentNode<PastEventContentFragmentFragment, unknown>;
 export const StartpageContentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartpageContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<StartpageContentFragment, unknown>;
 export const CreateEventSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createEventSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEventSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photoConsent"}},{"kind":"Field","name":{"kind":"Name","value":"occupation"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"eventPageSlug"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"allergies"}}]}}]}}]} as unknown as DocumentNode<CreateEventSignupMutation, CreateEventSignupMutationVariables>;
-export const CreateFormAnswerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createFormAnswer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"FormAnswerCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createFormAnswer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formData"}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<CreateFormAnswerMutation, CreateFormAnswerMutationVariables>;
+export const CreateFormAnswerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createFormAnswer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"FormAnswerCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createFormAnswer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formData"}},{"kind":"Field","name":{"kind":"Name","value":"formPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<CreateFormAnswerMutation, CreateFormAnswerMutationVariables>;
 export const CreateNewsletterSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createNewsletterSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NewsletterSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createNewsletterSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<CreateNewsletterSignupMutation, CreateNewsletterSignupMutationVariables>;
 export const Get_Past_Events_ListDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTS_LIST"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"publishedAt_ASC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"ingress"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_Events_ListQuery, Get_Past_Events_ListQueryVariables>;
 export const Get_Past_EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_PAST_EVENTS"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pastEvents"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"2"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"hero"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"altText"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Past_EventsQuery, Get_Past_EventsQueryVariables>;

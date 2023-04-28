@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n mutation createEventSignup($data: EventSignupCreateInput!) {\n  createEventSignup(data: $data) {\n    photoConsent\n    occupation\n    lastName\n    firstName\n    eventPageSlug {\n      slug\n    }\n    email\n    allergies\n  }\n}\n    ": types.CreateEventSignupDocument,
-    "\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    eventPage {\n      slug\n    }\n  }\n  }\n    ": types.CreateFormAnswerDocument,
+    "\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    formPage{\n      slug\n    }\n    eventPage {\n      slug\n    }\n  }\n  }\n    ": types.CreateFormAnswerDocument,
     "\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    ": types.CreateNewsletterSignupDocument,
     "\n    query GET_PAST_EVENTS_LIST {\n      pastEvents(orderBy: publishedAt_ASC) {\n        title\n        slug\n        ingress\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Past_Events_ListDocument,
     "\n    query GET_PAST_EVENTS {\n      pastEvents(first: 2) {\n        title\n        slug\n        hero {\n          image {\n            url\n          }\n          altText\n        }\n      }\n    }\n  ": types.Get_Past_EventsDocument,
@@ -58,7 +58,7 @@ export function graphql(source: "\n mutation createEventSignup($data: EventSignu
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    eventPage {\n      slug\n    }\n  }\n  }\n    "): (typeof documents)["\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    eventPage {\n      slug\n    }\n  }\n  }\n    "];
+export function graphql(source: "\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    formPage{\n      slug\n    }\n    eventPage {\n      slug\n    }\n  }\n  }\n    "): (typeof documents)["\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    formPage{\n      slug\n    }\n    eventPage {\n      slug\n    }\n  }\n  }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

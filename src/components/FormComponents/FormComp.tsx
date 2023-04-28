@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import { gql, useMutation } from "@apollo/client";
 type Props = {
   inputs: FormInputsFragmentFragment["formInputs"] | undefined;
-  slug: string | undefined;
+  eventslug: string | undefined;
+  formslug: string | undefined;
 };
 
-const FormComp: React.FC<Props> = ({ inputs, slug }) => {
+const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
   const [success, setSuccess] = useState("");
   const {
     register,
@@ -29,6 +30,9 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
   mutation   createFormAnswer($data: FormAnswerCreateInput!) {
     createFormAnswer(data: $data) {
     formData
+    formPage{
+      slug
+    }
     eventPage {
       slug
     }
@@ -40,9 +44,11 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
   const onSubmit = (data: any) => {
     data = {
       formData: data,
-      eventPage: { connect: { slug: slug } },
+      eventPage: { connect: { slug: eventslug } },
+      formPage: { connect: { slug: formslug} },
     };
     createFormAnswer({ variables: { data } });
+   
   };
 
   return (

@@ -84,7 +84,6 @@ const Formpage = () => {
 
   let formInputs = useFragment(FormInputsFragment, formPage);
 
-
   return (
     <main>
       <HeroComp
@@ -93,9 +92,14 @@ const Formpage = () => {
         title={formPage?.title || ""}
       />
       <article className="main-content">
-        
-       {formPage && <RichText content={formPage?.formInfo?.raw || ""} />}
-        {formInputs && <FormComp inputs={formInputs.formInputs} slug={formPage?.eventPage?.slug} />}
+        {formPage && <RichText content={formPage?.formInfo?.raw || ""} />}
+        {formInputs && (
+          <FormComp
+            inputs={formInputs.formInputs}
+            eventslug={formPage?.eventPage?.slug}
+            formslug={formPage?.slug}
+          />
+        )}
       </article>
     </main>
   );
