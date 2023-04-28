@@ -43,20 +43,19 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
       formData: data,
       eventPage: { connect: { slug: slug } },
     };
-    console.log(data);
     createFormAnswer({ variables: { data } });
   };
 
   return (
     <section className="feedback-form-container">
       <div className="form-container">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} data-netlify="true">
           {inputs?.map((input) => {
             if (input?.__typename === "FormsInput") {
               return (
                 <div key={input.inputname} className="form-child">
                   <label htmlFor={input.inputname}>
-                    {input.label}{" "}
+                    {input.label}
                     {input.required && <span className="required">*</span>}{" "}
                   </label>
                   <input
@@ -136,7 +135,7 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
               return (
                 <div key={input.selectname} className="form-child select">
                   <label htmlFor={input.selectname}>
-                    {input.label}{" "}
+                    {input.label}
                     {input.required && <span className="required">*</span>}
                   </label>
                   <select
@@ -185,7 +184,7 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
                     aria-label={input.label}
                   />
                   <label htmlFor={input.checkboxname}>
-                    {input.label}{" "}
+                    {input.label}
                     {input.required && <span className="required">*</span>}
                   </label>
                   {errors[input.checkboxname] && (
