@@ -63,10 +63,9 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
                     id={input.inputname}
                     aria-label={input.label}
                     {...register(input.inputname, {
-                      required: {
-                        value: input.required,
-                        message: "Detta fält är obligatoriskt.",
-                      },
+                      
+                      required: "Detta fält är obligatoriskt.",
+                 
                       pattern: {
                         value:
                           input.type === "email"
@@ -82,10 +81,10 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
                             : "Felaktigt format. Endast bokstäver tillåtna.", // default error message for text input type
                       },
                       minLength: {
-                        value: input.type === "number" ? 1 : 3, // default pattern for text input type
+                        value: input.type === "number" ? 8 : 3, // default pattern for text input type
                         message:
                           input.type === "number"
-                            ? "Minst en siffra krävs."
+                            ? "Minst en 8 siffror krävs."
                             : "Minst 3 tecken.", // default error message for text input type
                       },
                     })}
