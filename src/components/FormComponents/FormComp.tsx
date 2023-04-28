@@ -90,9 +90,9 @@ const FormComp: React.FC<Props> = ({ inputs, slug }) => {
                       },
                     })}
                   />
-                  {errors[input.inputname] && (
+                  {formState.errors[input.inputname] && (
                     <p className="error">
-                      {(errors[input.inputname] as any).message}
+                      {(formState.errors[input.inputname] as any).message}
                     </p>
                   )}
                 </div>
