@@ -9,7 +9,8 @@ type Props = {
 };
 
 const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
-  const [success, setSuccess] = useState("");
+  const [message, setMessage] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -21,7 +22,6 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
-      setSuccess("Tack för ditt svar!");
     }
   }, [formState, reset]);
 
@@ -42,12 +42,20 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
 
   const [createFormAnswer] = useMutation(CREATE_FORM_ANSWER);
   const onSubmit = (data: any) => {
-    data = {
-      formData: data,
-      eventPage: { connect: { slug: eventslug } },
-      formPage: { connect: { slug: formslug} },
-    };
-    createFormAnswer({ variables: { data } });
+
+    try{
+      data = {
+        formData: data,
+        eventPage: { connect: { slug: eventslug } },
+        formPage: { connect: { slug: formslug} },
+      };
+      createFormAnswer({ variables: { data } });
+      setMessage("Tack för ditt svar!");
+    } catch (err) {
+      setMessage("Något gick fel, vänligen försök igen.");
+      console.log(err);
+    }
+   
    
   };
 
@@ -203,7 +211,7 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
 
           <button type="submit">Skicka</button>
         </form>
-        {success && <p className="success">{success}</p>}
+        {message && <p className="success">{message}</p>}
       </div>
     </section>
   );
