@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useNavigate, useParams } from "react-router-dom";
-import EventSignupComp from "../components/EventSignup/EventSignupComp";
 import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
@@ -12,9 +11,9 @@ const SinglePastEventPage = () => {
   // get slug from params
   const params = useParams();
   let slug = params.slug;
-  
+
   let navigate = useNavigate();
-  
+
   //create fragment of query
   const PastEventContentFragment = graphql(`
     fragment PastEventContentFragment on PastEvent {
@@ -38,10 +37,10 @@ const SinglePastEventPage = () => {
           }
         }
         ... on FeedbackHighlight {
-        id
-        author
-        feedback
-      }
+          id
+          author
+          feedback
+        }
       }
     }
   `);
@@ -63,11 +62,14 @@ const SinglePastEventPage = () => {
     }
   `);
 
-  const { data, error, loading } = useQuery<Get_Past_EventpageQuery>(GET_PAST_EVENTPAGE, {
-    variables: { slug },
-  });
+  const { data, error, loading } = useQuery<Get_Past_EventpageQuery>(
+    GET_PAST_EVENTPAGE,
+    {
+      variables: { slug },
+    }
+  );
   const { pastEvent } = data || {};
-  
+
   //redirect to 404 if no data
   useEffect(() => {
     if (!loading && (!pastEvent || error)) {
@@ -84,13 +86,12 @@ const SinglePastEventPage = () => {
         altText={pastEvent?.hero?.altText || ""}
         title={pastEvent?.title || ""}
       />
-        {mainContent && <MainContent content={mainContent.content} />}
-      <EventSignupComp slug={slug} />
+      {mainContent && <MainContent content={mainContent.content} />}
       <div className="events-spotlight-container">
         <UpcomingEventSpotlightComp />
       </div>
     </main>
   );
-}
+};
 
-export default SinglePastEventPage
+export default SinglePastEventPage;
