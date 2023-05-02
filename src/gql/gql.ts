@@ -13,6 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  mutation createEventComment($data: EventCommentCreateInput!) {\n    createEventComment(data: $data) {\n        comment\n    commentPolicy\n    email\n    firstname\n    lastname\n    pastEvent {\n      slug\n    }\n  }\n  }\n    ": types.CreateEventCommentDocument,
+    "\n        query GET_COMMENTS($slug: String!) {\n      eventComments(\n        where: {\n          documentInStages_some: { stage: PUBLISHED }\n          pastEvent: { slug: $slug }\n        }\n      ) {\n        id\n        comment\n        commentPolicy\n        createdAt\n        lastname\n        firstname\n      }\n    }\n    ": types.Get_CommentsDocument,
     "\n mutation createEventSignup($data: EventSignupCreateInput!) {\n  createEventSignup(data: $data) {\n    photoConsent\n    occupation\n    lastName\n    firstName\n    eventPageSlug {\n      slug\n    }\n    email\n    allergies\n  }\n}\n    ": types.CreateEventSignupDocument,
     "\n  mutation   createFormAnswer($data: FormAnswerCreateInput!) {\n    createFormAnswer(data: $data) {\n    formData\n    formPage{\n      slug\n    }\n    eventPage {\n      slug\n    }\n  }\n  }\n    ": types.CreateFormAnswerDocument,
     "\n  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {\n    createNewsletterSignup(data: $data) {\n      email\n      lastName\n      firstName\n    }\n  }\n    ": types.CreateNewsletterSignupDocument,
@@ -51,6 +53,14 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation createEventComment($data: EventCommentCreateInput!) {\n    createEventComment(data: $data) {\n        comment\n    commentPolicy\n    email\n    firstname\n    lastname\n    pastEvent {\n      slug\n    }\n  }\n  }\n    "): (typeof documents)["\n  mutation createEventComment($data: EventCommentCreateInput!) {\n    createEventComment(data: $data) {\n        comment\n    commentPolicy\n    email\n    firstname\n    lastname\n    pastEvent {\n      slug\n    }\n  }\n  }\n    "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n        query GET_COMMENTS($slug: String!) {\n      eventComments(\n        where: {\n          documentInStages_some: { stage: PUBLISHED }\n          pastEvent: { slug: $slug }\n        }\n      ) {\n        id\n        comment\n        commentPolicy\n        createdAt\n        lastname\n        firstname\n      }\n    }\n    "): (typeof documents)["\n        query GET_COMMENTS($slug: String!) {\n      eventComments(\n        where: {\n          documentInStages_some: { stage: PUBLISHED }\n          pastEvent: { slug: $slug }\n        }\n      ) {\n        id\n        comment\n        commentPolicy\n        createdAt\n        lastname\n        firstname\n      }\n    }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

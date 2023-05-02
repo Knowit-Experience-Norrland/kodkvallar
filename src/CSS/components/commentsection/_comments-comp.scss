@@ -1,0 +1,28 @@
+.comments {
+    max-width: 750px;
+    width: 100%;
+ 
+    h2{
+        text-align: center;
+        padding: 1em 0 2em 0;
+    }
+
+    .divider {
+      background-color: $primary-clay;
+      width: 100%;
+      height: 0.15em;
+      border: none;
+      margin-top: 2em;
+    }
+  .comment {
+    text-align: left;
+    padding: 1em 0;
+  }
+
+  .comment-content{
+    padding: 2em 0;
+    max-width: 650px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}

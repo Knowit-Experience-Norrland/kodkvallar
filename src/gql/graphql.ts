@@ -1964,6 +1964,591 @@ export type DocumentVersion = {
   stage: Stage;
 };
 
+export type EventComment = Node & {
+  __typename?: 'EventComment';
+  comment: Scalars['String'];
+  commentPolicy: Scalars['Boolean'];
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<EventComment>;
+  email: Scalars['String'];
+  firstname: Scalars['String'];
+  /** List of EventComment versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  lastname: Scalars['String'];
+  pastEvent?: Maybe<PastEvent>;
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type EventCommentCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type EventCommentDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type EventCommentHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type EventCommentPastEventArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type EventCommentPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type EventCommentScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type EventCommentUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type EventCommentConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: EventCommentWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type EventCommentConnection = {
+  __typename?: 'EventCommentConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<EventCommentEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type EventCommentCreateInput = {
+  comment: Scalars['String'];
+  commentPolicy: Scalars['Boolean'];
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  pastEvent?: InputMaybe<PastEventCreateOneInlineInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type EventCommentCreateManyInlineInput = {
+  /** Connect multiple existing EventComment documents */
+  connect?: InputMaybe<Array<EventCommentWhereUniqueInput>>;
+  /** Create and connect multiple existing EventComment documents */
+  create?: InputMaybe<Array<EventCommentCreateInput>>;
+};
+
+export type EventCommentCreateOneInlineInput = {
+  /** Connect one existing EventComment document */
+  connect?: InputMaybe<EventCommentWhereUniqueInput>;
+  /** Create and connect one EventComment document */
+  create?: InputMaybe<EventCommentCreateInput>;
+};
+
+/** An edge in a connection. */
+export type EventCommentEdge = {
+  __typename?: 'EventCommentEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: EventComment;
+};
+
+/** Identifies documents */
+export type EventCommentManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<EventCommentWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<EventCommentWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<EventCommentWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  comment?: InputMaybe<Scalars['String']>;
+  commentPolicy?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  commentPolicy_not?: InputMaybe<Scalars['Boolean']>;
+  /** All values containing the given string. */
+  comment_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  comment_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  comment_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  comment_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  comment_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  comment_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  comment_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  comment_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  comment_starts_with?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<EventCommentWhereStageInput>;
+  documentInStages_none?: InputMaybe<EventCommentWhereStageInput>;
+  documentInStages_some?: InputMaybe<EventCommentWhereStageInput>;
+  email?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  email_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  email_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  email_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  email_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  email_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  email_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  email_starts_with?: InputMaybe<Scalars['String']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  firstname_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  firstname_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  firstname_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  firstname_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  firstname_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  firstname_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  firstname_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  firstname_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  firstname_starts_with?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  lastname?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  lastname_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  lastname_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  lastname_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  lastname_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  lastname_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  lastname_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  lastname_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  lastname_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  lastname_starts_with?: InputMaybe<Scalars['String']>;
+  pastEvent?: InputMaybe<PastEventWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum EventCommentOrderByInput {
+  CommentPolicyAsc = 'commentPolicy_ASC',
+  CommentPolicyDesc = 'commentPolicy_DESC',
+  CommentAsc = 'comment_ASC',
+  CommentDesc = 'comment_DESC',
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  EmailAsc = 'email_ASC',
+  EmailDesc = 'email_DESC',
+  FirstnameAsc = 'firstname_ASC',
+  FirstnameDesc = 'firstname_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  LastnameAsc = 'lastname_ASC',
+  LastnameDesc = 'lastname_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type EventCommentUpdateInput = {
+  comment?: InputMaybe<Scalars['String']>;
+  commentPolicy?: InputMaybe<Scalars['Boolean']>;
+  email?: InputMaybe<Scalars['String']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  lastname?: InputMaybe<Scalars['String']>;
+  pastEvent?: InputMaybe<PastEventUpdateOneInlineInput>;
+};
+
+export type EventCommentUpdateManyInlineInput = {
+  /** Connect multiple existing EventComment documents */
+  connect?: InputMaybe<Array<EventCommentConnectInput>>;
+  /** Create and connect multiple EventComment documents */
+  create?: InputMaybe<Array<EventCommentCreateInput>>;
+  /** Delete multiple EventComment documents */
+  delete?: InputMaybe<Array<EventCommentWhereUniqueInput>>;
+  /** Disconnect multiple EventComment documents */
+  disconnect?: InputMaybe<Array<EventCommentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing EventComment documents */
+  set?: InputMaybe<Array<EventCommentWhereUniqueInput>>;
+  /** Update multiple EventComment documents */
+  update?: InputMaybe<Array<EventCommentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple EventComment documents */
+  upsert?: InputMaybe<Array<EventCommentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type EventCommentUpdateManyInput = {
+  comment?: InputMaybe<Scalars['String']>;
+  commentPolicy?: InputMaybe<Scalars['Boolean']>;
+  email?: InputMaybe<Scalars['String']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  lastname?: InputMaybe<Scalars['String']>;
+};
+
+export type EventCommentUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: EventCommentUpdateManyInput;
+  /** Document search */
+  where: EventCommentWhereInput;
+};
+
+export type EventCommentUpdateOneInlineInput = {
+  /** Connect existing EventComment document */
+  connect?: InputMaybe<EventCommentWhereUniqueInput>;
+  /** Create and connect one EventComment document */
+  create?: InputMaybe<EventCommentCreateInput>;
+  /** Delete currently connected EventComment document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected EventComment document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single EventComment document */
+  update?: InputMaybe<EventCommentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single EventComment document */
+  upsert?: InputMaybe<EventCommentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type EventCommentUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: EventCommentUpdateInput;
+  /** Unique document search */
+  where: EventCommentWhereUniqueInput;
+};
+
+export type EventCommentUpsertInput = {
+  /** Create document if it didn't exist */
+  create: EventCommentCreateInput;
+  /** Update document if it exists */
+  update: EventCommentUpdateInput;
+};
+
+export type EventCommentUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: EventCommentUpsertInput;
+  /** Unique document search */
+  where: EventCommentWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type EventCommentWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type EventCommentWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<EventCommentWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<EventCommentWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<EventCommentWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  comment?: InputMaybe<Scalars['String']>;
+  commentPolicy?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  commentPolicy_not?: InputMaybe<Scalars['Boolean']>;
+  /** All values containing the given string. */
+  comment_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  comment_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  comment_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  comment_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  comment_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  comment_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  comment_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  comment_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  comment_starts_with?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<EventCommentWhereStageInput>;
+  documentInStages_none?: InputMaybe<EventCommentWhereStageInput>;
+  documentInStages_some?: InputMaybe<EventCommentWhereStageInput>;
+  email?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  email_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  email_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  email_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  email_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  email_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  email_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  email_starts_with?: InputMaybe<Scalars['String']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  firstname_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  firstname_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  firstname_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  firstname_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  firstname_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  firstname_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  firstname_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  firstname_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  firstname_starts_with?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  lastname?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  lastname_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  lastname_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  lastname_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  lastname_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  lastname_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  lastname_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  lastname_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  lastname_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  lastname_starts_with?: InputMaybe<Scalars['String']>;
+  pastEvent?: InputMaybe<PastEventWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type EventCommentWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<EventCommentWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<EventCommentWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<EventCommentWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<EventCommentWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References EventComment record uniquely */
+export type EventCommentWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type EventLandingpage = Node & {
   __typename?: 'EventLandingpage';
   /** The time the document was created */
@@ -8905,6 +9490,8 @@ export type Mutation = {
    * @deprecated Asset mutations will be overhauled soon
    */
   createAsset?: Maybe<Asset>;
+  /** Create one eventComment */
+  createEventComment?: Maybe<EventComment>;
   /** Create one eventLandingpage */
   createEventLandingpage?: Maybe<EventLandingpage>;
   /** Create one eventPage */
@@ -8929,6 +9516,8 @@ export type Mutation = {
   deleteAboutPage?: Maybe<AboutPage>;
   /** Delete one asset from _all_ existing stages. Returns deleted document. */
   deleteAsset?: Maybe<Asset>;
+  /** Delete one eventComment from _all_ existing stages. Returns deleted document. */
+  deleteEventComment?: Maybe<EventComment>;
   /** Delete one eventLandingpage from _all_ existing stages. Returns deleted document. */
   deleteEventLandingpage?: Maybe<EventLandingpage>;
   /** Delete one eventPage from _all_ existing stages. Returns deleted document. */
@@ -8953,6 +9542,13 @@ export type Mutation = {
   deleteManyAssets: BatchPayload;
   /** Delete many Asset documents, return deleted documents */
   deleteManyAssetsConnection: AssetConnection;
+  /**
+   * Delete many EventComment documents
+   * @deprecated Please use the new paginated many mutation (deleteManyEventCommentsConnection)
+   */
+  deleteManyEventComments: BatchPayload;
+  /** Delete many EventComment documents, return deleted documents */
+  deleteManyEventCommentsConnection: EventCommentConnection;
   /**
    * Delete many EventLandingpage documents
    * @deprecated Please use the new paginated many mutation (deleteManyEventLandingpagesConnection)
@@ -9032,6 +9628,8 @@ export type Mutation = {
   publishAboutPage?: Maybe<AboutPage>;
   /** Publish one asset */
   publishAsset?: Maybe<Asset>;
+  /** Publish one eventComment */
+  publishEventComment?: Maybe<EventComment>;
   /** Publish one eventLandingpage */
   publishEventLandingpage?: Maybe<EventLandingpage>;
   /** Publish one eventPage */
@@ -9056,6 +9654,13 @@ export type Mutation = {
   publishManyAssets: BatchPayload;
   /** Publish many Asset documents */
   publishManyAssetsConnection: AssetConnection;
+  /**
+   * Publish many EventComment documents
+   * @deprecated Please use the new paginated many mutation (publishManyEventCommentsConnection)
+   */
+  publishManyEventComments: BatchPayload;
+  /** Publish many EventComment documents */
+  publishManyEventCommentsConnection: EventCommentConnection;
   /**
    * Publish many EventLandingpage documents
    * @deprecated Please use the new paginated many mutation (publishManyEventLandingpagesConnection)
@@ -9131,6 +9736,8 @@ export type Mutation = {
   schedulePublishAboutPage?: Maybe<AboutPage>;
   /** Schedule to publish one asset */
   schedulePublishAsset?: Maybe<Asset>;
+  /** Schedule to publish one eventComment */
+  schedulePublishEventComment?: Maybe<EventComment>;
   /** Schedule to publish one eventLandingpage */
   schedulePublishEventLandingpage?: Maybe<EventLandingpage>;
   /** Schedule to publish one eventPage */
@@ -9153,6 +9760,8 @@ export type Mutation = {
   scheduleUnpublishAboutPage?: Maybe<AboutPage>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAsset?: Maybe<Asset>;
+  /** Unpublish one eventComment from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishEventComment?: Maybe<EventComment>;
   /** Unpublish one eventLandingpage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishEventLandingpage?: Maybe<EventLandingpage>;
   /** Unpublish one eventPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -9175,6 +9784,8 @@ export type Mutation = {
   unpublishAboutPage?: Maybe<AboutPage>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAsset?: Maybe<Asset>;
+  /** Unpublish one eventComment from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishEventComment?: Maybe<EventComment>;
   /** Unpublish one eventLandingpage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishEventLandingpage?: Maybe<EventLandingpage>;
   /** Unpublish one eventPage from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -9199,6 +9810,13 @@ export type Mutation = {
   unpublishManyAssets: BatchPayload;
   /** Find many Asset documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyAssetsConnection: AssetConnection;
+  /**
+   * Unpublish many EventComment documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyEventCommentsConnection)
+   */
+  unpublishManyEventComments: BatchPayload;
+  /** Find many EventComment documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyEventCommentsConnection: EventCommentConnection;
   /**
    * Unpublish many EventLandingpage documents
    * @deprecated Please use the new paginated many mutation (unpublishManyEventLandingpagesConnection)
@@ -9274,6 +9892,8 @@ export type Mutation = {
   updateAboutPage?: Maybe<AboutPage>;
   /** Update one asset */
   updateAsset?: Maybe<Asset>;
+  /** Update one eventComment */
+  updateEventComment?: Maybe<EventComment>;
   /** Update one eventLandingpage */
   updateEventLandingpage?: Maybe<EventLandingpage>;
   /** Update one eventPage */
@@ -9298,6 +9918,13 @@ export type Mutation = {
   updateManyAssets: BatchPayload;
   /** Update many Asset documents */
   updateManyAssetsConnection: AssetConnection;
+  /**
+   * Update many eventComments
+   * @deprecated Please use the new paginated many mutation (updateManyEventCommentsConnection)
+   */
+  updateManyEventComments: BatchPayload;
+  /** Update many EventComment documents */
+  updateManyEventCommentsConnection: EventCommentConnection;
   /**
    * Update many eventLandingpages
    * @deprecated Please use the new paginated many mutation (updateManyEventLandingpagesConnection)
@@ -9375,6 +10002,8 @@ export type Mutation = {
   upsertAboutPage?: Maybe<AboutPage>;
   /** Upsert one asset */
   upsertAsset?: Maybe<Asset>;
+  /** Upsert one eventComment */
+  upsertEventComment?: Maybe<EventComment>;
   /** Upsert one eventLandingpage */
   upsertEventLandingpage?: Maybe<EventLandingpage>;
   /** Upsert one eventPage */
@@ -9403,6 +10032,11 @@ export type MutationCreateAboutPageArgs = {
 
 export type MutationCreateAssetArgs = {
   data: AssetCreateInput;
+};
+
+
+export type MutationCreateEventCommentArgs = {
+  data: EventCommentCreateInput;
 };
 
 
@@ -9466,6 +10100,11 @@ export type MutationDeleteAssetArgs = {
 };
 
 
+export type MutationDeleteEventCommentArgs = {
+  where: EventCommentWhereUniqueInput;
+};
+
+
 export type MutationDeleteEventLandingpageArgs = {
   where: EventLandingpageWhereUniqueInput;
 };
@@ -9518,6 +10157,21 @@ export type MutationDeleteManyAssetsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationDeleteManyEventCommentsArgs = {
+  where?: InputMaybe<EventCommentManyWhereInput>;
+};
+
+
+export type MutationDeleteManyEventCommentsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<EventCommentManyWhereInput>;
 };
 
 
@@ -9701,6 +10355,12 @@ export type MutationPublishAssetArgs = {
 };
 
 
+export type MutationPublishEventCommentArgs = {
+  to?: Array<Stage>;
+  where: EventCommentWhereUniqueInput;
+};
+
+
 export type MutationPublishEventLandingpageArgs = {
   to?: Array<Stage>;
   where: EventLandingpageWhereUniqueInput;
@@ -9770,6 +10430,24 @@ export type MutationPublishManyAssetsConnectionArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<AssetManyWhereInput>;
   withDefaultLocale?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type MutationPublishManyEventCommentsArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<EventCommentManyWhereInput>;
+};
+
+
+export type MutationPublishManyEventCommentsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<EventCommentManyWhereInput>;
 };
 
 
@@ -9978,6 +10656,14 @@ export type MutationSchedulePublishAssetArgs = {
 };
 
 
+export type MutationSchedulePublishEventCommentArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: EventCommentWhereUniqueInput;
+};
+
+
 export type MutationSchedulePublishEventLandingpageArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
@@ -10068,6 +10754,14 @@ export type MutationScheduleUnpublishAssetArgs = {
 };
 
 
+export type MutationScheduleUnpublishEventCommentArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: EventCommentWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishEventLandingpageArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -10154,6 +10848,12 @@ export type MutationUnpublishAssetArgs = {
 };
 
 
+export type MutationUnpublishEventCommentArgs = {
+  from?: Array<Stage>;
+  where: EventCommentWhereUniqueInput;
+};
+
+
 export type MutationUnpublishEventLandingpageArgs = {
   from?: Array<Stage>;
   where: EventLandingpageWhereUniqueInput;
@@ -10221,6 +10921,24 @@ export type MutationUnpublishManyAssetsConnectionArgs = {
   stage?: InputMaybe<Stage>;
   unpublishBase?: InputMaybe<Scalars['Boolean']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyEventCommentsArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<EventCommentManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyEventCommentsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<EventCommentManyWhereInput>;
 };
 
 
@@ -10422,6 +11140,12 @@ export type MutationUpdateAssetArgs = {
 };
 
 
+export type MutationUpdateEventCommentArgs = {
+  data: EventCommentUpdateInput;
+  where: EventCommentWhereUniqueInput;
+};
+
+
 export type MutationUpdateEventLandingpageArgs = {
   data: EventLandingpageUpdateInput;
   where: EventLandingpageWhereUniqueInput;
@@ -10483,6 +11207,23 @@ export type MutationUpdateManyAssetsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<AssetManyWhereInput>;
+};
+
+
+export type MutationUpdateManyEventCommentsArgs = {
+  data: EventCommentUpdateManyInput;
+  where?: InputMaybe<EventCommentManyWhereInput>;
+};
+
+
+export type MutationUpdateManyEventCommentsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: EventCommentUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<EventCommentManyWhereInput>;
 };
 
 
@@ -10678,6 +11419,12 @@ export type MutationUpsertAboutPageArgs = {
 export type MutationUpsertAssetArgs = {
   upsert: AssetUpsertInput;
   where: AssetWhereUniqueInput;
+};
+
+
+export type MutationUpsertEventCommentArgs = {
+  upsert: EventCommentUpsertInput;
+  where: EventCommentWhereUniqueInput;
 };
 
 
@@ -11285,6 +12032,7 @@ export type PastEvent = Node & {
   createdBy?: Maybe<User>;
   /** Get the document in other stages */
   documentInStages: Array<PastEvent>;
+  eventComments: Array<EventComment>;
   /** Hero bild längst upp på sidan.  */
   hero: Hero;
   /** List of PastEvent versions */
@@ -11332,6 +12080,19 @@ export type PastEventDocumentInStagesArgs = {
   includeCurrent?: Scalars['Boolean'];
   inheritLocale?: Scalars['Boolean'];
   stages?: Array<Stage>;
+};
+
+
+export type PastEventEventCommentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<EventCommentOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<EventCommentWhereInput>;
 };
 
 
@@ -11391,6 +12152,7 @@ export type PastEventConnection = {
 export type PastEventCreateInput = {
   content?: InputMaybe<PastEventcontentUnionCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  eventComments?: InputMaybe<EventCommentCreateManyInlineInput>;
   hero: HeroCreateOneInlineInput;
   ingress: Scalars['String'];
   slug: Scalars['String'];
@@ -11454,6 +12216,9 @@ export type PastEventManyWhereInput = {
   documentInStages_every?: InputMaybe<PastEventWhereStageInput>;
   documentInStages_none?: InputMaybe<PastEventWhereStageInput>;
   documentInStages_some?: InputMaybe<PastEventWhereStageInput>;
+  eventComments_every?: InputMaybe<EventCommentWhereInput>;
+  eventComments_none?: InputMaybe<EventCommentWhereInput>;
+  eventComments_some?: InputMaybe<EventCommentWhereInput>;
   hero?: InputMaybe<HeroWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
@@ -11587,6 +12352,7 @@ export enum PastEventOrderByInput {
 
 export type PastEventUpdateInput = {
   content?: InputMaybe<PastEventcontentUnionUpdateManyInlineInput>;
+  eventComments?: InputMaybe<EventCommentUpdateManyInlineInput>;
   hero?: InputMaybe<HeroUpdateOneInlineInput>;
   ingress?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
@@ -11697,6 +12463,9 @@ export type PastEventWhereInput = {
   documentInStages_every?: InputMaybe<PastEventWhereStageInput>;
   documentInStages_none?: InputMaybe<PastEventWhereStageInput>;
   documentInStages_some?: InputMaybe<PastEventWhereStageInput>;
+  eventComments_every?: InputMaybe<EventCommentWhereInput>;
+  eventComments_none?: InputMaybe<EventCommentWhereInput>;
+  eventComments_some?: InputMaybe<EventCommentWhereInput>;
   hero?: InputMaybe<HeroWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
@@ -11967,6 +12736,14 @@ export type Query = {
   assets: Array<Asset>;
   /** Retrieve multiple assets using the Relay connection interface */
   assetsConnection: AssetConnection;
+  /** Retrieve a single eventComment */
+  eventComment?: Maybe<EventComment>;
+  /** Retrieve document version */
+  eventCommentVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple eventComments */
+  eventComments: Array<EventComment>;
+  /** Retrieve multiple eventComments using the Relay connection interface */
+  eventCommentsConnection: EventCommentConnection;
   /** Retrieve a single eventLandingpage */
   eventLandingpage?: Maybe<EventLandingpage>;
   /** Retrieve document version */
@@ -12135,6 +12912,44 @@ export type QueryAssetsConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<AssetWhereInput>;
+};
+
+
+export type QueryEventCommentArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: EventCommentWhereUniqueInput;
+};
+
+
+export type QueryEventCommentVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryEventCommentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<EventCommentOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<EventCommentWhereInput>;
+};
+
+
+export type QueryEventCommentsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<EventCommentOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<EventCommentWhereInput>;
 };
 
 
@@ -12697,7 +13512,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = AboutPage | Asset | EventLandingpage | EventPage | EventSignup | FormAnswer | FormPage | NewsletterSignup | PastEvent | StartPage | WaitingListEvent;
+export type ScheduledOperationAffectedDocument = AboutPage | Asset | EventComment | EventLandingpage | EventPage | EventSignup | FormAnswer | FormPage | NewsletterSignup | PastEvent | StartPage | WaitingListEvent;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -15602,6 +16417,20 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type CreateEventCommentMutationVariables = Exact<{
+  data: EventCommentCreateInput;
+}>;
+
+
+export type CreateEventCommentMutation = { __typename?: 'Mutation', createEventComment?: { __typename?: 'EventComment', comment: string, commentPolicy: boolean, email: string, firstname: string, lastname: string, pastEvent?: { __typename?: 'PastEvent', slug: string } | null } | null };
+
+export type Get_CommentsQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type Get_CommentsQuery = { __typename?: 'Query', eventComments: Array<{ __typename?: 'EventComment', id: string, comment: string, commentPolicy: boolean, createdAt: any, lastname: string, firstname: string }> };
+
 export type CreateEventSignupMutationVariables = Exact<{
   data: EventSignupCreateInput;
 }>;
@@ -15731,6 +16560,8 @@ export const LocationFragmentFragmentDoc = {"kind":"Document","definitions":[{"k
 export const EventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"EventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EventPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<EventContentFragmentFragment, unknown>;
 export const PastEventContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PastEventContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PastEvent"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FeedbackHighlight"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"author"}},{"kind":"Field","name":{"kind":"Name","value":"feedback"}}]}}]}}]}}]} as unknown as DocumentNode<PastEventContentFragmentFragment, unknown>;
 export const StartpageContentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartpageContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Heading"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heading"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Image"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"altText"}},{"kind":"Field","name":{"kind":"Name","value":"imageText"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Text"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]}}]}}]}}]} as unknown as DocumentNode<StartpageContentFragment, unknown>;
+export const CreateEventCommentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createEventComment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EventCommentCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEventComment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"comment"}},{"kind":"Field","name":{"kind":"Name","value":"commentPolicy"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstname"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}},{"kind":"Field","name":{"kind":"Name","value":"pastEvent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<CreateEventCommentMutation, CreateEventCommentMutationVariables>;
+export const Get_CommentsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_COMMENTS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"eventComments"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"documentInStages_some"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"stage"},"value":{"kind":"EnumValue","value":"PUBLISHED"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"pastEvent"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"comment"}},{"kind":"Field","name":{"kind":"Name","value":"commentPolicy"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}},{"kind":"Field","name":{"kind":"Name","value":"firstname"}}]}}]}}]} as unknown as DocumentNode<Get_CommentsQuery, Get_CommentsQueryVariables>;
 export const CreateEventSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createEventSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EventSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEventSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photoConsent"}},{"kind":"Field","name":{"kind":"Name","value":"occupation"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"eventPageSlug"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"allergies"}}]}}]}}]} as unknown as DocumentNode<CreateEventSignupMutation, CreateEventSignupMutationVariables>;
 export const CreateFormAnswerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createFormAnswer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"FormAnswerCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createFormAnswer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formData"}},{"kind":"Field","name":{"kind":"Name","value":"formPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"eventPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<CreateFormAnswerMutation, CreateFormAnswerMutationVariables>;
 export const CreateNewsletterSignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createNewsletterSignup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"NewsletterSignupCreateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createNewsletterSignup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<CreateNewsletterSignupMutation, CreateNewsletterSignupMutationVariables>;

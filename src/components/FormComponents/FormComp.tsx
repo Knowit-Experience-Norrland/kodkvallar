@@ -86,16 +86,15 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
                             ? /\S+@\S+\.\S+/
                             : input.type === "number"
                             ? /^\d+$/
-                            : /^[A-Za-zåäöÅÄÖ\s]+[0-9]*$/, // default pattern for text input type
+                            : /^[A-Za-zåäöÅÄÖ0-9\s.,"\-_\n\r]+$/, // default pattern for text input type
                         message:
                           input.type === "email"
                             ? "Felaktigt e-postformat."
                             : input.type === "number"
                             ? "Endast siffror tillåtna."
-                            : "Felaktigt format. Endast bokstäver tillåtna.", // default error message for text input type
+                            : "Felaktigt format. Endast bokstäver och skiljetecken tillåtna.", // default error message for text input type
                       },
                       minLength: {
-                       //if input type is number, minLength is 8, if input type is text, minLength is 2 if email, minLength is not required
                         value: 2,
                         message: "Minst 2 tecken.",
                       },
@@ -191,7 +190,7 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
                         message: "Detta fält är obligatoriskt.",
                       },
                     })}
-                    id={"form-" + input.checkboxname}
+                    id={input.checkboxname}
                     aria-label={input.label}
                   />
                   <label htmlFor={input.checkboxname}>

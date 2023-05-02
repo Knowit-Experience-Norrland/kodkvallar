@@ -1,0 +1,105 @@
+.comment-form {
+  background-color: $primary-sand;
+  max-width: 500px;
+  width: 100%;
+  padding-top: 4em;
+
+  h2 {
+    margin: 1em 0.5em;
+    text-align: center;
+  }
+  p {
+    color: $primary-digital-black;
+    text-align: center;
+  }
+  .error {
+    background-color: $primary-leather;
+    color: $primary-digital-white;
+    font-size: 0.8em;
+    font-weight: 700;
+    padding: 0.5em 0;
+    margin: 1em auto;
+    width: 100%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+
+
+    .form-child {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin: 0.5em 0 1em 0;
+    }
+    label {
+      color: $primary-digital-black;
+      padding-bottom: 0.8em;
+    }
+
+    input,
+    textarea {
+      border: 1px solid $primary-forest;
+      padding: 1em;
+      background-color: $primary-digital-white;
+
+      &:focus {
+        outline: 2px solid $primary-leather;
+      }
+    }
+
+    .smaller-input {
+      width: 50%;
+    }
+
+    .checkbox {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      input {
+        margin: 0 0.5em;
+        width: 36px;
+        height: 36px;
+        background-color: $primary-digital-white;
+        border: 1px solid $primary-forest;
+      }
+      label {
+        padding: 0;
+      }
+    }
+
+    button {
+      background-color: $primary-forest;
+      color: $primary-digital-white;
+      padding: 0.6em;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 1em;
+      display: block;
+      width: 50%;
+      align-self: center;
+      box-shadow: 0 2px 4px rgba($primary-digital-black, 0.5);
+    }
+    button:hover {
+      background-color: $primary-flamingo;
+      color: $primary-digital-black;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .comment-form{
+    .comment-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 1em;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+}

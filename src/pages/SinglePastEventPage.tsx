@@ -6,7 +6,7 @@ import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
 import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
 import { Get_Past_EventpageQuery } from "../gql/graphql";
-
+import CommentSectionComp from "../components/Commentsection/CommentSectionComp";
 const SinglePastEventPage = () => {
   // get slug from params
   const params = useParams();
@@ -87,6 +87,9 @@ const SinglePastEventPage = () => {
         title={pastEvent?.title || ""}
       />
       {mainContent && <MainContent content={mainContent.content} />}
+      <div>
+        <CommentSectionComp />
+      </div>
       <div className="events-spotlight-container">
         <UpcomingEventSpotlightComp />
       </div>

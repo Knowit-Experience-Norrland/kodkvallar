@@ -29,7 +29,6 @@ function addBackgroundColor(elements: NodeListOf<Element>): void {
 const MainContent: React.FC<Props> = ({ content }) => {
   useEffect(() => {
     const elements = document.querySelectorAll(".feedback-highlight"); 
-    console.log(elements)
     addBackgroundColor(elements); 
   }, []);
   
