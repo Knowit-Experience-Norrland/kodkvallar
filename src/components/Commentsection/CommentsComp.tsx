@@ -15,6 +15,7 @@ const CommentsComp = () => {
           documentInStages_some: { stage: PUBLISHED }
           pastEvent: { slug: $slug }
         }
+        orderBy: createdAt_DESC
       ) {
         id
         comment
@@ -31,10 +32,21 @@ const CommentsComp = () => {
   });
   const { eventComments } = data || {};
 
+  if (loading) return <p>Loading...</p>;
+  if (eventComments?.length === 0 || error)
+    return (
+      <section className="comments">
+        <h2>Kommentarer</h2>
+        <div className="comment-content">
+          <p>Inga kommentarer ännu.</p>
+        </div>
+        <hr className="divider" />
+      </section>
+    );
   return (
     <section className="comments">
       <h2>Kommentarer</h2>
-      <hr className="divider"/>
+      <hr className="divider" />
       {eventComments?.map((comment) => {
         //format date and time
         let newDate = new Date(comment?.createdAt);
@@ -51,13 +63,13 @@ const CommentsComp = () => {
         return (
           <div key={comment.id} className="comment">
             <div className="comment-content">
-            <p className="bold">{comment.firstname}</p>
-            <p>
-              {date} kl:{time}
-            </p>
-            <p>{comment.comment}</p>
+              <p className="bold">{comment.firstname}</p>
+              <p>
+                {date} kl:{time}
+              </p>
+              <p>{comment.comment}</p>
             </div>
-            <hr className="divider"/>
+            <hr className="divider" />
           </div>
         );
       })}
