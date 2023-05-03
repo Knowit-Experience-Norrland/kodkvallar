@@ -28,7 +28,6 @@
     width: 100%;
     margin: 0 auto;
 
-
     .form-child {
       display: flex;
       flex-direction: column;
@@ -93,13 +92,24 @@
 }
 
 @media screen and (min-width: 768px) {
-  .comment-form{
-    .comment-grid{
+  .comment-form {
+    .comment-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-gap: 1em;
       width: 100%;
       margin: 0 auto;
+    }
+    form {
+      .checkbox {
+        margin: 0 1em;
+        padding-bottom: 1.5em;
+        input {
+          margin: 0 0.5em;
+          width: 18px;
+          height: 18px;
+        }
+      }
     }
   }
 }
