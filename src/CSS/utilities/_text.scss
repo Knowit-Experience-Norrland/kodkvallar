@@ -2,36 +2,51 @@
 $font-family: "Arial", sans-serif;
 
 //font size
-$base-font-size: 18px;
-//paragraphs
+$base-font-size: 16px;
 
+//paragraphs
 p {
   font-family: $font-family;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 1.125em;
   color: $primary-digital-black;
   line-height: 150%;
+}
+
+//specials
+
+.error {
+  background-color: $primary-leather;
+  color: $primary-digital-white;
+  font-size: 0.8em;
+  font-weight: 700;
+  padding: 0.5em 0;
+  margin: 1em auto;
+  width: 100%;
+}
+
+.gdpr-text {
+  font-size: 1em;
+  font-style: italic;
 }
 
 .green {
   color: $primary-forest;
 }
 
-.required{
+.required {
   color: $primary-leather;
 }
 
-.bold{
+.bold {
   font-weight: 700;
 }
-
-
 
 //alt text
 .img-text {
   font-family: $font-family;
   font-weight: 400;
-  font-size: 0.8em;
+  font-size: 1em;
   font-style: italic;
   color: $primary-digital-black;
   line-height: 130%;
@@ -39,32 +54,35 @@ p {
   text-align: center;
 }
 
-.gdpr-text {
-  font-size: 0.8em;
-  font-style: italic;
-}
-
 //headings
 
 h1 {
   font-family: $font-family;
   font-weight: normal;
-  font-size: 3em;
+  font-size: 3.125em;
   color: $primary-digital-black;
 }
 
 h2 {
   font-family: $font-family;
   font-weight: 700;
-  font-size: 1.6em;
+  font-size: 1.875em;
   color: $primary-digital-black;
 }
 
-.h2-light{
-  font-size: 1.2em;
+.h2-light {
+  font-size: 1.5em;
 }
 
 h3 {
+  font-family: $font-family;
+  font-weight: 700;
+  font-size: 1.125em;
+  color: $primary-digital-black;
+  line-height: 150%;
+}
+
+h4 {
   font-family: $font-family;
   font-weight: 700;
   font-size: 1em;
@@ -72,19 +90,34 @@ h3 {
   line-height: 150%;
 }
 
+h5 {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: 0.8em;
+  color: $primary-digital-black;
+  line-height: 150%;
+}
 
+h6 {
+  font-family: $font-family;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 0.8em;
+  color: $primary-digital-black;
+  line-height: 150%;
+}
 
 //links
 
-a{
+a {
   font-family: $font-family;
-  font-size: 1em;
+  font-size: 1.125em;
   color: $primary-forest;
   line-height: 150%;
 }
-a:visited{
+a:visited {
   color: $primary-forest;
 }
-a:hover{
+a:hover {
   color: $primary-digital-black;
 }

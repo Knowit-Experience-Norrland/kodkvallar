@@ -8,6 +8,12 @@
       {
         "duplicate-id-aria": "off"
       }
+    ],
+    "axe/structure": [
+      "default",
+      {
+        "list": "off"
+      }
     ]
   }
 }

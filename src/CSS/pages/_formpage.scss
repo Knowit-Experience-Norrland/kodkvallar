@@ -1,36 +1,28 @@
 .feedback-form-container {
-  max-width: 1000px;
-  margin: 2em auto;
+  max-width: $max-width-1000;
+  margin: $top-bottom-2-auto;
 
   .form-container {
-    max-width: 650px;
-    padding: 2em 0 3em 0;
+    max-width: $max-width-650;
+    padding: $top-bottom-2;
     background-color: $primary-digital-white;
-    box-shadow: 0 4px 4px rgba($primary-digital-black, 0.2);
+    box-shadow: $box-shadow;
     border: 15px solid $primary-mint;
+   
   }
   h2 {
-    margin: 1em 0.5em;
+    margin: $topbottom-leftright-1-05;
   }
   p {
-    color: $primary-digital-black;
     text-align: center;
   }
-  .error {
-    background-color: $primary-leather;
-    color: $primary-digital-white;
-    font-size: 0.8em;
-    font-weight: 700;
-    padding: 0.5em 0;
-    margin: 1em auto;
-    width: 100%;
-  }
+  
 
   form {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin: 0 auto;
+    margin: $top-bottom-0-auto;
 
     .form-child {
       display: flex;
@@ -45,17 +37,13 @@
 
     input,
     textarea {
-      border: 1px solid $primary-forest;
-      padding: 1em;
+      border: $border-forest;
+      padding: $spacing-1;
       background-color: $primary-digital-white;
 
       &:focus {
-        outline: 2px solid $primary-leather;
+        outline: $border-leather;
       }
-    }
-
-    .smaller-input {
-      width: 50%;
     }
 
     .checkbox {
@@ -63,56 +51,38 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      margin: 0 1em;
-      padding-bottom: 1.5em;      
+      margin: $left-right-1;
+      padding-bottom: $spacing-1-5;      
       input {
-        margin: 0 0.5em;
-        width: 36px;
-        height: 36px;
+        margin: $left-right-05;
+        width: $icons-md;
+        height: $icons-md;
         background-color: $primary-digital-white;
-        border: 1px solid $primary-forest;
+        border: $border-forest;
       }
       label {
-        padding: 0;
+        padding: $spacing-0;
       }
     }
     .select {
-      padding-bottom: 1.5em;
+      padding-bottom: $spacing-1-5;
       select {
         width: 100%;
-        padding: 1em;
-        border: 1px solid $primary-forest;
+        padding: $spacing-1;
+        border: $border-forest;
         background-color: $primary-digital-white;
         &:focus {
-          outline: 2px solid $primary-leather;
+          outline: $border-leather;
         }
       }
     }
-
-    button {
-      background-color: $primary-forest;
-      color: $primary-digital-white;
-      padding: 0.6em;
-      border: none;
-      font-size: 1em;
-      cursor: pointer;
-      margin: 0 1em;
-      display: block;
-      width: 50%;
-      align-self: center;
-      box-shadow: 0 2px 4px rgba($primary-digital-black, 0.5);
-    }
-    button:hover {
-      background-color: $primary-flamingo;
-      color: $primary-digital-black;
-    }
-  }
+  } 
 }
 
 @media screen and (min-width: 768px) {
   .feedback-form-container {
     .form-container {
-      max-width: 650px;
+      max-width: $max-width-650;
 
       form {
         width: 80%;
@@ -120,9 +90,9 @@
       .checkbox {
         align-items: flex-start;
         input {
-          margin: 0 0.5em;
-          width: 18px;
-          height: 18px;
+          margin: $left-right-05;
+          width: $icons-sm;
+          height: $icons-sm;
         }
       }
     }

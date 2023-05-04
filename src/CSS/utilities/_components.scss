@@ -1,0 +1,20 @@
+button {
+    background-color: $primary-forest;
+    color: $primary-digital-white;
+    padding: $spacing-05;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    margin: $left-right-1;
+    display: block;
+    width: 50%;
+    align-self: center;
+    box-shadow: $box-shadow-strong;
+    &:focus {
+      outline: $border-leather;
+    }
+  }
+  button:hover {
+    background-color: $primary-flamingo;
+    color: $primary-digital-black; 
+  }

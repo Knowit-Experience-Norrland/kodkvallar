@@ -5,8 +5,9 @@ import { graphql, useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
 import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
-import { Get_Past_EventpageQuery } from "../gql/graphql";
+
 import CommentSectionComp from "../components/Commentsection/CommentSectionComp";
+import { Get_Past_EventpageQuery } from "../gql/graphql";
 const SinglePastEventPage = () => {
   // get slug from params
   const params = useParams();
@@ -14,7 +15,7 @@ const SinglePastEventPage = () => {
 
   let navigate = useNavigate();
 
-  //create fragment of query
+  // create fragment of query
   const PastEventContentFragment = graphql(`
     fragment PastEventContentFragment on PastEvent {
       content {
@@ -44,7 +45,7 @@ const SinglePastEventPage = () => {
       }
     }
   `);
-  //create query with fragments and slug for variable
+  // create query with fragments and slug for variable
   const GET_PAST_EVENTPAGE = graphql(`
     query GET_PAST_EVENTPAGE($slug: String!) {
       pastEvent(where: { slug: $slug }) {
