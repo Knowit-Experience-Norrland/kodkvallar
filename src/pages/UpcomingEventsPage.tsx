@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { graphql } from "../gql";
+import { gql, useQuery } from "@apollo/client";
 import HeroComp from "../components/Hero/HeroComp";
 import UpcomingEventListComp from "../components/UpcomingEventList/UpcomingEventListComp";
 import { Get_LandingpageQuery } from "../gql/graphql";
@@ -12,7 +11,7 @@ const UpcomingEventsPage = () => {
   let navigate = useNavigate();
 
   
-  const GET_LANDINGPAGE = graphql(`
+  const GET_LANDINGPAGE = gql(`
     query GET_LANDINGPAGE {
       eventLandingpage(where: { slug: "kommande-event" }) {
         hero {

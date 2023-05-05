@@ -19,6 +19,7 @@ const AboutPage = () => {
   //create fragment of query
   const adressFragment = graphql(`
     fragment adressFragment on AboutPage {
+      id
       adress {
         adress
         map {
