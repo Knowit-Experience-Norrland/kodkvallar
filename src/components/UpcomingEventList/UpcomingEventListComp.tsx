@@ -68,7 +68,9 @@ const UpcomingEventListComp = () => {
           return (
             <article key={event.slug} className="event-main">
               <Link to={`/event/${event.slug}`}>
-                <img src={event.hero?.image?.url} alt={event.hero?.altText} />
+                <div className="image-square">
+                  <img src={event.hero?.image?.url} alt={event.hero?.altText} />
+                </div>
                 <div className="event-info">
                   <h2>{event.title}</h2>
                   <p>
