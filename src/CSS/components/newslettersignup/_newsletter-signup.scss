@@ -1,14 +1,14 @@
 .newsletter-signup {
   width: 100%;
-  margin: 0 auto;
+  margin: $top-bottom-0-auto;
   background-color: $primary-clay;
-  padding: 2em 0;
+  padding: $top-bottom-2;
   .form-container {
-    max-width: 1000px;
-    margin: 0 1em;
+    max-width: $max-1000;
+    margin: $left-right-1;
     padding: 1em .5em;
     background-color: $primary-digital-white;
-    box-shadow: 0 4px 4px rgba($primary-digital-black, 0.3);
+    box-shadow: $box-shadow;
   }
   p {
     color: $primary-digital-black;
@@ -19,10 +19,10 @@
     color: $primary-digital-white;
     font-size: .8em;
     font-weight: 700;
-    padding: 0.5em;
-    margin: 1em auto;
+    padding: $spacing-05;
+    margin: $top-bottom-1-auto;
     position: relative;
-    max-width: 1000px;
+    max-width: $max-1000;
     width: 80%;
   }
 
@@ -36,7 +36,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      margin-bottom: 1em;
+      margin-bottom: $spacing-1;
     }
     label {
       color: $primary-digital-black;
@@ -44,13 +44,13 @@
     }
 
     input {
-      border: 1px solid $primary-forest;
+      border: $border-forest;
       padding: 0.8em;
-      margin: 0 1em;
+      margin: $left-right-1;
       background-color: $primary-digital-white;
 
       &:focus {
-        outline: 2px solid $primary-leather
+        outline: $border-leather;
       }
     }
 
@@ -58,40 +58,22 @@
       color: rgba($primary-digital-black, 0.5);
       font-size: 1em;
     }
-
-    button {
-      background-color: $primary-forest;
-      color: $primary-digital-white;
-      padding: 0.6em;
-      border: none;
-      font-size: 1em;
-      cursor: pointer;
-      margin: 0 1em;
-      display: block;
-      width: 50%;
-      align-self: center;
-      box-shadow: 0 2px 4px rgba($primary-digital-black, 0.5);
-    }
-    button:hover {
-      background-color: $primary-flamingo;
-      color: $primary-digital-black;
-    }
   }
 }
 @media screen and (min-width: 768px) {
   .newsletter-signup {
-    padding: 4em 0;
+    padding: $top-bottom-4;
 
     .form-container {
-      margin: 0 auto;
-      padding: 2em 0;
+      margin: $top-bottom-0-auto;
+      padding: $top-bottom-2;
     }
     form {
       flex-direction: row;
       justify-content: center;
 
       .form-child {
-        margin: 0;
+        margin: $spacing-0;
       }
       button {
         width: 20%;

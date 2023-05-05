@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 1000px;
+  max-width: $max-1000;
   margin: 2em 1em 4em 1em;
   padding: 2em 1em;
   background-color: $primary-sand;
-  box-shadow: 0 2px 4px rgba($primary-digital-black, 0.2);
+  box-shadow: $box-shadow;
   box-sizing: border-box;
 }
 

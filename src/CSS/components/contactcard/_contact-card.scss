@@ -10,16 +10,16 @@
     color: $primary-digital-black;
   }
   p {
-    margin: 0;
+    margin: $spacing-0;
     padding: 0.2em 0;
   }
 }
 
 .contact-img {
-  height: 150px;
-  width: 150px;
+  height: $max-150;
+  width: $max-150;
   object-fit: cover;
   object-position: center;
-  box-shadow: 0 4px 4px rgba($primary-digital-black, 0.4);
+  box-shadow: $box-shadow-strong;
   margin: 0 auto;
 }

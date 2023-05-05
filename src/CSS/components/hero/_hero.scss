@@ -1,13 +1,13 @@
 //hero 
 .hero{
-    max-width: 1920px;
-    max-height: 400px;
+    max-width: $max-1920;
+    max-height: $max-400;
     height: 100%;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin: $top-bottom-0-auto;
     position: relative;
 
     img{
@@ -21,8 +21,8 @@
     .hero-overlay{
         position: absolute;
         margin: 0 auto 5em auto;
-        padding: 0 2em;
-        max-width: 1000px;
+        padding: $left-right-2;
+        max-width: $max-1000;
         height: 100%;
         width: 100%;
         display: flex;
@@ -33,11 +33,11 @@
     .hero-title{
         background-color: rgba($primary-digital-white, 0.85);
         padding: .2em .5em;
-        margin: 0 1em;
+        margin: $left-right-1;
         }
 
     @media screen and (min-width: 768px){
-        max-height: 500px;
+        max-height: $max-500;
 
 
         .hero-overlay{
@@ -45,7 +45,7 @@
         }
 
         .hero-title{
-            margin: 0;
+            margin: $spacing-0;
         }
     }
         

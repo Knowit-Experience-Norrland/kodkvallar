@@ -2,13 +2,12 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-
   padding: 2em 1em;
   .event-main {
-    max-width: 300px;
+    max-width: $max-300;
     width: 100%;
-    margin: 0 auto;
-    padding: 2em 0;
+    margin: $top-bottom-0-auto;
+    padding: $top-bottom-2;
     .event-info {
       display: flex;
       flex-direction: column;
@@ -20,16 +19,16 @@
       width: 100%;
       height: 0.15em;
       border: none;
-      margin-top: 2em;
+      margin-top: $spacing-2;
     }
     .image-square {
-      width: 300px;
-      height: 300px;
+      width: $max-300;
+      height: $max-300;
       img {
         object-fit: cover;
         object-position: center;
-        width: 300px;
-        height: 300px;
+        width: $max-300;
+        height: $max-300;
       }
     }
 
@@ -43,8 +42,8 @@
       cursor: pointer;
     }
     p {
-      margin: 0.5em 0;
-      max-width: 475px;
+      margin: $top-bottom-05;
+      max-width: $max-475;
     }
 
     a:visited {
@@ -60,7 +59,7 @@
       font-size: 2em;
       align-self: flex-end;
       cursor: pointer;
-      margin-top: 0.5em;
+      margin-top: $spacing-05;
     }
   }
 }
@@ -70,22 +69,22 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 2em 0;
+    padding: $top-bottom-2;
     .event-main {
       width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2em 0;
+      max-width: $max-1000;
+      margin: $top-bottom-0-auto;
+      padding: $top-bottom-2;
 
       .event-info {
-        margin-left: 2em;
+        margin-left: $spacing-2;
       }
       a {
-        max-width: 800px;
+        max-width: $max-800;
         width: 100%;
         display: flex;
         flex-direction: row;
-        margin: 0 auto;
+        margin: $top-bottom-0-auto;
       }
     }
   }

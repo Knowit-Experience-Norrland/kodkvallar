@@ -1,49 +1,49 @@
 //main content
 
 .main-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2em;
+  max-width: $max-1000;
+  margin: $top-bottom-0-auto;
+  padding: $spacing-2;
 
   .image-block {
-    padding-top: 2em;
-    padding-bottom: 3em;
+    padding-top: $spacing-2;
+    padding-bottom: $spacing-3;
 
     img {
-      box-shadow: 0 2px 4px rgba($primary-digital-black, 0.2);
+      box-shadow: $box-shadow;
     }
   }
   .feedback-highlight {
     box-sizing: border-box;
     background-color: $primary-mint;
-    box-shadow: 0 2px 4px rgba($primary-digital-black, 0.2);
-    max-width: 650px;
+    box-shadow: $box-shadow;
+    max-width: $max-650;
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    margin: 2em 0;
-    padding: 1.5em;
+    margin: $top-bottom-2;
+    padding: $spacing-1-5;
 
     .feedback-text {
       font-size: 1em;
       font-style: italic;
       width: 90%;
       align-self: flex-start;
-      margin: 1em auto;
+      margin: $top-bottom-1-auto;
     }
     .feedback-author {
       font-size: 0.8em;
       align-self: flex-start;
       width: 90%;
-      margin: 0.5em auto;
+      margin: $top-bottom-05-auto;
     }
 
     img {
-      height: 70px;
+      height: $max-70;
       width: auto;
-      padding: 1em 0;
+      padding: $top-bottom-1;
     }
   }
 
@@ -57,7 +57,7 @@
   }
 
   p {
-    max-width: 650px;
+    max-width: $max-650;
   }
 }
 
@@ -68,7 +68,7 @@
     .feedback-highlight {
       display: grid;
       grid-template-columns: 1fr 20%;
-      padding: 2em;
+      padding: $spacing-2;
 
       img{
         grid-column: 2;

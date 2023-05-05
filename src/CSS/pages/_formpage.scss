@@ -1,9 +1,9 @@
 .feedback-form-container {
-  max-width: $max-width-1000;
+  max-width: $max-1000;
   margin: $top-bottom-2-auto;
 
   .form-container {
-    max-width: $max-width-650;
+    max-width: $max-650;
     padding: $top-bottom-2;
     background-color: $primary-digital-white;
     box-shadow: $box-shadow;
@@ -82,7 +82,7 @@
 @media screen and (min-width: 768px) {
   .feedback-form-container {
     .form-container {
-      max-width: $max-width-650;
+      max-width: $max-650;
 
       form {
         width: 80%;

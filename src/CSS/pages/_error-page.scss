@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2em 0;
-  margin: 0 1em;
+  padding: $top-bottom-2;
+  margin: $left-right-1;
   text-align: center;
   img {
     width: 100%;
-    max-width: 70px;
+    max-width: $max-70;
   }
 }
 
@@ -15,8 +15,8 @@
   color: $primary-digital-white;
   background-color: $primary-forest;
   text-decoration: none;
-  padding: 0.5em;
-  box-shadow: 0 4px 4px rgba($primary-digital-black, 0.2);
+  padding: $spacing-05;
+  box-shadow: $box-shadow;
   &:hover {
     color: $primary-digital-white;
   }
@@ -27,11 +27,11 @@
 
 @media screen and (min-width: 768px) {
   .error404 {
-    padding: 5em 0;
+    padding: $top-bottom-5;
 
     img {
       width: 100%;
-      max-width: 100px;
+      max-width: $max-100;
     }
   }
 }

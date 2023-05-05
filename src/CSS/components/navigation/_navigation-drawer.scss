@@ -12,14 +12,14 @@
   justify-content: center;
   align-items: center;
   animation: open 1s ease-in 0s normal none;
-  padding-top: 3em;
+  padding-top: $spacing-3;
 
   a {
     color: $primary-digital-black;
     
     text-decoration: none;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding-top: $spacing-05;
+    padding-bottom: $spacing-05;
   }
   a:hover {
     color: $primary-forest;
@@ -30,8 +30,8 @@
     width: 3em;
     height: 0.15em;
     border: none;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin-top: $spacing-2;
+    margin-bottom: $spacing-2;
   }
 }
 @keyframes open {
@@ -53,7 +53,8 @@
     height: auto;
     right: 0;
     top: 0;
-    padding-top: 9em;
-    padding-bottom: 2em;
+    padding-top: $spacing-9;
+    padding-bottom: $spacing-2;
   }
 }
+ 

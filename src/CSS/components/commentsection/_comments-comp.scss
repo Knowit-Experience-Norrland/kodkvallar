@@ -1,5 +1,5 @@
 .comments {
-    max-width: 750px;
+    max-width: $max-750;
     width: 100%;
  
     h2{
@@ -12,17 +12,17 @@
       width: 100%;
       height: 0.15em;
       border: none;
-      margin-top: 2em;
+      margin-top: $spacing-2;
     }
   .comment {
     text-align: left;
-    padding: 1em 0;
+    padding: $top-bottom-1;
   }
 
   .comment-content{
-    padding: 2em 0;
-    max-width: 650px;
+    padding: $top-bottom-2;
+    max-width: $max-650;
     width: 100%;
-    margin: 0 auto;
+    margin: $top-bottom-0-auto;
   }
 }
