@@ -6,8 +6,8 @@ import { gql } from "@apollo/client";
 
 //___________________________________________
 //QUERY
-export const GET_EVENT_LANDINGPAGE = gql(`
-query GetEventLandingpage ($where: EventLandingpageWhereUniqueInput!) {
+export const HEJ = gql(`
+query Hej ($where: EventLandingpageWhereUniqueInput!) {
     title
     hero {
       altText
@@ -15,7 +15,7 @@ query GetEventLandingpage ($where: EventLandingpageWhereUniqueInput!) {
         url
       }
     }
-  }
+  } 
 `);
 
 
