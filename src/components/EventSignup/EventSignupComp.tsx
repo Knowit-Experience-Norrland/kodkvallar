@@ -1,5 +1,6 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
+import { CREATE_EVENTSIGNUP } from "../../Queries/mutations";
 
 // recive id from EventSignupComp.tsx, send data from API and print to DOM
 interface EventSignupCompProps {
@@ -26,22 +27,7 @@ const EventSignupComp = ({ slug }: EventSignupCompProps) => {
   const nameRegex = /^[A-Öa-ö0-9\s,.-]+$/; // Accepts only letters and whitespace
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
 
-  // send data from API
-  const CREATE_EVENTSIGNUP = gql(`
- mutation createEventSignup($data: EventSignupCreateInput!) {
-  createEventSignup(data: $data) {
-    photoConsent
-    occupation
-    lastName
-    firstName
-    eventPageSlug {
-      slug
-    }
-    email
-    allergies
-  }
-}
-    `);
+//use mutation to create event signup
   const [createEventSignup] = useMutation(CREATE_EVENTSIGNUP);
 
   // handle submit

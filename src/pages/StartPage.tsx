@@ -1,83 +1,52 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { Get_StartpageQuery } from "../gql/graphql";
+import {
+  Get_StartpageQuery,
+  HeroFragmentDoc,
+  PageContentFragmentDoc,
+} from "../gql/graphql";
 import HeroComp from "../components/Hero/HeroComp";
 import MainContent from "../components/MainContent/MainContent";
 import StartPageCards from "../components/StartpageCards/StartpageCards";
 import Rocket from "../media/Rocket.png";
 import Lightbulb from "../media/Lightbulb.png";
 import Computer from "../media/Computer.png";
-import { graphql, useFragment } from "../gql";
+import { useFragment } from "../gql";
 import UpcomingEventSpotlightComp from "../components/UpcomingEventSpotlight/UpcomingEventSpotlightComp";
 import { useNavigate } from "react-router-dom";
+import { GET_STARTPAGE } from "../Queries/page-queries";
 
 const StartPage = () => {
+  let navigate = useNavigate();
 
-let navigate = useNavigate();
+  // get data from graphql
+  const { data, error, loading } = useQuery<Get_StartpageQuery>(GET_STARTPAGE, {
+    variables: {
+      where: {
+        slug: "start",
+      },
+    },
+  });
+  //destructuring data and fragments
+  const startPage = data?.startPage;
+  const hero = useFragment(HeroFragmentDoc, startPage?.hero);
+  const content = useFragment(PageContentFragmentDoc, startPage);
 
-  // Define a fragment that will be used by the query
-  // Fragment is a subset of the query, and is used to define the data that we want to use.
-  const contentFragment = graphql(`
-    fragment StartpageContent on StartPage {
-      content {
-        ... on Heading {
-          heading
-          id
-        }
-        ... on Image {
-          id
-          altText
-          imageText
-          image {
-            url
-          } 
-        }
-        ... on Text {
-          id
-          text {
-            raw
-          }
-        }
-      }
+  //redirect to 404 if no data
+  useEffect(() => {
+    if (!loading && (!startPage || error)) {
+      navigate("/404");
     }
-  `);
-  // Use the `useQuery` hook to make a query to the API
-  // Spread the fragment into the query
-  const GET_STARTPAGE = graphql(`
-    query GET_STARTPAGE {
-      startPage(where: { slug: "start" }) {
-        ...StartpageContent
-        hero {
-          image {
-            url
-          }
-          altText
-        }
-        title
-      }
-    }
-  `);
+  }, [loading, startPage, error, navigate]);
 
-  const { data, error, loading } = useQuery<Get_StartpageQuery>(GET_STARTPAGE);
-  const { startPage } = data || {};
-    //redirect to 404 if no data
-    useEffect(() => {
-      if (!loading && (!startPage || error)) {
-        navigate("/404");
-      }
-    }, [loading, startPage, error, navigate]);
-    
-  let content = useFragment(contentFragment, startPage);
-  let startpageContent = content?.content || undefined;
- 
   return (
     <main>
       <HeroComp
-        url={startPage?.hero?.image?.url || ""}
-        altText={startPage?.hero?.altText || ""}
+        url={hero?.image.url || ""}
+        altText={hero?.altText || ""}
         title={startPage?.title || ""}
       />
-      {startpageContent && <MainContent content={startpageContent} />}
+      {content && <MainContent content={content} />}
       <section className="startpage-cards-container">
         <StartPageCards
           img={Rocket}

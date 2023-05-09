@@ -1,45 +1,43 @@
 import React, { useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import HeroComp from "../components/Hero/HeroComp";
 import UpcomingEventListComp from "../components/UpcomingEventList/UpcomingEventListComp";
-import { Get_LandingpageQuery } from "../gql/graphql";
 import PastEventSpotlightComp from "../components/PastEventSpotlight/PastEventSpotlightComp";
 import { useNavigate } from "react-router-dom";
+import { GET_LANDINGPAGE } from "../Queries/page-queries";
+import { Get_LandingpageQuery, HeroFragmentDoc } from "../gql/graphql";
+import { useFragment } from "../gql";
 
 const UpcomingEventsPage = () => {
-
   let navigate = useNavigate();
 
-  
-  const GET_LANDINGPAGE = gql(`
-    query GET_LANDINGPAGE {
-      eventLandingpage(where: { slug: "kommande-event" }) {
-        hero {
-          altText
-          image {
-            url
-          }
-        }
-        title
-      }
+  // get data from graphql
+  const { data, error, loading } = useQuery<Get_LandingpageQuery>(
+    GET_LANDINGPAGE,
+    {
+      variables: {
+        where: {
+          slug: "kommande-event",
+        },
+      },
     }
-  `);
+  );
+  //destructuring data and fragments
+  const eventLandingpage = data?.eventLandingpage;
+  const hero = useFragment(HeroFragmentDoc, eventLandingpage?.hero);
 
-  const { data, error, loading } = useQuery<Get_LandingpageQuery>(GET_LANDINGPAGE);
-  const { eventLandingpage } = data || {};
-  
   //redirect to 404 if no data
   useEffect(() => {
     if (!loading && (!eventLandingpage || error)) {
       navigate("/404");
     }
   }, [loading, eventLandingpage, error, navigate]);
-  
+
   return (
     <main>
       <HeroComp
-        url={eventLandingpage?.hero?.image?.url || ""}
-        altText={eventLandingpage?.hero?.altText || ""}
+        url={hero?.image.url || ""}
+        altText={hero?.altText || ""}
         title={eventLandingpage?.title || ""}
       />
       <UpcomingEventListComp />

@@ -1,4 +1,15 @@
-# Getting Started with Create React App
+# ENV variables 
+
+The types of ENV variables used in this project
+
+| Variable  | Origin |
+| ------------- | ------------- |
+| REACT_APP_GOOGLE_MAPS_API_KEY | A Google API key for the Google Maps API "Maps JavaScript API" |
+| REACT_APP_HG_API_URL  | The API url for your Hygraph Headless CMS. (Full access for this project)  |
+| REACT_APP_HG_API_AUTH | API Key for the above API in Hygraph. (Full access for this project) |
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FormInputsFragmentFragment } from "../../gql/graphql";
+import { FormInputsFragment } from "../../gql/graphql";
 import { useForm } from "react-hook-form";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { CREATE_FORM_ANSWER } from "../../Queries/mutations";
 type Props = {
-  inputs: FormInputsFragmentFragment["formInputs"] | undefined;
+  inputs: FormInputsFragment["formInputs"] | undefined;
   eventslug: string | undefined;
   formslug: string | undefined;
 };
@@ -24,21 +25,6 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
       reset();
     }
   }, [formState, reset]);
-
-  //create query
-  const CREATE_FORM_ANSWER = gql(`
-  mutation   createFormAnswer($data: FormAnswerCreateInput!) {
-    createFormAnswer(data: $data) {
-    formData
-    formPage{
-      slug
-    }
-    eventPage {
-      slug
-    }
-  }
-  }
-    `);
 
   const [createFormAnswer] = useMutation(CREATE_FORM_ANSWER);
   const onSubmit = (data: any) => {

@@ -1,27 +1,12 @@
 import React from "react";
-import { graphql } from "../../gql";
 import { useQuery } from "@apollo/client";
 import { IoMdArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { Get_Past_EventsQuery } from "../../gql/graphql";
+import { GET_PAST_EVENTS } from "../../Queries/event-queries";
 
 const PastEventSpotlightComp = () => {
-  //create query
-  const GET_PAST_EVENTS = graphql(`
-    query GET_PAST_EVENTS {
-      pastEvents(first: 2) {
-        title
-        slug
-        hero {
-          image {
-            url
-          }
-          altText
-        }
-      }
-    }
-  `);
-
+  //get data from gql
   const { data } = useQuery<Get_Past_EventsQuery>(GET_PAST_EVENTS);
   if (data?.pastEvents?.length === 0) {
     return (

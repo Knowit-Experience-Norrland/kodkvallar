@@ -1,29 +1,13 @@
 import React, { useEffect } from "react";
-import { graphql } from "../../gql";
 import { useQuery } from "@apollo/client";
 import { IoMdArrowForward } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { Get_Past_Events_ListQuery } from "../../gql/graphql";
+import { GET_PAST_EVENTS_LIST } from "../../Queries/event-queries";
 
 const PastEventListComp = () => {
   let navigate = useNavigate();
-  //create query
-  const GET_PAST_EVENTS_LIST = graphql(`
-    query GET_PAST_EVENTS_LIST {
-      pastEvents(orderBy: publishedAt_ASC) {
-        title
-        slug
-        ingress
-        hero {
-          image {
-            url
-          }
-          altText
-        }
-      }
-    }
-  `);
-
+  //get data from gql
   const { data, error, loading } =
     useQuery<Get_Past_Events_ListQuery>(GET_PAST_EVENTS_LIST);
   const { pastEvents } = data || {};

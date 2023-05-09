@@ -1,31 +1,14 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React from "react";
 import { Get_CommentsQuery } from "../../gql/graphql";
 import { useParams } from "react-router-dom";
+import { GET_COMMENTS } from "../../Queries/comment-queries";
 
 const CommentsComp = () => {
   // get slug from params
   const params = useParams();
   let slug = params.slug;
-
-  const GET_COMMENTS = gql(`
-        query GET_COMMENTS($slug: String!) {
-      eventComments(
-        where: {
-          documentInStages_some: { stage: PUBLISHED }
-          pastEvent: { slug: $slug }
-        }
-        orderBy: createdAt_DESC
-      ) {
-        id
-        comment
-        commentPolicy
-        createdAt
-        lastname
-        firstname
-      }
-    }
-    `);
+  
 
   const { data, error, loading } = useQuery<Get_CommentsQuery>(GET_COMMENTS, {
     variables: { slug },

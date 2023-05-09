@@ -1,5 +1,6 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
+import { CREATE_NEWSLETTERSIGNUP } from "../../Queries/mutations";
 
 // newsletter signup component, with form and mutation to create newsletter signup
 const NewsletterSignupComp = () => {
@@ -15,18 +16,7 @@ const NewsletterSignupComp = () => {
   // Regular expressions for input validation
   const nameRegex = /^[A-Öa-ö\s]+$/; // Accepts only letters and whitespace
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
-
-  //create query
-  const CREATE_NEWSLETTERSIGNUP = gql(`
-  mutation createNewsletterSignup($data: NewsletterSignupCreateInput!) {
-    createNewsletterSignup(data: $data) {
-      email
-      lastName
-      firstName
-    }
-  }
-    `);
-
+  // use mutation to create newsletter signup
   const [createNewsletterSignup] = useMutation(CREATE_NEWSLETTERSIGNUP);
 
   //   handle submit
@@ -110,7 +100,8 @@ const NewsletterSignupComp = () => {
             <>
               <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
               <p className="gdpr-text">
-                Pssst! Ibland hamnar vi i skärpkorgen, så kolla där om du inte får något mail!
+                Pssst! Ibland hamnar vi i skärpkorgen, så kolla där om du inte
+                får något mail!
               </p>
             </>
           )}

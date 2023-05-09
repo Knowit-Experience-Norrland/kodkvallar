@@ -1,7 +1,8 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { CREATE_COMMENT } from "../../Queries/comment-queries";
 
 type Props = {};
 
@@ -17,22 +18,6 @@ const CommentFormComp = (props: Props) => {
     reset,
     formState: { errors },
   } = useForm();
-
-  //create query
-  const CREATE_COMMENT = gql(`
-  mutation createEventComment($data: EventCommentCreateInput!) {
-    createEventComment(data: $data) {
-        comment
-    commentPolicy
-    email
-    firstname
-    lastname
-    pastEvent {
-      slug
-    }
-  }
-  }
-    `);
 
   const [createEventComment] = useMutation(CREATE_COMMENT);
 

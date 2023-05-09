@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { graphql } from "../../gql";
 import { Get_Upcoming_Events_ListQuery } from "../../gql/graphql";
 import { useQuery } from "@apollo/client";
 import { IoMdArrowForward } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
+import { GET_UPCOMING_EVENTS_LIST } from "../../Queries/event-queries";
 
 const UpcomingEventListComp = () => {
   let navigate = useNavigate();
@@ -12,29 +12,12 @@ const UpcomingEventListComp = () => {
   var utc = new Date();
   const today = utc.toISOString().split(".")[0] + "Z";
 
-  //create query with variable for taodys date and time
-  const GET_UPCOMING_EVENTS_LIST = graphql(`
-    query GET_UPCOMING_EVENTS_LIST($today: DateTime!) {
-      eventPages(where: { date_gte: $today }, orderBy: date_ASC) {
-        title
-        slug
-        date
-        ingress
-        hero {
-          image {
-            url
-          }
-          altText
-        }
-      }
-    }
-  `);
-
   const { data, error, loading } = useQuery<Get_Upcoming_Events_ListQuery>(
     GET_UPCOMING_EVENTS_LIST,
     { variables: { today } }
   );
-  const { eventPages } = data || {};
+  //destructuring data and fragments
+  const eventPages = data?.eventPages;
 
   //redirect to 404 if no data
   useEffect(() => {

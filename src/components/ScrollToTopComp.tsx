@@ -5,7 +5,7 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // "document.documentElement.scrollTo" is the magic for React Router Dom v6
+    // "document.documentElement.scrollTo" to scroll to the top of the page when a link is clicked
     document.documentElement.scrollTo({
       top: 0,
       left: 0,

@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { ContactCard, Get_EventpageQuery } from "../gql/graphql";
+import {
+  ContactCard,
+  EventContentFragmentDoc,
+  Get_EventpageQuery,
+  HeroFragmentDoc,
+  LocationFragmentDoc,
+} from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
 import { useParams, useNavigate } from "react-router-dom";
 import EventSignupComp from "../components/EventSignup/EventSignupComp";
 import MapComp from "../components/Map/MapComp";
-import { graphql, useFragment } from "../gql";
+import { useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
 import PastEventSpotlightComp from "../components/PastEventSpotlight/PastEventSpotlightComp";
@@ -15,6 +21,7 @@ import {
   RiInstagramLine,
 } from "react-icons/ri";
 import WaitinglistComp from "../components/Waitinglist/WaitinglistComp";
+import { GET_EVENTPAGE } from "../Queries/event-queries";
 
 function EventPage() {
   // get slug from params
@@ -23,94 +30,28 @@ function EventPage() {
 
   let navigate = useNavigate();
 
-  //create fragment of query
-  const locationFragment = graphql(`
-    fragment locationFragment on EventPage {
-      location {
-        ... on EventLocation {
-          adress
-          id
-          map {
-            latitude
-            longitude
-          }
-        }
-      }
-    }
-  `);
-  //create fragment of query
-  const EventContentFragment = graphql(`
-    fragment EventContentFragment on EventPage {
-      content {
-        ... on Heading {
-          heading
-          id
-        }
-        ... on Image {
-          altText
-          imageText
-          id
-          image {
-            url
-          }
-        }
-        ... on Text {
-          id
-          text {
-            raw
-          }
-        }
-      }
-    }
-  `);
-  //create query with fragments and slug for variable
-  const GET_EVENTPAGE = graphql(`
-    query GET_EVENTPAGE($slug: String!) {
-      eventPage(where: { slug: $slug }) {
-        contact {
-          email
-          image {
-            url
-          }
-          name
-          phone
-          title
-        }
-        hero {
-          altText
-          id
-          image {
-            url
-          }
-        }
-        maxParticipants
-        ...EventContentFragment
-        date
-        slug
-        title
-        ...locationFragment
-        eventSignups {
-          id
-          firstName
-        }
-      }
-    }
-  `);
+  // get data from graphql
   const { data, error, loading } = useQuery<Get_EventpageQuery>(GET_EVENTPAGE, {
-    variables: { slug },
+    variables: {
+      where: {
+        slug: slug,
+      },
+    },
   });
+  // destructuring data and fragments
   const { eventPage } = data || {};
+  const hero = useFragment(HeroFragmentDoc, eventPage?.hero);
+  let location = useFragment(LocationFragmentDoc, eventPage);
+  let mainContent = useFragment(EventContentFragmentDoc, eventPage);
+  //get map position
+  let map = location?.location?.map;
+  let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
 
   useEffect(() => {
     if (!loading && (!eventPage || error)) {
       navigate("/404");
     }
   }, [loading, eventPage, error, navigate]);
-
-  let location = useFragment(locationFragment, eventPage);
-  let map = location?.location?.map;
-  let mainContent = useFragment(EventContentFragment, eventPage);
-  let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
 
   //format date and time
   let newDate = new Date(eventPage?.date);
@@ -125,18 +66,19 @@ function EventPage() {
     minute: "2-digit",
   });
 
+  //get number of signups and max participants
   let signups = eventPage?.eventSignups?.length || 0;
   let maxParticipants = eventPage?.maxParticipants || 0;
 
   return (
     <main>
       <HeroComp
-        url={eventPage?.hero?.image?.url || ""}
-        altText={eventPage?.hero?.altText || ""}
+        url={hero?.image?.url || ""}
+        altText={hero?.altText || ""}
         title={eventPage?.title || ""}
       />
       <div className="event-wrapper">
-        {mainContent && <MainContent content={mainContent.content} />}
+        {mainContent && <MainContent content={mainContent} />}
         <div className="event-sidebar">
           <div className="space">
             <h2 className="h2-light">När</h2>
@@ -173,7 +115,11 @@ function EventPage() {
           </div>
         </div>
       </div>
-      {signups >= maxParticipants ? (<WaitinglistComp slug={slug} />) : (<EventSignupComp slug={slug} />)}
+      {signups >= maxParticipants ? (
+        <WaitinglistComp slug={slug} />
+      ) : (
+        <EventSignupComp slug={slug} />
+      )}
       <div className="events-spotlight-container">
         <PastEventSpotlightComp />
       </div>

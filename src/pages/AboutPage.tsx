@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { ContactCard, Get_About_PageQuery } from "../gql/graphql";
+import {
+  AboutContentFragmentDoc,
+  AdressFragmentDoc,
+  ContactCard,
+  Get_About_PageQuery,
+  HeroFragmentDoc,
+} from "../gql/graphql";
 import ContactCardComp from "../components/ContactCard/ContactCardComp";
 import MapComp from "../components/Map/MapComp";
-import { graphql, useFragment } from "../gql";
+import { useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
 import {
@@ -12,80 +18,30 @@ import {
   RiInstagramLine,
 } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { GET_ABOUT_PAGE } from "../Queries/page-queries";
 
 const AboutPage = () => {
   let navigate = useNavigate();
 
-  //create fragment of query
-  const adressFragment = graphql(`
-    fragment adressFragment on AboutPage {
-      id
-      adress {
-        adress
-        map {
-          latitude
-          longitude
-        }
-      }
+  // get data from graphql
+  const { data, error, loading } = useQuery<Get_About_PageQuery>(
+    GET_ABOUT_PAGE,
+    {
+      variables: {
+        where: {
+          slug: "om-oss",
+        },
+      },
     }
-  `);
-  //create fragment of query
-  const ContentFragment = graphql(`
-    fragment ContentFragment on AboutPage {
-      content {
-        ... on Heading {
-          heading
-          id
-        }
-        ... on Image {
-          altText
-          imageText
-          id
-          image {
-            url
-          }
-        }
-        ... on Text {
-          id
-          text {
-            raw
-          }
-        }
-      }
-    }
-  `);
-  //create query with fragments and slug for variable
-  const GET_ABOUT_PAGE = graphql(`
-    query GET_ABOUT_PAGE {
-      aboutPage(where: { slug: "om-oss" }) {
-        employees {
-          title
-          name
-          phone
-          email
-          image {
-            url
-          }
-        }
-        hero {
-          altText
-          id
-          image {
-            url
-          }
-        }
-        ...ContentFragment
-        slug
-        title
-        sidebarInfo
-        ...adressFragment
-      }
-    }
-  `);
+  );
 
-  const { data, error, loading } =
-    useQuery<Get_About_PageQuery>(GET_ABOUT_PAGE);
-    const { aboutPage } = data || {};
+  //destructuring data and fragments
+  const { aboutPage } = data || {};
+  const hero = useFragment(HeroFragmentDoc, aboutPage?.hero);
+  let location = useFragment(AdressFragmentDoc, aboutPage);
+  let map = location?.adress?.map;
+  let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
+  let mainContent = useFragment(AboutContentFragmentDoc, aboutPage);
 
   //redirect to 404 if error or if no data
   useEffect(() => {
@@ -94,21 +50,16 @@ const AboutPage = () => {
     }
   }, [loading, aboutPage, error, navigate]);
 
-  let location = useFragment(adressFragment, aboutPage);
-  let map = location?.adress?.map;
-  let mainContent = useFragment(ContentFragment, aboutPage);
-  let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
-
   return (
     <main>
       <HeroComp
-        url={aboutPage?.hero?.image?.url || ""}
-        altText={aboutPage?.hero?.altText || ""}
+        url={hero?.image?.url || ""}
+        altText={hero?.altText || ""}
         title={aboutPage?.title || ""}
       />
       <div className="event-wrapper">
         <div>
-          {mainContent && <MainContent content={mainContent.content} />}
+          {mainContent && <MainContent content={mainContent} />}
           <div className="about-contact">
             {aboutPage?.employees?.map((contact, i) => {
               return (

@@ -1,5 +1,6 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
+import { CREATE_WAITINGLIST_SIGNUP } from "../../Queries/mutations";
 
 interface WaitinglistProps {
   slug: string | undefined;
@@ -17,22 +18,9 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
 
   // Regular expressions for input validation
   const nameRegex = /^[A-Öa-ö\s]+$/; // Accepts only letters and whitespace
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation 
 
-  //create query
-  const CREATE_WAITINGLIST_SIGNUP = gql(`
-  mutation createWaitingListEvent($data: WaitingListEventCreateInput!) {
-    createWaitingListEvent(data: $data) {
-      email
-      lastName
-      firstName
-      eventPage {
-      slug
-    }
-    }
-  }
-    `);
-
+  //   use mutation hook for creating waitinglist signup 
   const [createWaitingListEvent] = useMutation(CREATE_WAITINGLIST_SIGNUP);
 
   //   handle submit
