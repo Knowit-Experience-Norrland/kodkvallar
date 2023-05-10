@@ -20,20 +20,20 @@
 
     .hero-overlay{
         position: absolute;
-        margin: 0 auto 5em auto;
         padding: $left-right-2;
         max-width: $max-1000;
-        height: 100%;
         width: 100%;
+        height: 100%;
         display: flex;
         align-items: flex-end;
         justify-content: center;
+        word-break:normal;
     }
 
     .hero-title{
         background-color: rgba($primary-digital-white, 0.85);
         padding: .2em .5em;
-        margin: $left-right-1;
+        margin: $spacing-05 $spacing-1;
         }
 
     @media screen and (min-width: 768px){
@@ -45,7 +45,7 @@
         }
 
         .hero-title{
-            margin: $spacing-0;
+            margin: $spacing-1 $spacing-05;
         }
     }
         
