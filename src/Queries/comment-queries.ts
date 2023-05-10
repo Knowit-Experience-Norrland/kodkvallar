@@ -7,7 +7,7 @@ where: {
   documentInStages_some: { stage: PUBLISHED }
   pastEvent: { slug: $slug }
 }
-orderBy: createdAt_DESC
+orderBy: createdAt_DESC, first: 100
 ) {
 id
 comment

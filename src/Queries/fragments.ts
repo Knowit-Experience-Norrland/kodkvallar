@@ -14,7 +14,7 @@ fragment Hero on Hero {
 
 export const PageContentFragment = gql`
   fragment PageContent on StartPage {
-    content {
+    content(first: 1000) {
       ... on Heading {
         heading
         id
@@ -39,7 +39,7 @@ export const PageContentFragment = gql`
 
 export const BlogContentFragment = gql`
   fragment BlogContent on PastEvent {
-    content {
+    content(first: 1000) {
       ... on FeedbackHighlight {
         author
         feedback
@@ -69,7 +69,7 @@ export const BlogContentFragment = gql`
 
 export const EventContentFragment = gql`
   fragment EventContent on EventPage {
-    content {
+    content(first: 1000) {
       ... on Heading {
         heading
         id
@@ -94,7 +94,7 @@ export const EventContentFragment = gql`
 
 export const AboutContentFragment = gql`
     fragment AboutContent on AboutPage {
-      content {
+      content(first: 1000) {
         ... on Heading {
           heading
           id
@@ -147,7 +147,7 @@ fragment adress on AboutPage {
 
 export const FormInputsFragment = gql`
   fragment FormInputs on FormPage {
-    formInputs {
+    formInputs(first: 1000) {
       ... on FormsTextarea {
         required
         textareaname: name
