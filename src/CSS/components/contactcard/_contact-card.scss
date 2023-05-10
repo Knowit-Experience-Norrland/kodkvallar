@@ -1,4 +1,6 @@
 .contact-card {
+  margin: $top-bottom-0-auto;
+  text-align: center;
   
   a {
     color: $primary-forest;
@@ -22,4 +24,10 @@
   object-position: center;
   box-shadow: $box-shadow-strong;
   margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .contact-card {
+    text-align: left;
+  }
 }

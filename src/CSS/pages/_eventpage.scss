@@ -41,7 +41,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  gap: $spacing-2;
+  gap: $spacing-2-5;
   padding: $spacing-2;
 }
 
@@ -51,5 +51,8 @@
   }
   .event-sidebar {
     margin: $top-bottom-4;
+  }
+  .about-contact{
+    justify-content: flex-start;
   }
 }
