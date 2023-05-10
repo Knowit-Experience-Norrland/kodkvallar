@@ -55,7 +55,7 @@ export const GET_EVENTPAGE = gql`
 
 export   const GET_UPCOMING_EVENTS = gql`
 query GET_UPCOMING_EVENTS($today: DateTime!) {
-  eventPages(where: { date_gte: $today }, orderBy: date_ASC, first: 2) {
+  eventPages(where: { date_gte: $today }, orderBy: date_ASC, first: 2, stage: PUBLISHED) {
     title
     slug
     hero {
@@ -70,7 +70,7 @@ query GET_UPCOMING_EVENTS($today: DateTime!) {
 
 export const GET_UPCOMING_EVENTS_LIST = gql`
     query GET_UPCOMING_EVENTS_LIST($today: DateTime!) {
-      eventPages(where: { date_gte: $today }, orderBy: date_ASC) {
+      eventPages(where: { date_gte: $today }, orderBy: date_ASC, stage: PUBLISHED) {
         title
         slug
         date
@@ -88,7 +88,7 @@ export const GET_UPCOMING_EVENTS_LIST = gql`
 
 export const GET_PAST_EVENTS = gql`
 query GET_PAST_EVENTS {
-  pastEvents(first: 2) {
+  pastEvents(stage: PUBLISHED, first: 2) {
     title
     slug
     hero {
@@ -103,7 +103,7 @@ query GET_PAST_EVENTS {
 
 export const GET_PAST_EVENTS_LIST = gql`
 query GET_PAST_EVENTS_LIST {
-  pastEvents(orderBy: publishedAt_ASC) {
+  pastEvents(stage: PUBLISHED, orderBy: publishedAt_ASC) {
     title
     slug
     ingress
