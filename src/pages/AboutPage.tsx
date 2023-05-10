@@ -60,13 +60,16 @@ const AboutPage = () => {
       <div className="event-wrapper">
         <div>
           {mainContent && <MainContent content={mainContent} />}
-          <div className="about-contact">
-            {aboutPage?.employees?.map((contact, i) => {
-              return (
-                <ContactCardComp contact={contact as ContactCard} key={i} />
-              );
-            })}
-          </div>
+          <section className="about-contact-section">
+              <h2 className="about-heading">Kontaktperson</h2>
+            <div className="about-contact">
+              {aboutPage?.employees?.map((contact, i) => {
+                return (
+                  <ContactCardComp contact={contact as ContactCard} key={i} />
+                );
+              })}
+            </div>
+          </section>
         </div>
         <div className="event-sidebar">
           <div className="space">

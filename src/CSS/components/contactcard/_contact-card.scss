@@ -1,9 +1,20 @@
+.about-contact-section{
+  max-width: $max-1000;
+  padding: $left-right-2;
+}
+.about-contact{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: $spacing-2-5;
+}
 .contact-card {
   margin: $top-bottom-0-auto;
   text-align: center;
   
   a {
     color: $primary-forest;
+    word-break: break-all;
   }
   a:visited{
     color: $primary-forest;
@@ -29,5 +40,8 @@
 @media screen and (min-width: 768px) {
   .contact-card {
     text-align: left;
+  }
+  .about-contact{
+    justify-content: flex-start;
   }
 }

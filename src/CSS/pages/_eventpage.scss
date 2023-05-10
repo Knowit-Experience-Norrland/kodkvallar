@@ -37,13 +37,6 @@
     padding-bottom: $spacing-05;
 }
 
-.about-contact{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: $spacing-2-5;
-  padding: $spacing-2;
-}
 
 @media screen and (min-width: 768px) {
   .event-wrapper {
@@ -51,8 +44,5 @@
   }
   .event-sidebar {
     margin: $top-bottom-4;
-  }
-  .about-contact{
-    justify-content: flex-start;
   }
 }
