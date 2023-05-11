@@ -109,7 +109,7 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
         <div>
           {message === "SUCCESS" && (
             <>
-              <p>Tack för din anmälan till väntelistan!</p>
+              <p className="green bold">Tack för din anmälan till väntelistan!</p>
               <p className="gdpr-text">
                 Pssst! Ibland hamnar vi i skärpkorgen..
               </p>

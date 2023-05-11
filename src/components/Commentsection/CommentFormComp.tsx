@@ -8,6 +8,7 @@ type Props = {};
 
 const CommentFormComp = (props: Props) => {
   const [message, setMessage] = useState<string | null>(null);
+  const [errmessage, setErrMessage] = useState<string | null>(null);
 
   const params = useParams();
   let slug = params.slug;
@@ -33,9 +34,11 @@ const CommentFormComp = (props: Props) => {
       };
       createEventComment({ variables: { data } });
       setMessage("Tack för din kommentar!");
+      setErrMessage(null);
       reset();
     } catch (err) {
-      setMessage("Något gick fel, vänligen försök igen.");
+      setErrMessage("Något gick fel, vänligen försök igen.");
+      setMessage(null);
       console.log(err);
     }
   };
@@ -166,7 +169,8 @@ const CommentFormComp = (props: Props) => {
         </p>
         <button type="submit">Skicka</button>
       </form>
-      {message && <p className="success">{message}</p>}
+      {message && <p className="green bold">{message}</p>}
+      {errmessage && <p className="error">{errmessage}</p>}
     </div>
   );
 };

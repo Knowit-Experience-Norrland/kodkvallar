@@ -11,6 +11,7 @@ type Props = {
 
 const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
   const [message, setMessage] = useState<string | null>(null);
+  const [errmessage, setErrMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -37,8 +38,10 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
       };
       createFormAnswer({ variables: { data } });
       setMessage("Tack för ditt svar!");
+      setErrMessage(null);
     } catch (err) {
-      setMessage("Något gick fel, vänligen försök igen.");
+      setErrMessage("Något gick fel, vänligen försök igen.");
+      setMessage(null);
       console.log(err);
     }
    
@@ -196,7 +199,8 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
 
           <button type="submit">Skicka</button>
         </form>
-        {message && <p className="success">{message}</p>}
+        {message && <p className="green bold">{message}</p>}
+        {errmessage && <p className="error">{errmessage}</p>}
       </div>
     </section>
   );

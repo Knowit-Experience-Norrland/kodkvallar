@@ -98,14 +98,13 @@ const NewsletterSignupComp = () => {
         <div>
           {message === "SUCCESS" && (
             <>
-              <p>Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
+              <p className="green bold">Tack för att du vill prenumerera på vårt nyhetsbrev!</p>
               <p className="gdpr-text">
-                Pssst! Ibland hamnar vi i skärpkorgen, så kolla där om du inte
-                får något mail!
+                Pssst! Ibland hamnar vi i skärpkorgen...
               </p>
             </>
           )}
-          {message === "ERROR" && <p>Något gick fel. Vänligen försök igen.</p>}
+          {message === "ERROR" && <p className="error">Något gick fel. Vänligen försök igen.</p>}
         </div>
         <form onSubmit={handleSubmit} name="NewsletterSignup">
           <div className="form-child">

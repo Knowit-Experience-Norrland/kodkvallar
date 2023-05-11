@@ -31,7 +31,8 @@ p {
 }
 
 .green {
-  color: $primary-forest;
+  //set as important to override bootstrap
+  color: $primary-forest !important;
 }
 
 .required {
