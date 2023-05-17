@@ -103,13 +103,13 @@ function EventPage() {
             })}
           </div>
           <div className="event-sidebar-socials">
-            <a href="/" target="_blank" rel="noreferrer" title={"LinkedIn"}>
+          <a href="https://www.linkedin.com/in/katarinabjuhr/" target="_blank" rel="noopener noreferrer" title={"LinkedIn"}>
               <RiLinkedinBoxLine />
             </a>
-            <a href="/" target="_blank" rel="noreferrer" title={"Instagram"}>
+            <a href="https://www.instagram.com/weareknowit/" target="_blank" rel="noopener noreferrer"  title={"Instagram"}>
               <RiInstagramLine />
             </a>
-            <a href="/" target="_blank" rel="noreferrer" title={"Facebook"}>
+            <a href="https://www.facebook.com/weareknowit" target="_blank" rel="noopener noreferrer" title={"Facebook"}>
               <RiFacebookBoxLine />
             </a>
           </div>
