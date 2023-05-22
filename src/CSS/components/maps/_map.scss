@@ -5,3 +5,13 @@
     max-height: $max-400;
     margin: $top-bottom-0-auto;
   }
+
+  .leaflet-container{
+    min-width: $max-250;
+    min-height: $max-300;
+    max-width: $max-300;
+    max-height: $max-400;
+  }
+  .leaflet-pane, .leaflet-container{
+    z-index: 0;
+  }

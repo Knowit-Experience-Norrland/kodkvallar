@@ -47,6 +47,7 @@ function EventPage() {
   let map = location?.location?.map;
   let position = { lat: map?.latitude || 0, lng: map?.longitude || 0 };
 
+
   useEffect(() => {
     if (!loading && (!eventPage || error)) {
       navigate("/404");
@@ -91,7 +92,7 @@ function EventPage() {
           </div>
           <div className="space">
             <h2 className="h2-light">Plats</h2>
-            {position.lat !== 0 && <MapComp position={position} />}
+            {position.lat !== 0 && <MapComp position={position}/>}
             <p>{location?.location?.adress}</p>
           </div>
           <div className="space">
