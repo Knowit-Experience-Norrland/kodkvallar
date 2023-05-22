@@ -13,5 +13,9 @@ The types of ENV variables used in this project
 | REACT_APP_HG_API_AUTH | API Key for the above API in Hygraph. (Full access for this project) |
 
 
-
+## Scripts 
+Npm install - install dependencies
+Npm start - start the project
+Npm run build - build the project
+yarn graphql-codegen --require dotenv/config --watch - generate types from the GraphQL schema
 

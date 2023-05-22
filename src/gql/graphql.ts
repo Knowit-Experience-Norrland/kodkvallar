@@ -6354,7 +6354,7 @@ export type FormsCheckbox = {
   id: Scalars['ID'];
   /** Fältets rubrik tex "Ditt namn: " */
   label: Scalars['String'];
-  /** Namnge fältet på engelska, används som referens i backend */
+  /** Namnge fältet på engelska och med - istället för mellanslag, används som referens till backend  */
   name: Scalars['String'];
   /** anger om fältet är obligatoriskt eller ej  */
   required: Scalars['Boolean'];
@@ -6738,7 +6738,7 @@ export type FormsInput = {
   id: Scalars['ID'];
   /** Rubriken för fältet */
   label: Scalars['String'];
-  /** namnger fältet, används som referens mot backend */
+  /** Namnge fältet på engelska och med - istället för mellanslag, används som referens till backend  */
   name: Scalars['String'];
   /** om fältet är obligatoriskt eller ej */
   required: Scalars['Boolean'];
@@ -7143,7 +7143,7 @@ export type FormsSelect = {
   id: Scalars['ID'];
   /** Rubrik mot användaren */
   label: Scalars['String'];
-  /** namnge fältet på engelska, används som referens för fältet */
+  /** Namnge fältet på engelska och med - istället för mellanslag, används som referens till backend  */
   name: Scalars['String'];
   /** De olika alternativen i listan */
   options: Array<FormsSelectOption>;
@@ -7920,7 +7920,7 @@ export type FormsTextarea = {
   id: Scalars['ID'];
   /** Fältets rubrik så som "Ditt namn: "  */
   label: Scalars['String'];
-  /** Namnge fältet på engelska, används som referens till backend  */
+  /** Namnge fältet på engelska och med - istället för mellanslag, används som referens till backend  */
   name: Scalars['String'];
   /** Anger om fältet är obligatoriskt eller ej  */
   required: Scalars['Boolean'];
