@@ -14,8 +14,11 @@ The types of ENV variables used in this project
 
 
 ## Scripts 
-Npm install - install dependencies
-Npm start - start the project
-Npm run build - build the project
-yarn graphql-codegen --require dotenv/config --watch - generate types from the GraphQL schema
+``Npm install`` - install dependencies
+
+``Npm start`` - start the project
+
+``Npm run build`` - build the project
+
+``yarn graphql-codegen --require dotenv/config --watch`` - generate types from the GraphQL schema
 
