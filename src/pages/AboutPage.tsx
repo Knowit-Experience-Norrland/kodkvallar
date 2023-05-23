@@ -12,13 +12,9 @@ import MapComp from "../components/Map/MapComp";
 import { useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
-import {
-  RiLinkedinBoxLine,
-  RiFacebookBoxLine,
-  RiInstagramLine,
-} from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { GET_ABOUT_PAGE } from "../Queries/page-queries";
+import SocialmedaiaLinksComp from "../components/SocialmediaLinks/SocialmedaiaLinksComp";
 
 const AboutPage = () => {
   let navigate = useNavigate();
@@ -61,7 +57,7 @@ const AboutPage = () => {
         <div>
           {mainContent && <MainContent content={mainContent} />}
           <section className="about-contact-section">
-              <h2 className="about-heading">Kontaktperson</h2>
+            <h2 className="about-heading">Kontaktperson</h2>
             <div className="about-contact">
               {aboutPage?.employees?.map((contact, i) => {
                 return (
@@ -80,15 +76,7 @@ const AboutPage = () => {
             <p>{aboutPage?.sidebarInfo}</p>
           </div>
           <div className="event-sidebar-socials">
-          <a href="https://www.linkedin.com/in/katarinabjuhr/" target="_blank" rel="noopener noreferrer" title={"LinkedIn"}>
-              <RiLinkedinBoxLine />
-            </a>
-            <a href="https://www.instagram.com/weareknowit/" target="_blank" rel="noopener noreferrer"  title={"Instagram"}>
-              <RiInstagramLine />
-            </a>
-            <a href="https://www.facebook.com/weareknowit" target="_blank" rel="noopener noreferrer" title={"Facebook"}>
-              <RiFacebookBoxLine />
-            </a>
+            <SocialmedaiaLinksComp />
           </div>
         </div>
       </div>

@@ -15,13 +15,9 @@ import { useFragment } from "../gql";
 import MainContent from "../components/MainContent/MainContent";
 import HeroComp from "../components/Hero/HeroComp";
 import PastEventSpotlightComp from "../components/PastEventSpotlight/PastEventSpotlightComp";
-import {
-  RiLinkedinBoxLine,
-  RiFacebookBoxLine,
-  RiInstagramLine,
-} from "react-icons/ri";
 import WaitinglistComp from "../components/Waitinglist/WaitinglistComp";
 import { GET_EVENTPAGE } from "../Queries/event-queries";
+import SocialmedaiaLinksComp from "../components/SocialmediaLinks/SocialmedaiaLinksComp";
 
 function EventPage() {
   // get slug from params
@@ -103,15 +99,7 @@ function EventPage() {
             })}
           </div>
           <div className="event-sidebar-socials">
-          <a href="https://www.linkedin.com/in/katarinabjuhr/" target="_blank" rel="noopener noreferrer" title={"LinkedIn"}>
-              <RiLinkedinBoxLine />
-            </a>
-            <a href="https://www.instagram.com/weareknowit/" target="_blank" rel="noopener noreferrer"  title={"Instagram"}>
-              <RiInstagramLine />
-            </a>
-            <a href="https://www.facebook.com/weareknowit" target="_blank" rel="noopener noreferrer" title={"Facebook"}>
-              <RiFacebookBoxLine />
-            </a>
+            <SocialmedaiaLinksComp />
           </div>
         </div>
       </div>
