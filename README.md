@@ -3,7 +3,7 @@ Built with React and Typescript and consumes a Hygraph GraphQL API and Google Ma
 Uses Sass for styling and GraphQL Code Generator for generating types from the GraphQL schema.
 
 ## Maps 
-The main branch has a Google Maps integration. The branch `leaflet_map`has an free map integration. 
+The main branch has a Google Maps integration. The branch `leaflet_map` has an free map integration. 
 
 ## ENV variables 
 
