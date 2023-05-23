@@ -33,7 +33,7 @@
     .hero-title{
         background-color: rgba($primary-digital-white, 0.85);
         padding: .2em .5em;
-        margin: $spacing-05 $spacing-1;
+        margin: $spacing-05 $spacing-0;
         }
 
     @media screen and (min-width: 768px){
@@ -45,7 +45,7 @@
         }
 
         .hero-title{
-            margin: $spacing-1 $spacing-05;
+            margin: $spacing-1 $spacing-0;
         }
     }
         
