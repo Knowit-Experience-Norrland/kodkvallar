@@ -1,100 +1,41 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { CREATE_WAITINGLIST_SIGNUP } from "../../Queries/mutations";
+import { useForm } from "react-hook-form";
 
 interface WaitinglistProps {
   slug: string | undefined;
 }
 
 const WaitinglistComp = ({ slug }: WaitinglistProps) => {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
-  //error messages
-  const [firstnameError, setFirstnameError] = useState<string | null>(null);
-  const [lastnameError, setLastnameError] = useState<string | null>(null);
-  const [emailError, setEmailError] = useState<string | null>(null);
 
-  // Regular expressions for input validation
-  const nameRegex = /^[A-Öa-ö\s]+$/; // Accepts only letters and whitespace
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  //   use mutation hook for creating waitinglist signup 
+  //   use mutation hook for creating waitinglist signup
   const [createWaitingListEvent] = useMutation(CREATE_WAITINGLIST_SIGNUP);
 
   //   handle submit
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    //reset error msg
-    setFirstnameError(null);
-    setLastnameError(null);
-    setEmailError(null);
-
-    //validate form inputs
-    let isValid = true;
-
-    if (!firstname) {
-      setFirstnameError("Fyll i förnamn");
-      isValid = false;
-    } else if (firstname.length < 2) {
-      setFirstnameError("Förnamnet måste vara minst 2 tecken");
-      isValid = false;
-    } else if (!firstname.match(nameRegex)) {
-      setFirstnameError("Förnamnet får endast innehålla bokstäver");
-      isValid = false;
+  const onSubmit = (data: any) => {
+    try {
+      data = {
+        firstName: data.firstname,
+        lastName: data.lastname,
+        email: data.email,
+        eventPage: { connect: { slug: slug } },
+      };
+      createWaitingListEvent({ variables: { data } });
+      setMessage("SUCCESS");
+      reset();
+    } catch (err) {
+      setMessage("ERROR");
+      console.log(err);
     }
-    if (!lastname) {
-      setLastnameError("Fyll i efternamn");
-      isValid = false;
-    } else if (lastname.length < 2) {
-      setLastnameError("Efternamnet måste vara minst 2 tecken");
-      isValid = false;
-    } else if (!lastname.match(nameRegex)) {
-      setLastnameError("Efternamnet får endast innehålla bokstäver");
-      isValid = false;
-    }
-    if (!email) {
-      setEmailError("Fyll i e-post");
-      isValid = false;
-    } else if (!email.includes("@")) {
-      setEmailError("Ogiltig email");
-      isValid = false;
-    } else if (!email.match(emailRegex)) {
-      setEmailError("Ogiltig email");
-      isValid = false;
-    }
-
-    if (isValid) {
-      try {
-        const data = {
-          firstName: firstname,
-          lastName: lastname,
-          email: email,
-          eventPage: { connect: { slug: slug } },
-        };
-        createWaitingListEvent({ variables: { data } });
-        setMessage("SUCCESS");
-      } catch (err) {
-        setMessage("ERROR");
-        console.log(err);
-      }
-      setFirstname("");
-      setLastname("");
-      setEmail("");
-    }
-  };
-
-  //   set states to values of input fields
-  const handleFirstnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstname(e.target.value);
-  };
-  const handleLastnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLastname(e.target.value);
-  };
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
   };
 
   return (
@@ -109,7 +50,9 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
         <div>
           {message === "SUCCESS" && (
             <>
-              <p className="green bold">Tack för din anmälan till väntelistan!</p>
+              <p className="green bold">
+                Tack för din anmälan till väntelistan!
+              </p>
               <p className="gdpr-text">
                 Pssst! Ibland hamnar vi i skärpkorgen..
               </p>
@@ -117,18 +60,27 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
           )}
           {message === "ERROR" && <p>Något gick fel. Vänligen försök igen.</p>}
         </div>
-        <form onSubmit={handleSubmit} name="NewsletterSignup">
+        <form onSubmit={handleSubmit(onSubmit)} name="NewsletterSignup">
           <div className="form-child">
             <label htmlFor="firstname">
               Förnamn: <span className="required">*</span>
             </label>
             <input
               id="firstname"
-              name="firstname"
               type="text"
               aria-label="Förnamn"
-              value={firstname}
-              onChange={handleFirstnameChange}
+              {...register("firstname", {
+                required: "Fyll i förnamn.",
+                pattern: {
+                  value: /^[A-Za-zåäöÅÄÖ0-9\s.,"\-_\n\r]+$/, // default pattern for text input type
+                  message:
+                    "Förnamn: Felaktigt format. Endast bokstäver och skiljetecken tillåtna.", // default error message for text input type
+                },
+                minLength: {
+                  value: 2,
+                  message: "Minst 2 tecken.",
+                },
+              })}
             />
           </div>
           <div className="form-child">
@@ -137,11 +89,20 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
             </label>
             <input
               id="lastname"
-              name="lastname"
               type="text"
               aria-label="Efternamn"
-              value={lastname}
-              onChange={handleLastnameChange}
+              {...register("lastname", {
+                required: "Fyll i efternamn.",
+                pattern: {
+                  value: /^[A-Za-zåäöÅÄÖ0-9\s.,"\-_\n\r]+$/, // default pattern for text input type
+                  message:
+                    "Efternamn: Felaktigt format. Endast bokstäver och skiljetecken tillåtna.", // default error message for text input type
+                },
+                minLength: {
+                  value: 2,
+                  message: "Minst 2 tecken.",
+                },
+              })}
             />
           </div>
           <div className="form-child">
@@ -150,18 +111,28 @@ const WaitinglistComp = ({ slug }: WaitinglistProps) => {
             </label>
             <input
               id="email"
-              name="email"
               type="email"
               aria-label="Email"
-              value={email}
-              onChange={handleEmailChange}
+              {...register("email", {
+                required: "Fyll i e-post.",
+                pattern: {
+                  value: /\S+@\S+\.\S+/, // default pattern for text input type
+                  message: "Felaktigt e-postformat.", // default error message for text input type
+                },
+              })}
             />
           </div>
           <button type="submit">Ställ dig i kö!</button>
         </form>
-        {firstnameError && <p className="error">{firstnameError}</p>}
-        {lastnameError && <p className="error">{lastnameError}</p>}
-        {emailError && <p className="error">{emailError}</p>}
+        {errors.firstname && (
+          <p className="error">{(errors.firstname as any).message}</p>
+        )}
+        {errors.lastname && (
+          <p className="error">{(errors.lastname as any).message}</p>
+        )}
+        {errors.email && (
+          <p className="error">{(errors.email as any).message}</p>
+        )}
         <p className="gdpr-text">
           Genom att anmäla dig godkänner du att vi lagrar ovan information.
         </p>
