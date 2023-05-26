@@ -52,7 +52,7 @@
       justify-content: flex-start;
       align-items: center;
       margin: $left-right-1;
-      padding-bottom: $spacing-1-5;      
+      padding-top: $spacing-1;      
       input {
         margin: $left-right-05;
         width: $icons-md;
@@ -75,6 +75,9 @@
           outline: $border-leather;
         }
       }
+    }
+    button{
+      margin-top: $spacing-1-5
     }
   } 
 }
