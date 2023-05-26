@@ -88,7 +88,7 @@ function EventPage() {
           <div className="space">
             <h2 className="h2-light">Plats</h2>
             {position.lat !== 0 && <MapComp position={position} />}
-            <p>{location?.location?.adress}</p>
+            <p className="adress">{location?.location?.adress}</p>
           </div>
           <div className="space">
             <h2 className="h2-light">Kontakt</h2>

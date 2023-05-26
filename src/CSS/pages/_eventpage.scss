@@ -6,6 +6,9 @@
   grid-template-columns: 1fr;
   gap: 50px;
 
+  .adress{
+    white-space: pre-line;
+  }
 }
 
 .event-sidebar {
