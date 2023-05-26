@@ -74,7 +74,7 @@ const AboutPage = () => {
         <div className="event-sidebar">
           <div className="space">
             {position.lat !== 0 && <MapComp position={position} />}
-            <p>{location?.adress?.adress}</p>
+            <p className="adress">{location?.adress?.adress}</p>
           </div>
           <div className="space">
             <p>{aboutPage?.sidebarInfo}</p>
