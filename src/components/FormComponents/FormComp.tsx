@@ -170,6 +170,7 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
             }
             if (input?.__typename === "FormsCheckbox") {
               return (
+                <div>
                 <div key={input.checkboxname} className="form-child checkbox">
                   <input
                     type="checkbox"
@@ -186,6 +187,7 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
                     {input.label}
                     {input.required && <span className="required">*</span>}
                   </label>
+                  </div>
                   {errors[input.checkboxname] && (
                     <p className="error">
                       {(errors[input.checkboxname] as any).message}
