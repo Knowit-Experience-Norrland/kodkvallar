@@ -55,16 +55,15 @@
     }
 
     .checkbox {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: auto 1fr;
       justify-content: flex-start;
       align-items: flex-start;
-      margin: $left-right-1;
       padding-bottom: $spacing-1-5;
       input {
         margin: $left-right-05;
-        width: $icons-lg;
-        height: $icons-lg;
+        width: $icons-md;
+        height: $icons-md;
         background-color: $primary-digital-white;
         outline: none;
       }

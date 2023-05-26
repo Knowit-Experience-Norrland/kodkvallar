@@ -55,8 +55,8 @@
     }
 
     .checkbox {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: auto 1fr;
       justify-content: flex-start;
       align-items: center;
       input {
@@ -64,7 +64,7 @@
         width: $icons-lg;
         height: $icons-lg;
         background-color: $primary-digital-white;
-        border: border-forest;
+        border: $border-forest;
       }
       label {
         padding: $spacing-0;

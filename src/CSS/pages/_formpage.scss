@@ -29,6 +29,7 @@
       flex-direction: column;
       justify-content: flex-start;
       margin: 0 0.5em 1em 0.5em;
+      padding-bottom: $spacing-1-5;
     }
     label {
       color: $primary-digital-black;
@@ -47,11 +48,10 @@
     }
 
     .checkbox {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: auto 1fr;
       justify-content: flex-start;
-      align-items: center;
-      margin: $left-right-1;    
+      align-items: center; 
       input {
         margin: $left-right-05;
         width: $icons-md;
@@ -64,7 +64,7 @@
       }
     }
     .select {
-      padding-bottom: $spacing-1-5;
+      
       select {
         width: 100%;
         padding: $spacing-1;
