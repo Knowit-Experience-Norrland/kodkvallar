@@ -2,12 +2,15 @@
 
 .header{
     display: flex;
-    box-shadow: $box-shadow;
+    box-shadow: $box-shadow-light;
     background-color: $primary-sand;
     height: $spacing-4;
     justify-content: space-between;
     z-index: 99;
-    position: relative;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
     padding: $top-bottom-05;
 
     a{
