@@ -61,8 +61,8 @@
       align-items: center;
       input {
         margin: $left-right-05;
-        width: $icons-lg;
-        height: $icons-lg;
+        width: $icons-md;
+        height: $icons-md;
         background-color: $primary-digital-white;
         border: $border-forest;
       }
@@ -84,7 +84,6 @@
     }
     form {
       .checkbox {
-        margin: $left-right-1;
         padding-bottom: $spacing-1-5;
         input {
           margin: $left-right-05;
