@@ -29,12 +29,11 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
 
   const [createFormAnswer] = useMutation(CREATE_FORM_ANSWER);
   const onSubmit = (data: any) => {
-
-    try{
+    try {
       data = {
         formData: data,
         eventPage: { connect: { slug: eventslug } },
-        formPage: { connect: { slug: formslug} },
+        formPage: { connect: { slug: formslug } },
       };
       createFormAnswer({ variables: { data } });
       setMessage("Tack för ditt svar!");
@@ -44,8 +43,6 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
       setMessage(null);
       console.log(err);
     }
-   
-   
   };
 
   return (
@@ -170,8 +167,8 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
             }
             if (input?.__typename === "FormsCheckbox") {
               return (
-                <div>
-                <div key={input.checkboxname} className="form-child checkbox">
+                <div className="form-child">
+                <div key={input.checkboxname} className="checkbox">
                   <input
                     type="checkbox"
                     {...register(input.checkboxname, {
@@ -194,6 +191,7 @@ const FormComp: React.FC<Props> = ({ inputs, eventslug, formslug }) => {
                     </p>
                   )}
                 </div>
+
               );
             }
             return null;

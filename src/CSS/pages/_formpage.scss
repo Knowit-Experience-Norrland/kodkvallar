@@ -28,7 +28,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      margin: 1em 0.5em;
+      margin: 0 0.5em 1em 0.5em;
     }
     label {
       color: $primary-digital-black;
@@ -51,8 +51,7 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      margin: $left-right-1;
-      padding-top: $spacing-1;      
+      margin: $left-right-1;    
       input {
         margin: $left-right-05;
         width: $icons-md;
@@ -75,9 +74,6 @@
           outline: $border-leather;
         }
       }
-    }
-    button{
-      margin-top: $spacing-1-5
     }
   } 
 }
