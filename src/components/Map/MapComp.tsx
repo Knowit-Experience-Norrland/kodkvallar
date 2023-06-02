@@ -1,6 +1,5 @@
-import React, { ReactElement } from "react";
-import { Status, Wrapper } from "@googlemaps/react-wrapper";
-import MyMap from "./MyMap";
+import React from "react";
+import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 
 // type for coordinates props
 type Coordinates = {
@@ -10,20 +9,19 @@ type Coordinates = {
   };
 };
 
-const render = (status: Status): ReactElement => {
-  if (status === Status.FAILURE) return <div>Error..</div>;
-  return <div>Loading..</div>;
-};
+ 
+const MapComp: React.FC<Coordinates> = ({position}) => {
 
-// api key for google maps
-const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "";
-//send position to MyMap component
-export const GoogleMaps: React.FC<Coordinates> = ({ position }) => {
   return (
-    <Wrapper apiKey={googleMapsApiKey} render={render} >
-      <MyMap center={position} zoom={15} />
-    </Wrapper>
+    <MapContainer center={[position.lat, position.lng]} zoom={15} scrollWheelZoom={false}>
+  <TileLayer
+    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  />
+  <Marker position={[position.lat, position.lng]}>
+  </Marker>
+</MapContainer>
   );
-};
+}
 
-export default GoogleMaps;
+export default MapComp;
